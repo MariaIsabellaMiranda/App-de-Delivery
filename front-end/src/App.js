@@ -5,10 +5,10 @@ import Login from './components/Login';
 export default function App() {
   return (
     <Switch>
-      <Route path="/login" component={ Login } />
-      <Route path="/">
+      <Route exact path="/">
         <Redirect to="/login" />
       </Route>
+      <Route exact path="/login" component={ Login } />
     </Switch>
   );
 }
