@@ -1,9 +1,8 @@
 const BadRequestError = require('../errors/BadRequestError');
 const validateLoginJOI = require('../schemas/validateLoginJOI');
 
-const validateLogin = (req, res, next) => {
-  const { email, password } = req.body;
-  const { error } = validateLoginJOI({ email, password });
+const validateLogin = (req, _res, next) => {
+  const { error } = validateLoginJOI(req.body);
   if (error) throw new BadRequestError(error.message);
   return next();
 };
