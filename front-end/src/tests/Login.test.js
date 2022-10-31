@@ -2,9 +2,13 @@ import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithRouter } from './helpers/renderWithRouter';
-import Login from '../pages/Login';
 import App from '../App';
-import { loginAdm, loginCustomer, loginSeller, storageCustomerMock } from './mocks/loginMock';
+import {
+  loginAdm,
+  loginCustomer,
+  loginSeller,
+  // storageCustomerMock,
+} from './mocks/loginMock';
 
 const PASSWORD_VALID = '1c37466c159755ce1fa181bd247cb925';
 const EMAIL_VALID = 'zebirita@email.com';
@@ -17,7 +21,7 @@ describe('Testa a rota login', () => {
       expect(history.location.pathname).toBe('/login');
     });
   });
-})
+});
 
 describe('Verifica os elementos da página de login', () => {
   it('Testa se existe o input login e se ele é do tipo email', () => {
@@ -64,7 +68,7 @@ describe('Verifica comportamentos ao digitar nos inputs', () => {
     const loginInput = screen.getByLabelText('Login:');
     const passwordInput = screen.getByLabelText('Senha:');
     const loginButton = screen.getByRole('button', { name: 'Login' });
-    
+
     userEvent.type(loginInput, EMAIL_VALID);
     userEvent.type(passwordInput, PASSWORD_VALID);
 
@@ -77,61 +81,61 @@ describe('Verifica comportamentos ao digitar nos inputs', () => {
     const loginInput = screen.getByLabelText('Login:');
     const passwordInput = screen.getByLabelText('Senha:');
     const loginButton = screen.getByRole('button', { name: 'Login' });
-    
+
     userEvent.type(loginInput, 'teste@teste');
     userEvent.type(passwordInput, PASSWORD_VALID);
 
     expect(loginButton).toBeDisabled();
   });
 
-  it('Testa se ao digitar somente password inválido o botão continua desabilitado ', () => {
-    renderWithRouter(<App />);
+  it(
+    'Testa se ao digitar somente password inválido o botão continua desabilitado',
+    () => {
+      renderWithRouter(<App />);
 
-    const loginInput = screen.getByLabelText('Login:');
-    const passwordInput = screen.getByLabelText('Senha:');
-    const loginButton = screen.getByRole('button', { name: 'Login' });
-    
-    userEvent.type(loginInput, EMAIL_VALID);
-    userEvent.type(passwordInput, '12345');
+      const loginInput = screen.getByLabelText('Login:');
+      const passwordInput = screen.getByLabelText('Senha:');
+      const loginButton = screen.getByRole('button', { name: 'Login' });
 
-    expect(loginButton).toBeDisabled();
-  });
+      userEvent.type(loginInput, EMAIL_VALID);
+      userEvent.type(passwordInput, '12345');
+
+      expect(loginButton).toBeDisabled();
+    },
+  );
 });
 
 describe('Verifica funcionalidade dos botões', () => {
-  const handleFetch = (mock) => {
-    const fetchMock = jest.spyOn(global, 'fetch').mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mock)
-    });
-  };
-  
   afterEach(() => {
-    jest.clearAllMocks()
+    jest.clearAllMocks();
   });
 
-  it('Testa se ao clicar no botão "Ainda não tenho conta", a página é redirecionada para a rota "/register"', () => {
-    const { history } = renderWithRouter(<App />);
+  it(
+    `Testa se ao clicar no botão
+    "Ainda não tenho conta", a página é redirecionada para a rota "/register"`,
+    () => {
+      const { history } = renderWithRouter(<App />);
 
-    const loginButton = screen.getByRole('button', { name: 'Ainda não tenho conta' });
+      const loginButton = screen.getByRole('button', { name: 'Ainda não tenho conta' });
 
-    userEvent.click(loginButton);
+      userEvent.click(loginButton);
 
-    const { location: { pathname } } = history;
-    expect(pathname).toBe('/register');
-
-  });
+      const { location: { pathname } } = history;
+      expect(pathname).toBe('/register');
+    },
+  );
 
   it('Testa se ao clicar no botão "Login", é feita uma requisição à API', () => {
     renderWithRouter(<App />);
 
     const fetchMock = jest.spyOn(global, 'fetch').mockResolvedValue({
-      json: jest.fn().mockResolvedValue(loginCustomer)
+      json: jest.fn().mockResolvedValue(loginCustomer),
     });
 
     const loginInput = screen.getByLabelText('Login:');
     const passwordInput = screen.getByLabelText('Senha:');
     const loginButton = screen.getByRole('button', { name: 'Login' });
-    
+
     userEvent.type(loginInput, EMAIL_VALID);
     userEvent.type(passwordInput, PASSWORD_VALID);
     userEvent.click(loginButton);
@@ -140,40 +144,41 @@ describe('Verifica funcionalidade dos botões', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
-  it('Testa se ao clicar no botão "Login", a página é redirecionada para a rota de acordo com o role do usuário recebido', async () => {
+  it(`Testa se ao clicar no botão "Login", a página é
+    redirecionada para a rota de acordo com o role do usuário recebido`, async () => {
     const { history } = renderWithRouter(<App />);
-  
+
     const mocksLogin = [loginAdm, loginCustomer, loginSeller];
 
     mocksLogin.forEach(async (mock) => {
-      const fetchMock = jest.spyOn(global, 'fetch').mockResolvedValue({
-        json: jest.fn().mockResolvedValue(mock)
+      jest.spyOn(global, 'fetch').mockResolvedValue({
+        json: jest.fn().mockResolvedValue(mock),
       });
 
       const loginInput = screen.getByLabelText('Login:');
       const passwordInput = screen.getByLabelText('Senha:');
       const loginButton = screen.getByRole('button', { name: 'Login' });
-      
+
       userEvent.type(loginInput, EMAIL_VALID);
       userEvent.type(passwordInput, PASSWORD_VALID);
       userEvent.click(loginButton);
 
       if (mock === 'customer') {
         await waitFor(() => {
-          expect(history.location.pathname).toBe(`/customer/products`);
+          expect(history.location.pathname).toBe('/customer/products');
         });
       }
       if (mock === 'seller') {
         await waitFor(() => {
-          expect(history.location.pathname).toBe(`/seller/orders`);
+          expect(history.location.pathname).toBe('/seller/orders');
         });
       }
       if (mock === 'administrator') {
         await waitFor(() => {
-          expect(history.location.pathname).toBe(`/admin/manage`);
+          expect(history.location.pathname).toBe('/admin/manage');
         });
       }
-    });    
+    });
   });
 
   // it('Testa se ao clicar no botão "Login", o retorno da requisição é salvo no localStorage', () => {
@@ -186,7 +191,7 @@ describe('Verifica funcionalidade dos botões', () => {
   //   const loginInput = screen.getByLabelText('Login:');
   //   const passwordInput = screen.getByLabelText('Senha:');
   //   const loginButton = screen.getByRole('button', { name: 'Login' });
-    
+
   //   userEvent.type(loginInput, EMAIL_VALID);
   //   userEvent.type(passwordInput, PASSWORD_VALID);
   //   userEvent.click(loginButton);
