@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         foreignKey: true,
       },
-      url_image: {
+      urlImage: {
         type: DataTypes.STRING,
         allowNull: false,
       },
