@@ -21,10 +21,10 @@ module.exports = {
       allowNull: false,
       foreignKey: true,
     },
-    url_image: {
+    urlImage: {
       type: Sequelize.STRING,
       allowNull: false,
-      // field: 'url_image'
+      field: 'url_image'
     }
   });
 },
