@@ -1,13 +1,17 @@
+require('express-async-errors');
 const express = require('express');
 const cors = require('cors');
-const loginRoute = require('../routes/loginRoute');
+const commonRoute = require('../routes/commonRoute');
+const errorMiddleware = require('../middlewares/errorMiddleware');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.use('/login', loginRoute);
+app.use('/common', commonRoute);
+
+app.use(errorMiddleware);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
