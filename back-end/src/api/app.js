@@ -11,7 +11,7 @@ app.use(cors());
 
 app.use(express.json());
 
-app.use('/images', express.static(__dirname + '/../images'));
+app.use('/images', express.static(`${__dirname}/../images`));
 
 app.use('/common', commonRoute);
 
