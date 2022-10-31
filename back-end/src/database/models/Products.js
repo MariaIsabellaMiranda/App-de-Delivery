@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: true,
       },
       price: {
-        type: DataTypes.DECIMAL,
+        type: DataTypes.DECIMAL(10,2),
         allowNull: false,
         foreignKey: true,
       },

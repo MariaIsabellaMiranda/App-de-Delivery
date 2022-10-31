@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import lS from 'manager-local-storage';
 
 export default function Register() {
   const [apiError, setApiError] = useState('');
@@ -14,7 +15,7 @@ export default function Register() {
     e.preventDefault();
     const CONFLICT = 409;
     const response = await fetch(
-      'http://localhost:3001/register',
+      'http://localhost:3001/common/register',
       {
         method: 'POST',
         body: JSON.stringify(newRegister),
@@ -24,7 +25,7 @@ export default function Register() {
     if (response.status === CONFLICT) {
       return setApiError(registerData.message);
     }
-    localStorage.setItem('userData', JSON.stringify(registerData));
+    lS.set('user', registerData);
     useHistory.push('/customer/products');
   };
 

@@ -1,3 +1,4 @@
+import lS from 'manager-local-storage';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -23,22 +24,20 @@ export default function Login() {
   const onSubmitForm = async (e) => {
     e.preventDefault();
     const NOT_FOUND = 404;
-    const response = await fetch(
-      'http://localhost:3001/login',
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials),
+    const response = await fetch('http://localhost:3001/common/login', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
-    );
+      body: JSON.stringify(credentials),
+    });
     const userData = await response.json();
     if (response.status === NOT_FOUND) {
       return setApiError(userData.message);
     }
-    localStorage.setItem('userData', JSON.stringify(userData));
+    lS.set('user', userData);
+    // localStorage.setItem('userData', JSON.stringify(userData));
     return handleRedirect(userData.role);
   };
 
@@ -70,10 +69,9 @@ export default function Login() {
             data-testid="common_login__input-email"
           />
         </label>
-        {
-          apiError
-          && <p data-testid="common_login__element-invalid-email">{ apiError }</p>
-        }
+        {apiError && (
+          <p data-testid="common_login__element-invalid-email">{apiError}</p>
+        )}
         <label htmlFor="password">
           Senha:
           <input
