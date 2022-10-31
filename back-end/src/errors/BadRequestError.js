@@ -1,4 +1,4 @@
-const MainError = require("./MainError");
+const MainError = require('./MainError');
 
 class BadRequestError extends MainError {
   constructor(message) {

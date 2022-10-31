@@ -1,4 +1,4 @@
-const { validateAccessToken } = require('../utils/jwt');
+const { validateAccessToken } = require('../helpers/jwt');
 const NotFoundError = require('../errors/NotFoundError');
 
 const tokenMiddleware = (req, res, next) => {

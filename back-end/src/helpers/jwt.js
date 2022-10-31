@@ -23,4 +23,4 @@ const validateAccessToken = (token) => {
 module.exports = {
   createAccessToken,
   validateAccessToken,
-}
+};

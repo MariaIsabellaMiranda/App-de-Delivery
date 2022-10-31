@@ -8,6 +8,6 @@ const login = async (req, res) => {
 const register = async (req, res) => {
   const user = await commonService.register(req.body);
   return res.status(201).json(user);
-}
+};
 
 module.exports = { login, register };

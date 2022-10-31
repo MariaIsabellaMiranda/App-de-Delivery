@@ -1,13 +1,13 @@
-const MainError = require('../errors/MainError');
 const { JsonWebTokenError } = require('jsonwebtoken');
+const MainError = require('../errors/MainError');
 
 const errorMiddleware = (err, _req, res, _next) => {
   console.error(err);
 
-  switch(true) {
+  switch (true) {
     case err instanceof MainError:
       return res.status(err.status).json({
-        message: err.message
+        message: err.message,
       });
     case err instanceof JsonWebTokenError:
       return res.status(401).json({

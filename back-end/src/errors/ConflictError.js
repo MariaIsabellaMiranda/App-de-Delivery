@@ -1,4 +1,4 @@
-const MainError = require("./MainError");
+const MainError = require('./MainError');
 
 class ConflictError extends MainError {
   constructor(message) {

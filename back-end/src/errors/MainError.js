@@ -1,8 +1,3 @@
-class MainError extends Error {
-  status;
-  constructor(message) {
-    super(message);
-  }
-}
+class MainError extends Error {}
 
 module.exports = MainError;
