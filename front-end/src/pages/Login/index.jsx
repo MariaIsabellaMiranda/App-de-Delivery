@@ -86,6 +86,7 @@ export default function Login() {
         </label>
         <button
           type="submit"
+          value="Login"
           data-testid="common_login__button-login"
           disabled={ !formIsValid }
         >

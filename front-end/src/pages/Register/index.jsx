@@ -17,7 +17,7 @@ export default function Register() {
       'http://localhost:3001/register',
       {
         method: 'POST',
-        body: newRegister,
+        body: JSON.stringify(newRegister),
       },
     );
     const registerData = await response.json();
