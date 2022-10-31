@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 
-export default function Login(props) {
-  const { history } = props;
+export default function Login() {
+  const history = useHistory();
   const [apiError, setApiError] = useState('');
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [formIsValid, setFormIsValid] = useState(false);
 
   const handleChanges = ({ id, value }) => {
     setCredentials({ ...credentials, [id]: value });
+  };
+
+  const handleRedirect = (role) => {
+    const routes = {
+      customer: '/customer/products',
+      seller: '/seller/orders',
+      administrator: '/admin/manage',
+    };
+    history.push(routes[role]);
   };
 
   const onSubmitForm = async (e) => {
@@ -31,7 +39,7 @@ export default function Login(props) {
       return setApiError(userData.message);
     }
     localStorage.setItem('userData', JSON.stringify(userData));
-    return history.push('/customer/products');
+    return handleRedirect(userData.role);
   };
 
   useEffect(() => {
@@ -83,21 +91,14 @@ export default function Login(props) {
         >
           Login
         </button>
-        <Link to="/register">
-          <button
-            type="button"
-            data-testid="common_login__button-register"
-          >
-            Ainda não tenho conta
-          </button>
-        </Link>
+        <button
+          type="button"
+          data-testid="common_login__button-register"
+          onClick={ () => history.push('/register') }
+        >
+          Ainda não tenho conta
+        </button>
       </form>
     </div>
   );
 }
-
-Login.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
-};
