@@ -6,12 +6,12 @@ import Register from './components/Register';
 export default function App() {
   return (
     <Switch>
-      <Route path="/login" component={ Login } />
-      <Route path="/register" component={ Register } />
-      <Route path="/customer/products">produtos</Route>
-      <Route path="/">
+      <Route exact path="/">
         <Redirect to="/login" />
       </Route>
+      <Route exact path="/login" component={ Login } />
+      <Route path="/register" component={ Register } />
+      {/* <Route path="/customer/products">produtos</Route> */}
     </Switch>
   );
 }

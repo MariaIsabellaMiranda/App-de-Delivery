@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export default function Login() {
+export default function Login(props) {
+  const { history } = props;
   const [apiError, setApiError] = useState('');
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [formIsValid, setFormIsValid] = useState(false);
-  const { push } = useHistory();
 
   const handleChanges = ({ id, value }) => {
     setCredentials({ ...credentials, [id]: value });
@@ -18,7 +19,11 @@ export default function Login() {
       'http://localhost:3001/login',
       {
         method: 'POST',
-        body: credentials,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(credentials),
       },
     );
     const userData = await response.json();
@@ -26,7 +31,7 @@ export default function Login() {
       return setApiError(userData.message);
     }
     localStorage.setItem('userData', JSON.stringify(userData));
-    push(`/${userData.role}`);
+    return history.push('/customer/products');
   };
 
   useEffect(() => {
@@ -90,3 +95,9 @@ export default function Login() {
     </div>
   );
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
