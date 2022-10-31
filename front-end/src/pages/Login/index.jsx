@@ -73,6 +73,7 @@ export default function Login() {
         </label>
         <button
           type="submit"
+          value="Login"
           data-testid="common_login__button-login"
           disabled={ !formIsValid }
         >
@@ -81,6 +82,7 @@ export default function Login() {
         <Link to="/register">
           <button
             type="button"
+            value="Register"
             data-testid="common_login__button-register"
           >
             Ainda não tenho conta
