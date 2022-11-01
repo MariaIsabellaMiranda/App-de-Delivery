@@ -7,7 +7,6 @@ export default function Register() {
   const [apiError, setApiError] = useState('');
   const [newRegister, setNewRegister] = useState({ name: '', email: '', password: '' });
   const [registerIsvalid, setregisterIsvalid] = useState(false);
-  const history = useHistory();
 
   const handleChanges = ({ id, value }) => {
     setNewRegister({ ...newRegister, [id]: value });

@@ -7,7 +7,6 @@ import {
   loginCustomer,
   storageCustomerMock,
 } from './mocks/loginMock';
-import { act } from 'react-dom/test-utils';
 
 const PASSWORD_VALID = '123456';
 const EMAIL_VALID = 'zebirita@email.com';
@@ -144,11 +143,12 @@ describe('Verifica funcionalidade dos botões', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
-  it(`Testa se ao clicar no botão "Login", a página é
+    it(`Testa se ao clicar no botão "Login", a página é
     redirecionada para a rota de acordo com o role do usuário recebido`, async () => {
     const { history } = renderWithRouter(<App />, '/');
 
       jest.spyOn(global, 'fetch').mockResolvedValue({
+        status: 200,
         json: jest.fn().mockResolvedValue(loginCustomer),
       });
 
@@ -159,6 +159,7 @@ describe('Verifica funcionalidade dos botões', () => {
       userEvent.type(passwordInput, PASSWORD_VALID);
       
       const loginButton = screen.getByRole('button', { name: 'Login' });
+
       userEvent.click(loginButton);
 
       await waitFor(() => {

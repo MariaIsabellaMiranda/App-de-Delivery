@@ -3,8 +3,7 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
-import register from './mocks/registerMock';
-import { act } from 'react-dom/test-utils';
+import { register, registerStorageMock } from './mocks/registerMock';
 
 const NAME_VALID = 'Zé Birita de Souza';
 const PASSWORD_VALID = '123456';
@@ -127,6 +126,7 @@ describe('Verifica comportamentos ao clicar no botão "Cadastrar"', () => {
   let fetchMock;
   beforeEach(() => {
     fetchMock = jest.spyOn(global, 'fetch').mockResolvedValue({
+      status: 201,
       json: jest.fn().mockResolvedValue(register),
     });
   })
@@ -157,3 +157,29 @@ describe('Verifica comportamentos ao clicar no botão "Cadastrar"', () => {
     });
   });
 });
+
+describe('Testa localStorage', () => {
+  it('Testa se ao clicar no botão "Cadastrar", o retorno da requisição é salvo no localStorage', async () => {
+    const { history } = renderWithRouter(<App />, '/register');
+
+    jest.spyOn(global, 'fetch').mockResolvedValue({
+      status: 201,
+      json: jest.fn().mockResolvedValue(register),
+    });
+
+    const nameInput = screen.getByLabelText('Nome:');
+    const emailInput = screen.getByLabelText('Email:');
+    const passwordInput = screen.getByLabelText('Senha:');
+    
+    userEvent.type(nameInput, NAME_VALID);
+    userEvent.type(emailInput, EMAIL_VALID);
+    userEvent.type(passwordInput, PASSWORD_VALID);
+
+    const registerButton = screen.getByRole('button', { name: 'Cadastrar' });
+    userEvent.click(registerButton);
+
+    await waitFor (() => {
+      expect(window.localStorage.getItem('user')).toEqual(registerStorageMock);
+    })
+  });
+})
