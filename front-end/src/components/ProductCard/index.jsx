@@ -2,13 +2,13 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 function ProductCard({ productData }) {
-  const { name, price, url_image: urlImage, id } = productData;
+  const { name, price, urlImage, id } = productData;
 
   const [qtyProduct, setQtyProduct] = useState(0);
 
   const priceFormat = (priceNumber) => {
-    const originalPrice = priceNumber.toFixed(2);
-    return `R$ ${originalPrice}`;
+    const originalPrice = String(Number(priceNumber).toFixed(2));
+    return originalPrice.replace('.', ',');
   };
 
   const handleQty = ({ target }) => {
@@ -35,8 +35,11 @@ function ProductCard({ productData }) {
 
   return (
     <section>
-      <span data-testid={ `customer_products__element-card-price-${id}` }>
-        {priceFormat(price)}
+      <span>
+        {'R$ '}
+        <span data-testid={ `customer_products__element-card-price-${id}` }>
+          {priceFormat(price)}
+        </span>
       </span>
       <img
         src={ urlImage }
@@ -77,8 +80,8 @@ export default ProductCard;
 ProductCard.propTypes = {
   productData: PropTypes.shape({
     name: PropTypes.string,
-    price: PropTypes.number,
-    url_image: PropTypes.string,
+    price: PropTypes.string,
+    urlImage: PropTypes.string,
     id: PropTypes.number,
   }).isRequired,
 };

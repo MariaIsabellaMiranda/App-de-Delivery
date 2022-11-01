@@ -4,6 +4,10 @@ import lS from 'manager-local-storage';
 function Header() {
   const user = lS.get('user');
 
+  const logout = () => {
+    lS.remove('user');
+  };
+
   return (
     <header>
       <Link
@@ -24,6 +28,7 @@ function Header() {
       <Link
         to="/login"
         data-testid="customer_products__element-navbar-link-logout"
+        onClick={ logout }
       >
         Sair
       </Link>
