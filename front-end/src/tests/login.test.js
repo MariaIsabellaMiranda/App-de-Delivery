@@ -1,31 +1,27 @@
 import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { renderWithRouter } from './helpers/renderWithRouter';
+import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 import {
-  loginAdm,
   loginCustomer,
-  loginSeller,
-  // storageCustomerMock,
+  storageCustomerMock,
 } from './mocks/loginMock';
 
-const PASSWORD_VALID = '1c37466c159755ce1fa181bd247cb925';
+const PASSWORD_VALID = '123456';
 const EMAIL_VALID = 'zebirita@email.com';
 
 describe('Testa a rota login', () => {
-  it('Testa se a página de Login é renderizada no endpoint "/login"', async () => {
-    const { history } = renderWithRouter(<App />);
+  it('Testa se a página de Login é renderizada no endpoint "/login"', () => {
+    const { history } = renderWithRouter(<App />, '/');
 
-    await waitFor(() => {
       expect(history.location.pathname).toBe('/login');
-    });
   });
 });
 
 describe('Verifica os elementos da página de login', () => {
   it('Testa se existe o input login e se ele é do tipo email', () => {
-    renderWithRouter(<App />);
+    renderWithRouter(<App />, '/');
 
     const loginInput = screen.getByLabelText('Login:');
 
@@ -34,7 +30,7 @@ describe('Verifica os elementos da página de login', () => {
   });
 
   it('Testa se existe o input de Password e se ele é do tipo password', () => {
-    renderWithRouter(<App />);
+    renderWithRouter(<App />, '/');
 
     const passwordInput = screen.getByLabelText('Senha:');
 
@@ -43,7 +39,7 @@ describe('Verifica os elementos da página de login', () => {
   });
 
   it('Testa se existe os botões de "Login" e "Ainda não tenho conta"', () => {
-    renderWithRouter(<App />);
+    renderWithRouter(<App />, '/');
 
     const buttons = screen.getAllByRole('button');
 
@@ -53,7 +49,7 @@ describe('Verifica os elementos da página de login', () => {
   });
 
   it('Testa se o botão de "Login" está desabilitado ao renderizar a página', () => {
-    renderWithRouter(<App />);
+    renderWithRouter(<App />, '/');
 
     const loginButton = screen.getByRole('button', { name: 'Login' });
 
@@ -63,27 +59,28 @@ describe('Verifica os elementos da página de login', () => {
 
 describe('Verifica comportamentos ao digitar nos inputs', () => {
   it('Testa se ao digitar email e senha válidas o botão é habilitado ', () => {
-    renderWithRouter(<App />);
+    renderWithRouter(<App />, '/');
 
     const loginInput = screen.getByLabelText('Login:');
     const passwordInput = screen.getByLabelText('Senha:');
-    const loginButton = screen.getByRole('button', { name: 'Login' });
-
+    
     userEvent.type(loginInput, EMAIL_VALID);
     userEvent.type(passwordInput, PASSWORD_VALID);
+    const loginButton = screen.getByRole('button', { name: 'Login' });
 
     expect(loginButton).not.toBeDisabled();
   });
 
   it('Testa se ao digitar somente email inválido o botão continua desabilitado ', () => {
-    renderWithRouter(<App />);
+    renderWithRouter(<App />, '/');
 
     const loginInput = screen.getByLabelText('Login:');
     const passwordInput = screen.getByLabelText('Senha:');
-    const loginButton = screen.getByRole('button', { name: 'Login' });
-
+    
     userEvent.type(loginInput, 'teste@teste');
     userEvent.type(passwordInput, PASSWORD_VALID);
+
+    const loginButton = screen.getByRole('button', { name: 'Login' });
 
     expect(loginButton).toBeDisabled();
   });
@@ -91,14 +88,15 @@ describe('Verifica comportamentos ao digitar nos inputs', () => {
   it(
     'Testa se ao digitar somente password inválido o botão continua desabilitado',
     () => {
-      renderWithRouter(<App />);
+      renderWithRouter(<App />, '/');
 
       const loginInput = screen.getByLabelText('Login:');
       const passwordInput = screen.getByLabelText('Senha:');
-      const loginButton = screen.getByRole('button', { name: 'Login' });
-
+      
       userEvent.type(loginInput, EMAIL_VALID);
       userEvent.type(passwordInput, '12345');
+
+      const loginButton = screen.getByRole('button', { name: 'Login' });
 
       expect(loginButton).toBeDisabled();
     },
@@ -114,7 +112,7 @@ describe('Verifica funcionalidade dos botões', () => {
     `Testa se ao clicar no botão
     "Ainda não tenho conta", a página é redirecionada para a rota "/register"`,
     () => {
-      const { history } = renderWithRouter(<App />);
+      const { history } = renderWithRouter(<App />, '/');
 
       const loginButton = screen.getByRole('button', { name: 'Ainda não tenho conta' });
 
@@ -126,7 +124,7 @@ describe('Verifica funcionalidade dos botões', () => {
   );
 
   it('Testa se ao clicar no botão "Login", é feita uma requisição à API', () => {
-    renderWithRouter(<App />);
+    renderWithRouter(<App />, '/');
 
     const fetchMock = jest.spyOn(global, 'fetch').mockResolvedValue({
       json: jest.fn().mockResolvedValue(loginCustomer),
@@ -134,68 +132,59 @@ describe('Verifica funcionalidade dos botões', () => {
 
     const loginInput = screen.getByLabelText('Login:');
     const passwordInput = screen.getByLabelText('Senha:');
-    const loginButton = screen.getByRole('button', { name: 'Login' });
-
+    
     userEvent.type(loginInput, EMAIL_VALID);
     userEvent.type(passwordInput, PASSWORD_VALID);
+
+    const loginButton = screen.getByRole('button', { name: 'Login' });
     userEvent.click(loginButton);
 
     expect(fetchMock).toHaveBeenCalled();
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
-  it(`Testa se ao clicar no botão "Login", a página é
+    it(`Testa se ao clicar no botão "Login", a página é
     redirecionada para a rota de acordo com o role do usuário recebido`, async () => {
-    const { history } = renderWithRouter(<App />);
+    const { history } = renderWithRouter(<App />, '/');
 
-    const mocksLogin = [loginAdm, loginCustomer, loginSeller];
-
-    mocksLogin.forEach(async (mock) => {
       jest.spyOn(global, 'fetch').mockResolvedValue({
-        json: jest.fn().mockResolvedValue(mock),
+        status: 200,
+        json: jest.fn().mockResolvedValue(loginCustomer),
       });
 
       const loginInput = screen.getByLabelText('Login:');
       const passwordInput = screen.getByLabelText('Senha:');
-      const loginButton = screen.getByRole('button', { name: 'Login' });
-
+      
       userEvent.type(loginInput, EMAIL_VALID);
       userEvent.type(passwordInput, PASSWORD_VALID);
+      
+      const loginButton = screen.getByRole('button', { name: 'Login' });
+
       userEvent.click(loginButton);
 
-      if (mock === 'customer') {
-        await waitFor(() => {
-          expect(history.location.pathname).toBe('/customer/products');
-        });
-      }
-      if (mock === 'seller') {
-        await waitFor(() => {
-          expect(history.location.pathname).toBe('/seller/orders');
-        });
-      }
-      if (mock === 'administrator') {
-        await waitFor(() => {
-          expect(history.location.pathname).toBe('/admin/manage');
-        });
-      }
-    });
+      await waitFor(() => {
+        expect(history.location.pathname).toBe('/customer/products');
+      });
   });
 
-  // it('Testa se ao clicar no botão "Login", o retorno da requisição é salvo no localStorage', () => {
-  //   renderWithRouter(<App />);
+  it('Testa se ao clicar no botão "Login", o retorno da requisição é salvo no localStorage', async () => {
+    renderWithRouter(<App />, '/');
 
-  //   const fetchMock = jest.spyOn(global, 'fetch').mockResolvedValue({
-  //     json: jest.fn().mockResolvedValue(loginCustomer)
-  //   });
+    jest.spyOn(global, 'fetch').mockResolvedValue({
+      json: jest.fn().mockResolvedValue(loginCustomer)
+    });
 
-  //   const loginInput = screen.getByLabelText('Login:');
-  //   const passwordInput = screen.getByLabelText('Senha:');
-  //   const loginButton = screen.getByRole('button', { name: 'Login' });
+    const loginInput = screen.getByLabelText('Login:');
+    const passwordInput = screen.getByLabelText('Senha:');
+    
+    userEvent.type(loginInput, EMAIL_VALID);
+    userEvent.type(passwordInput, PASSWORD_VALID);
 
-  //   userEvent.type(loginInput, EMAIL_VALID);
-  //   userEvent.type(passwordInput, PASSWORD_VALID);
-  //   userEvent.click(loginButton);
+    const loginButton = screen.getByRole('button', { name: 'Login' });
+    userEvent.click(loginButton);
 
-  //   expect(window.localStorage.getItem('userData')).toEqual(storageCustomerMock);
-  // });
+    await waitFor (() => {
+      expect(window.localStorage.getItem('user')).toEqual(storageCustomerMock);
+    })
+  });
 });

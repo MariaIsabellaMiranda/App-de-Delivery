@@ -18,7 +18,7 @@ function Products() {
     <div>
       <Header />
       <main>
-        {products.map((product, i) => (
+        {products.length > 0 && products.map((product, i) => (
           <ProductCard key={ i } productData={ product } id={ i } />
         ))}
       </main>

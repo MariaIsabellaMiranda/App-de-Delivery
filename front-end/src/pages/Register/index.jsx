@@ -3,10 +3,10 @@ import { useHistory } from 'react-router-dom';
 import lS from 'manager-local-storage';
 
 export default function Register() {
+  const history = useHistory();
   const [apiError, setApiError] = useState('');
   const [newRegister, setNewRegister] = useState({ name: '', email: '', password: '' });
   const [registerIsvalid, setregisterIsvalid] = useState(false);
-  const history = useHistory();
 
   const handleChanges = ({ id, value }) => {
     setNewRegister({ ...newRegister, [id]: value });
@@ -91,7 +91,7 @@ export default function Register() {
           data-testid="common_register__button-register"
           disabled={ !registerIsvalid }
         >
-          Login
+          Cadastrar
         </button>
       </form>
     </div>
