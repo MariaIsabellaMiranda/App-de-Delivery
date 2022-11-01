@@ -43,7 +43,7 @@ function Products() {
             {priceFormat(price)}
           </span>
         </button>
-        {products.map((product, i) => (
+        {products.length > 0 && products.map((product, i) => (
           <ProductCard
             key={ i }
             productData={ product }
