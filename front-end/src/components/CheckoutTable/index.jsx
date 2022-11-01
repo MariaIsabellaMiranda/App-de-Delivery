@@ -5,6 +5,10 @@ import priceFormat from '../../helpers/priceFormat';
 function CheckoutTable() {
   const [cartItems, setCartItems] = useState(lS.get('cart') ?? []);
 
+  const test = false;
+
+  if (test) setCartItems('');
+
   return (
     <table>
       <tbody>
