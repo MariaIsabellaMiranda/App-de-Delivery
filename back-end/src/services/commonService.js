@@ -26,7 +26,8 @@ const login = async ({ email, password }) => {
 const register = async (newUserDto) => {
   const { name, password, email } = newUserDto;
   await validateNewUser({ name, email });
-  const userData = await User.create({ ...newUserDto, role: 'customer' });
+  const userData = await User.create({
+    ...newUserDto, role: 'customer', password: md5(password) });
   const user = userData.get({ plain: true });
   const token = createAccessToken(user.id);
   delete user.id;
