@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import lS from 'manager-local-storage';
 
 export default function Register() {
+  const history = useHistory();
   const [apiError, setApiError] = useState('');
   const [newRegister, setNewRegister] = useState({ name: '', email: '', password: '' });
   const [registerIsvalid, setregisterIsvalid] = useState(false);
@@ -26,7 +27,7 @@ export default function Register() {
       return setApiError(registerData.message);
     }
     lS.set('user', registerData);
-    useHistory.push('/customer/products');
+    history.push('/customer/products');
   };
 
   useEffect(() => {
@@ -86,7 +87,7 @@ export default function Register() {
           data-testid="common_register__button-register"
           disabled={ !registerIsvalid }
         >
-          Login
+          Cadastrar
         </button>
       </form>
     </div>

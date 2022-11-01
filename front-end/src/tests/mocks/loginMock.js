@@ -19,9 +19,5 @@ export const loginSeller = {
   token: 'sdvhjbfadksjnv5e41afv654',
 };
 
-export const storageCustomerMock = `{
-  "name": "Cliente Zé Birita",
-  "email": "zebirita@email.com",
-  "role": "customer",
-  "token": "kxkMeYBi75eT8uJnSbfadNE",
-}`;
+// eslint-disable-next-line max-len
+export const storageCustomerMock = '{"name":"Cliente Zé Birita","email":"zebirita@email.com","role":"customer","token":"kxkMeYBi75eT8uJnSbfadNE"}';
