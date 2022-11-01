@@ -23,7 +23,7 @@ export default function Login() {
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
-    const NOT_FOUND = 404;
+    const OK = 200;
     const response = await fetch('http://localhost:3001/common/login', {
       method: 'POST',
       headers: {
@@ -33,11 +33,10 @@ export default function Login() {
       body: JSON.stringify(credentials),
     });
     const userData = await response.json();
-    if (response.status === NOT_FOUND) {
+    if (response.status !== OK) {
       return setApiError(userData.message);
     }
     lS.set('user', userData);
-    // localStorage.setItem('userData', JSON.stringify(userData));
     return handleRedirect(userData.role);
   };
 

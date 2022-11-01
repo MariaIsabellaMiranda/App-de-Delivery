@@ -7,6 +7,7 @@ export default function Register() {
   const [apiError, setApiError] = useState('');
   const [newRegister, setNewRegister] = useState({ name: '', email: '', password: '' });
   const [registerIsvalid, setregisterIsvalid] = useState(false);
+  const history = useHistory();
 
   const handleChanges = ({ id, value }) => {
     setNewRegister({ ...newRegister, [id]: value });
@@ -14,16 +15,20 @@ export default function Register() {
 
   const onSubmitRegister = async (e) => {
     e.preventDefault();
-    const CONFLICT = 409;
+    const CREATED = 201;
     const response = await fetch(
       'http://localhost:3001/common/register',
       {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
         method: 'POST',
         body: JSON.stringify(newRegister),
       },
     );
     const registerData = await response.json();
-    if (response.status === CONFLICT) {
+    if (response.status !== CREATED) {
       return setApiError(registerData.message);
     }
     lS.set('user', registerData);
