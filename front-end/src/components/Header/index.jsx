@@ -5,7 +5,7 @@ function Header() {
   const user = lS.get('user');
 
   const logout = () => {
-    lS.remove('user');
+    lS.remove(['user', 'cart']);
   };
 
   return (
