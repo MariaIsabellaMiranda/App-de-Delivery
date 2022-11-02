@@ -1,13 +1,15 @@
+import PropTypes from 'prop-types';
 import lS from 'manager-local-storage';
 import { useState } from 'react';
-import priceFormat from '../../helpers/priceFormat';
+import CheckoutTableItem from '../CheckoutTableItem';
 
-function CheckoutTable() {
+function CheckoutTable({ updatePrice }) {
   const [cartItems, setCartItems] = useState(lS.get('cart') ?? []);
 
-  const test = false;
-
-  if (test) setCartItems('');
+  const updateCartItems = () => {
+    setCartItems(lS.get('cart') ?? []);
+    updatePrice();
+  };
 
   return (
     <table>
@@ -21,44 +23,12 @@ function CheckoutTable() {
           <th>Remover Item</th>
         </tr>
         {cartItems.map((cartItem, i) => (
-          <tr key={ i }>
-            <td
-              data-testid={ `customer_checkout__element-order-table-item-number-${i}` }
-            >
-              {i + 1}
-            </td>
-            <td
-              data-testid={ `customer_checkout__element-order-table-name-${i}` }
-            >
-              {cartItem.name}
-            </td>
-            <td
-              data-testid={ `customer_checkout__element-order-table-quantity-${i}` }
-            >
-              {cartItem.quantity}
-            </td>
-            <td>
-              <span>R$ </span>
-              <span
-                data-testid={ `customer_checkout__element-order-table-unit-price-${i}` }
-              >
-                {priceFormat(cartItem.price)}
-              </span>
-            </td>
-            <td>
-              <span>R$ </span>
-              <span
-                data-testid={ `customer_checkout__element-order-table-sub-total-${i}` }
-              >
-                {priceFormat(Number(cartItem.price) * cartItem.quantity)}
-              </span>
-            </td>
-            <td
-              data-testid={ `customer_checkout__element-order-table-remove-${i}` }
-            >
-              <button type="button">Remover</button>
-            </td>
-          </tr>
+          <CheckoutTableItem
+            cartItem={ cartItem }
+            key={ i }
+            index={ i }
+            updateCartItems={ updateCartItems }
+          />
         ))}
       </tbody>
     </table>
@@ -66,3 +36,7 @@ function CheckoutTable() {
 }
 
 export default CheckoutTable;
+
+CheckoutTable.propTypes = {
+  updatePrice: PropTypes.func.isRequired,
+};

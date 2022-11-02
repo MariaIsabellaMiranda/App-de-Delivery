@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import priceFormat from '../../helpers/priceFormat';
-import { addToCart, getCurrentQuantity, removeFromCart } from '../../helpers/managerCart';
+import {
+  addToCart,
+  getCurrentQuantity,
+  removeFromCart,
+} from '../../helpers/managerCart';
 
 import './styles/ProductCard.css';
 
@@ -14,11 +18,7 @@ function ProductCard({ productData, updatePrice }) {
     const { value } = target;
     const qtyValue = Number(value);
     setQtyProduct(qtyValue);
-    if (qtyValue > 0) {
-      addToCart({ ...productData, quantity: qtyValue });
-    } else {
-      removeFromCart(id);
-    }
+    addToCart({ ...productData, quantity: qtyValue });
     updatePrice();
   };
 
