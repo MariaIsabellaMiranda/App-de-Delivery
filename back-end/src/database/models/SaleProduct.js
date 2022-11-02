@@ -7,12 +7,12 @@ module.exports = (sequelize, DataTypes) => {
   const SaleProduct = sequelize.define(
     "SaleProduct",
     {
-      sale_id: {
+      saleId: {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      product_id: {
+      productId: {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.INTEGER,
