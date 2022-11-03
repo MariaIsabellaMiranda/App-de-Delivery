@@ -13,7 +13,7 @@ describe('Testa a rota register', () => {
   it('Testa se a página Register é renderizada no endpoint "/register"', async () => {
     const { history } = renderWithRouter(<App />, '/register');
 
-      expect(history.location.pathname).toBe('/register');
+    expect(history.location.pathname).toBe('/register');
   });
 });
 
@@ -24,7 +24,6 @@ describe('Verifica os elementos da página Register', () => {
     const nameInput = screen.getByLabelText('Nome:');
     const emailInput = screen.getByLabelText('Email:');
     const passwordInput = screen.getByLabelText('Senha:');
-
 
     expect(nameInput).toBeInTheDocument();
     expect(emailInput).toBeInTheDocument();
@@ -60,11 +59,11 @@ describe('Verifica comportamentos ao digitar nos inputs', () => {
     const nameInput = screen.getByLabelText('Nome:');
     const emailInput = screen.getByLabelText('Email:');
     const passwordInput = screen.getByLabelText('Senha:');
-    
+
     userEvent.type(nameInput, NAME_VALID);
     userEvent.type(emailInput, EMAIL_VALID);
     userEvent.type(passwordInput, PASSWORD_VALID);
-    
+
     const registerButton = screen.getByRole('button', { name: 'Cadastrar' });
 
     expect(registerButton).not.toBeDisabled();
@@ -76,7 +75,7 @@ describe('Verifica comportamentos ao digitar nos inputs', () => {
     const nameInput = screen.getByLabelText('Nome:');
     const emailInput = screen.getByLabelText('Email:');
     const passwordInput = screen.getByLabelText('Senha:');
-    
+
     userEvent.type(nameInput, 'Zé Birita');
     userEvent.type(emailInput, EMAIL_VALID);
     userEvent.type(passwordInput, PASSWORD_VALID);
@@ -92,11 +91,11 @@ describe('Verifica comportamentos ao digitar nos inputs', () => {
     const nameInput = screen.getByLabelText('Nome:');
     const emailInput = screen.getByLabelText('Email:');
     const passwordInput = screen.getByLabelText('Senha:');
-    
+
     userEvent.type(nameInput, NAME_VALID);
     userEvent.type(emailInput, 'test.com');
     userEvent.type(passwordInput, PASSWORD_VALID);
-    
+
     const registerButton = screen.getByRole('button', { name: 'Cadastrar' });
 
     expect(registerButton).toBeDisabled();
@@ -110,11 +109,11 @@ describe('Verifica comportamentos ao digitar nos inputs', () => {
       const nameInput = screen.getByLabelText('Nome:');
       const emailInput = screen.getByLabelText('Email:');
       const passwordInput = screen.getByLabelText('Senha:');
-      
+
       userEvent.type(nameInput, NAME_VALID);
       userEvent.type(emailInput, EMAIL_VALID);
       userEvent.type(passwordInput, 12345);
-      
+
       const registerButton = screen.getByRole('button', { name: 'Cadastrar' });
 
       expect(registerButton).toBeDisabled();
@@ -129,33 +128,35 @@ describe('Verifica comportamentos ao clicar no botão "Cadastrar"', () => {
       status: 201,
       json: jest.fn().mockResolvedValue(register),
     });
-  })
+  });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it('Testa se ao clicar no botão "Cadastrar", é feita uma requisição à API e o usuário é redirecionado para a rota /customer/products',
-  async () => {
-    const { history } = renderWithRouter(<App />, '/register');
+  it(
+    'Testa se ao clicar no botão "Cadastrar", é feita uma requisição à API e o usuário é redirecionado para a rota /customer/products',
+    async () => {
+      const { history } = renderWithRouter(<App />, '/register');
 
-    const nameInput = screen.getByLabelText('Nome:');
-    const emailInput = screen.getByLabelText('Email:');
-    const passwordInput = screen.getByLabelText('Senha:');
-    
-    userEvent.type(nameInput, NAME_VALID);
-    userEvent.type(emailInput, EMAIL_VALID);
-    userEvent.type(passwordInput, PASSWORD_VALID);
+      const nameInput = screen.getByLabelText('Nome:');
+      const emailInput = screen.getByLabelText('Email:');
+      const passwordInput = screen.getByLabelText('Senha:');
 
-    const registerButton = screen.getByRole('button', { name: 'Cadastrar' });
-    userEvent.click(registerButton);
+      userEvent.type(nameInput, NAME_VALID);
+      userEvent.type(emailInput, EMAIL_VALID);
+      userEvent.type(passwordInput, PASSWORD_VALID);
 
-    expect(fetchMock).toHaveBeenCalled();
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-    await waitFor(() => {
-      expect(history.location.pathname).toBe('/customer/products');
-    });
-  });
+      const registerButton = screen.getByRole('button', { name: 'Cadastrar' });
+      userEvent.click(registerButton);
+
+      expect(fetchMock).toHaveBeenCalled();
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      await waitFor(() => {
+        expect(history.location.pathname).toBe('/customer/products');
+      });
+    },
+  );
 });
 
 describe('Testa localStorage', () => {
@@ -170,7 +171,7 @@ describe('Testa localStorage', () => {
     const nameInput = screen.getByLabelText('Nome:');
     const emailInput = screen.getByLabelText('Email:');
     const passwordInput = screen.getByLabelText('Senha:');
-    
+
     userEvent.type(nameInput, NAME_VALID);
     userEvent.type(emailInput, EMAIL_VALID);
     userEvent.type(passwordInput, PASSWORD_VALID);
@@ -178,8 +179,8 @@ describe('Testa localStorage', () => {
     const registerButton = screen.getByRole('button', { name: 'Cadastrar' });
     userEvent.click(registerButton);
 
-    await waitFor (() => {
+    await waitFor(() => {
       expect(window.localStorage.getItem('user')).toEqual(registerStorageMock);
-    })
+    });
   });
-})
+});
