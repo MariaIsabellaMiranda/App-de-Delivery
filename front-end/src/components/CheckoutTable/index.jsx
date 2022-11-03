@@ -1,16 +1,7 @@
 import PropTypes from 'prop-types';
-import lS from 'manager-local-storage';
-import { useState } from 'react';
 import CheckoutTableItem from '../CheckoutTableItem';
 
-function CheckoutTable({ updatePrice }) {
-  const [cartItems, setCartItems] = useState(lS.get('cart') ?? []);
-
-  const updateCartItems = () => {
-    setCartItems(lS.get('cart') ?? []);
-    updatePrice();
-  };
-
+function CheckoutTable({ cartItems, updateCartItems }) {
   return (
     <table>
       <tbody>
@@ -38,5 +29,6 @@ function CheckoutTable({ updatePrice }) {
 export default CheckoutTable;
 
 CheckoutTable.propTypes = {
-  updatePrice: PropTypes.func.isRequired,
+  updateCartItems: PropTypes.func.isRequired,
+  cartItems: PropTypes.arrayOf(PropTypes.shape).isRequired,
 };
