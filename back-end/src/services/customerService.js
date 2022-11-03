@@ -18,7 +18,7 @@ const createSale = async ({
       }, { transaction: t });
 
     const salesProducts = products.map((product) => (
-      { saleId: id, productId: product.productId, quantity: product.quantity }
+      { saleId: id, productId: product.id, quantity: product.quantity }
     ));
 
     await SaleProduct.bulkCreate(salesProducts, { transaction: t });

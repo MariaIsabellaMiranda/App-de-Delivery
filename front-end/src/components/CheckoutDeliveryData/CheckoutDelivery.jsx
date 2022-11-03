@@ -1,22 +1,28 @@
 import { useEffect, useState } from 'react';
+import lS from 'manager-local-storage';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import easyFetch from '../../helpers/fetch';
 
-function CheckoutDelivery() {
+function CheckoutDelivery({ totalPrice, cartItems }) {
+  const history = useHistory();
   const [sellers, setSellers] = useState([]);
+  const { id: userId, token } = lS.get('user');
+  const [deliveryData, setDeliveryData] = useState({
+    seller: 0,
+    address: '',
+    number: '',
+  });
 
   useEffect(() => {
     const getSellers = async () => {
       const sellersResponse = await fetch('http://localhost:3001/seller');
       const sellersJson = await sellersResponse.json();
       setSellers(sellersJson);
+      setDeliveryData({ address: '', number: '', seller: sellersJson[0].id });
     };
     getSellers();
   }, []);
-
-  const [deliveryData, setDeliveryData] = useState({
-    seller: '',
-    address: '',
-    number: '',
-  });
 
   const { seller, address, number } = deliveryData;
 
@@ -28,8 +34,27 @@ function CheckoutDelivery() {
     });
   };
 
-  const finalizeOrder = (e) => {
+  const finalizeOrder = async (e) => {
     e.preventDefault();
+    const CREATED = 201;
+    const reqCheckoutBody = {
+      userId,
+      sellerId: seller,
+      totalPrice,
+      deliveryAddress: address,
+      deliveryNumber: number,
+      products: cartItems,
+    };
+    const responseData = await easyFetch(
+      'http://localhost:3001/customer/checkout',
+      'POST',
+      { Authorization: token },
+      reqCheckoutBody,
+    );
+    const { id } = await responseData.json();
+    if (responseData.status === CREATED) {
+      history.push(`/customer/orders/${id}`);
+    }
   };
 
   return (
@@ -44,9 +69,6 @@ function CheckoutDelivery() {
           value={ seller }
           data-testid="customer_checkout__select-seller"
         >
-          <option value="" hidden>
-            Choose
-          </option>
           {sellers.map((sellerData, i) => (
             <option key={ i } value={ sellerData.id }>
               {sellerData.name}
@@ -88,3 +110,8 @@ function CheckoutDelivery() {
 }
 
 export default CheckoutDelivery;
+
+CheckoutDelivery.propTypes = {
+  totalPrice: PropTypes.number.isRequired,
+  cartItems: PropTypes.arrayOf(PropTypes.shape).isRequired,
+};
