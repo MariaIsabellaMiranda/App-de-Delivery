@@ -1,4 +1,4 @@
-const customerService = require("../services/customerService");
+const customerService = require('../services/customerService');
 
 const createSale = async (req, res) => {
   const { id: userId } = res.locals.user;
@@ -6,4 +6,10 @@ const createSale = async (req, res) => {
   res.status(201).json(sellerId);
 };
 
-module.exports = { createSale };
+const getOrders = async (_req, res) => {
+  const { id: userId } = res.locals.user;
+  const orders = await customerService.getOrders(userId);
+  return res.status(200).json(orders);
+};
+
+module.exports = { createSale, getOrders };
