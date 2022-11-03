@@ -6,21 +6,6 @@ import OrderCard from '../../components/OrderCard';
 function Orders() {
   const [orders, setOrders] = useState([]);
 
-  // const ordersMock = [
-  //   {
-  //     id: 1,
-  //     status: 'Pendente',
-  //     date: '03/11/2021',
-  //     price: 28.30,
-  //   },
-  //   {
-  //     id: 2,
-  //     status: 'Finalizado',
-  //     date: '02/11/21',
-  //     price: 50,
-  //   },
-  // ];
-
   useEffect(() => {
     const getOrders = async () => {
       const userData = lS.get('user');

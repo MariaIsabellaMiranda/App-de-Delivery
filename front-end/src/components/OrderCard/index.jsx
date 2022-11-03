@@ -4,9 +4,10 @@ import priceFormat from '../../helpers/priceFormat';
 import './styles/OrderCard.css';
 
 function OrderCard({ orderData }) {
-  const { id, status, date, price } = orderData;
+  const { id, status, saleDate, totalPrice } = orderData;
+
   return (
-    <Link to={ `localhost:3000/customer/orders/${id}` }>
+    <Link to={ `/customer/orders/${id}` }>
       <div className="orderStyle">
         <p data-testid={ `customer_orders__element-order-id-${id}` }>
           Pedido
@@ -18,11 +19,11 @@ function OrderCard({ orderData }) {
           { status }
         </p>
         <p data-testid={ `customer_orders__element-order-date-${id}` }>
-          { date }
+          { saleDate }
         </p>
         <p data-testid={ `customer_orders__element-card-price-${id}` }>
           R$
-          { priceFormat(price) }
+          { priceFormat(totalPrice) }
         </p>
       </div>
     </Link>
@@ -35,7 +36,7 @@ OrderCard.propTypes = {
   orderData: PropTypes.shape({
     id: PropTypes.number,
     status: PropTypes.string,
-    date: PropTypes.string,
-    price: PropTypes.number,
+    saleDate: PropTypes.string,
+    totalPrice: PropTypes.string,
   }).isRequired,
 };
