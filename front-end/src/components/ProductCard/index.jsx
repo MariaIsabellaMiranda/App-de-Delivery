@@ -1,19 +1,25 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import priceFormat from '../../helpers/priceFormat';
+import {
+  addToCart,
+  getCurrentQuantity,
+  removeFromCart,
+} from '../../helpers/managerCart';
 
-function ProductCard({ productData }) {
+import './styles/ProductCard.css';
+
+function ProductCard({ productData, updatePrice }) {
   const { name, price, urlImage, id } = productData;
 
-  const [qtyProduct, setQtyProduct] = useState(0);
-
-  const priceFormat = (priceNumber) => {
-    const originalPrice = String(Number(priceNumber).toFixed(2));
-    return originalPrice.replace('.', ',');
-  };
+  const [qtyProduct, setQtyProduct] = useState(getCurrentQuantity(id));
 
   const handleQty = ({ target }) => {
     const { value } = target;
-    setQtyProduct(Number(value));
+    const qtyValue = Number(value);
+    setQtyProduct(qtyValue);
+    addToCart({ ...productData, quantity: qtyValue });
+    updatePrice();
   };
 
   const onKeyUp = ({ target }) => {
@@ -26,11 +32,21 @@ function ProductCard({ productData }) {
   };
 
   const addToQty = () => {
-    setQtyProduct(qtyProduct + 1);
+    const qtyValue = qtyProduct + 1;
+    addToCart({ ...productData, quantity: qtyValue });
+    setQtyProduct(qtyValue);
+    updatePrice();
   };
 
   const decreaseToQty = () => {
-    if (qtyProduct > 0) setQtyProduct(qtyProduct - 1);
+    const qtyValue = qtyProduct - 1;
+    if (qtyProduct > 0) setQtyProduct(qtyValue);
+    if (qtyValue > 0) {
+      addToCart({ ...productData, quantity: qtyValue });
+    } else {
+      removeFromCart(id);
+    }
+    updatePrice();
   };
 
   return (
@@ -45,6 +61,7 @@ function ProductCard({ productData }) {
         src={ urlImage }
         alt={ name }
         data-testid={ `customer_products__img-card-bg-image-${id}` }
+        className="_image_product_cart"
       />
       <p data-testid={ `customer_products__element-card-title-${id}` }>{name}</p>
       <input
@@ -84,4 +101,5 @@ ProductCard.propTypes = {
     urlImage: PropTypes.string,
     id: PropTypes.number,
   }).isRequired,
+  updatePrice: PropTypes.func.isRequired,
 };

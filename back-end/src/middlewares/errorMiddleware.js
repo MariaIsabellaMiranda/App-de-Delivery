@@ -2,8 +2,6 @@ const { JsonWebTokenError } = require('jsonwebtoken');
 const MainError = require('../errors/MainError');
 
 const errorMiddleware = (err, _req, res, _next) => {
-  console.error(err);
-
   switch (true) {
     case err instanceof MainError:
       return res.status(err.status).json({

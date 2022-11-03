@@ -91,6 +91,7 @@ export default function Login() {
         </button>
         <button
           type="button"
+          value="Register"
           data-testid="common_login__button-register"
           onClick={ () => history.push('/register') }
         >
