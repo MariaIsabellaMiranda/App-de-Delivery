@@ -1,20 +1,16 @@
-import {
-  // useEffect,
-  useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function CheckoutDelivery() {
-  const [sellers,
-    // setSellers
-  ] = useState([]);
+  const [sellers, setSellers] = useState([]);
 
-  // useEffect(() => {
-  //   const getSellers = async () => {
-  //     const sellersResponse = await fetch('http://localhost:3001/sellers');
-  //     const sellersJson = await sellersResponse.json();
-  //     setSellers(sellersJson);
-  //   };
-  //   getSellers();
-  // }, []);
+  useEffect(() => {
+    const getSellers = async () => {
+      const sellersResponse = await fetch('http://localhost:3001/seller');
+      const sellersJson = await sellersResponse.json();
+      setSellers(sellersJson);
+    };
+    getSellers();
+  }, []);
 
   const [deliveryData, setDeliveryData] = useState({
     seller: '',
@@ -52,7 +48,9 @@ function CheckoutDelivery() {
             Choose
           </option>
           {sellers.map((sellerData, i) => (
-            <option key={ i }>{sellerData.name}</option>
+            <option key={ i } value={ sellerData.id }>
+              {sellerData.name}
+            </option>
           ))}
         </select>
       </label>
