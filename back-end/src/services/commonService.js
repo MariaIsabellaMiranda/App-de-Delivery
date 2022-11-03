@@ -18,7 +18,7 @@ const login = async ({ email, password }) => {
   if (!user) throw new NotFoundError('Not found');
   if (user.password !== passCrypt) throw new BadRequestError('Invalid credentials');
   const token = jwt.createAccessToken(user.id);
-  // delete user.id;
+  delete user.id;
   delete user.password;
   return { ...user, token };
 };
@@ -30,7 +30,7 @@ const register = async (newUserDto) => {
     ...newUserDto, role: 'customer', password: md5(password) });
   const user = userData.get({ plain: true });
   const token = jwt.createAccessToken(user.id);
-  // delete user.id;
+  delete user.id;
   delete user.password;
   return { ...user, token };
 };

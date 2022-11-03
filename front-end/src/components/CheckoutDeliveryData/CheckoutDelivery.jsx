@@ -7,7 +7,7 @@ import easyFetch from '../../helpers/fetch';
 function CheckoutDelivery({ totalPrice, cartItems }) {
   const history = useHistory();
   const [sellers, setSellers] = useState([]);
-  const { id: userId, token } = lS.get('user');
+  const { token } = lS.get('user');
   const [deliveryData, setDeliveryData] = useState({
     seller: 0,
     address: '',
@@ -38,7 +38,6 @@ function CheckoutDelivery({ totalPrice, cartItems }) {
     e.preventDefault();
     const CREATED = 201;
     const reqCheckoutBody = {
-      userId,
       sellerId: seller,
       totalPrice,
       deliveryAddress: address,
