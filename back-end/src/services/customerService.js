@@ -30,7 +30,7 @@ const createSale = async ({
 };
 
 const getOrders = async (userId) => {
-  return Sale.findAll({
+    Sale.findAll({
     where: { userId },
     attributes: {
       exclude: ['deliveryAddress', 'deliveryNumber', 'sellerId'],
@@ -44,9 +44,9 @@ const getOrder = async (userId, orderId) => {
     include: [
       {
         model: Product,
-        as: 'products'
+        as: 'products',
       },
-    ]
+    ],
   });
   return order;
 };
