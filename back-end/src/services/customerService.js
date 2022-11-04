@@ -1,6 +1,7 @@
 const { Sequelize } = require('sequelize');
 const config = require('../database/config/config');
 const { Sale, SaleProduct, Product, User } = require('../database/models');
+const NotFoundError = require('../errors/NotFoundError');
 
 const sequelize = new Sequelize(config.development);
 
@@ -42,6 +43,7 @@ const getOrders = async (userId) => {
 const getOrder = async (userId, orderId) => {
   const order = await Sale.findOne({
     where: { id: orderId, userId },
+    raw: true,
     include: [{
       model: Product,
       as: 'products',
@@ -54,6 +56,7 @@ const getOrder = async (userId, orderId) => {
     },
   ],
   });
+  if (!order) throw new NotFoundError('order Not Found');
   return order;
 };
 
