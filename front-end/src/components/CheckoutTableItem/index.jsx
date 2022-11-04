@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { removeFromCart } from '../../helpers/managerCart';
 import priceFormat from '../../helpers/priceFormat';
+import dataTestIds from '../../helpers/dataTestIds';
 
 function CheckoutTableItem({ cartItem, index, updateCartItems }) {
   const { name, quantity, price, id } = cartItem;
@@ -13,24 +14,24 @@ function CheckoutTableItem({ cartItem, index, updateCartItems }) {
   return (
     <tr>
       <td
-        data-testid={ `customer_checkout__element-order-table-item-number-${index}` }
+        data-testid={ dataTestIds('22', index) }
       >
         {index + 1}
       </td>
       <td
-        data-testid={ `customer_checkout__element-order-table-name-${index}` }
+        data-testid={ dataTestIds('23', index) }
       >
         {name}
       </td>
       <td
-        data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
+        data-testid={ dataTestIds('24', index) }
       >
         {quantity}
       </td>
       <td>
         <span>R$ </span>
         <span
-          data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
+          data-testid={ dataTestIds('25', index) }
         >
           {priceFormat(price)}
         </span>
@@ -38,13 +39,13 @@ function CheckoutTableItem({ cartItem, index, updateCartItems }) {
       <td>
         <span>R$ </span>
         <span
-          data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
+          data-testid={ dataTestIds('26', index) }
         >
           {priceFormat(Number(price) * quantity)}
         </span>
       </td>
       <td
-        data-testid={ `customer_checkout__element-order-table-remove-${index}` }
+        data-testid={ dataTestIds('27', index) }
       >
         <button type="button" onClick={ removeItem }>Remover</button>
       </td>

@@ -5,6 +5,7 @@ import Header from '../../components/Header';
 import ProductCard from '../../components/ProductCard';
 import { getTotalPrice } from '../../helpers/managerCart';
 import priceFormat from '../../helpers/priceFormat';
+import dataTestIds from '../../helpers/dataTestIds';
 
 function Products() {
   const history = useHistory();
@@ -33,13 +34,13 @@ function Products() {
       <main>
         <button
           type="button"
-          data-testid="customer_products__button-cart"
+          data-testid={ dataTestIds('21b') }
           onClick={ () => history.push('/customer/checkout') }
           disabled={ !existCart() }
         >
           Ver Carrinho: R$
           {' '}
-          <span data-testid="customer_products__checkout-bottom-value">
+          <span data-testid={ dataTestIds('21') }>
             {priceFormat(price)}
           </span>
         </button>

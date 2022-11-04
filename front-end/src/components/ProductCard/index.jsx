@@ -6,8 +6,8 @@ import {
   getCurrentQuantity,
   removeFromCart,
 } from '../../helpers/managerCart';
-
 import './styles/ProductCard.css';
+import dataTestIds from '../../helpers/dataTestIds';
 
 function ProductCard({ productData, updatePrice }) {
   const { name, price, urlImage, id } = productData;
@@ -53,17 +53,24 @@ function ProductCard({ productData, updatePrice }) {
     <section>
       <span>
         {'R$ '}
-        <span data-testid={ `customer_products__element-card-price-${id}` }>
+        <span data-testid={ dataTestIds('16', id) }>
           {priceFormat(price)}
         </span>
       </span>
       <img
         src={ urlImage }
         alt={ name }
-        data-testid={ `customer_products__img-card-bg-image-${id}` }
+        data-testid={ dataTestIds('17', id) }
         className="_image_product_cart"
       />
-      <p data-testid={ `customer_products__element-card-title-${id}` }>{name}</p>
+      <p data-testid={ dataTestIds('15', id) }>{name}</p>
+      <button
+        type="button"
+        onClick={ decreaseToQty }
+        data-testid={ dataTestIds('19', id) }
+      >
+        Remove
+      </button>
       <input
         type="number"
         name="quantity"
@@ -72,21 +79,14 @@ function ProductCard({ productData, updatePrice }) {
         onChange={ handleQty }
         onKeyUp={ onKeyUp }
         value={ qtyProduct }
-        data-testid={ `customer_products__input-card-quantity-${id}` }
+        data-testid={ dataTestIds('20', id) }
       />
       <button
         type="button"
         onClick={ addToQty }
-        data-testid={ `customer_products__button-card-add-item-${id}` }
+        data-testid={ dataTestIds('18', id) }
       >
         Add
-      </button>
-      <button
-        type="button"
-        onClick={ decreaseToQty }
-        data-testid={ `customer_products__button-card-rm-item-${id}` }
-      >
-        Remove
       </button>
     </section>
   );
