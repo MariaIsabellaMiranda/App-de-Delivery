@@ -2,7 +2,6 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
-// import { loginCustomer } from './mocks/loginMock';
 import storageLogin from './mocks/storageMocks/storageLogin';
 
 describe('Testa a rota /customer/products', () => {

@@ -1,8 +1,8 @@
-const loginCustomer = {
+const loginMock = {
   name: 'Cliente Zé Birita',
   email: 'zebirita@email.com',
   role: 'customer',
   token: 'kxkMeYBi75eT8uJnSbfadNE',
 };
 
-module.exports = loginCustomer;
+module.exports = loginMock;
