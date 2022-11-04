@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import lS from 'manager-local-storage';
 
 export default function Register() {
+  const history = useHistory();
   const [apiError, setApiError] = useState('');
   const [newRegister, setNewRegister] = useState({ name: '', email: '', password: '' });
   const [registerIsvalid, setregisterIsvalid] = useState(false);
@@ -12,20 +14,24 @@ export default function Register() {
 
   const onSubmitRegister = async (e) => {
     e.preventDefault();
-    const CONFLICT = 409;
+    const CREATED = 201;
     const response = await fetch(
-      'http://localhost:3001/register',
+      'http://localhost:3001/common/register',
       {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
         method: 'POST',
         body: JSON.stringify(newRegister),
       },
     );
     const registerData = await response.json();
-    if (response.status === CONFLICT) {
+    if (response.status !== CREATED) {
       return setApiError(registerData.message);
     }
-    localStorage.setItem('userData', JSON.stringify(registerData));
-    useHistory.push('/customer/products');
+    lS.set('user', registerData);
+    history.push('/customer/products');
   };
 
   useEffect(() => {
@@ -85,7 +91,7 @@ export default function Register() {
           data-testid="common_register__button-register"
           disabled={ !registerIsvalid }
         >
-          Login
+          Cadastrar
         </button>
       </form>
     </div>

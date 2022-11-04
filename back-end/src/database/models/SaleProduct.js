@@ -7,12 +7,12 @@ module.exports = (sequelize, DataTypes) => {
   const SaleProduct = sequelize.define(
     "SaleProduct",
     {
-      sale_id: {
+      saleId: {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      product_id: {
+      productId: {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.INTEGER,
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       timestamps: false,
       tableName: "salesProducts",
-      // underscored: true,
+      underscored: true,
     }
   );
 
@@ -33,15 +33,15 @@ module.exports = (sequelize, DataTypes) => {
     models.Product.belongsToMany(models.Sale, {
       as: "sales",
       through: SaleProduct,
-      foreignKey: "sale_id",
-      otherKey: "product_id",
+      foreignKey: "productId",
+      otherKey: "saleId",
     });
 
     models.Sale.belongsToMany(models.Product, {
       as: "products",
       through: SaleProduct,
-      foreignKey: "product_id",
-      otherKey: "sale_id",
+      foreignKey: "saleId",
+      otherKey: "productId",
     });
   };
 
