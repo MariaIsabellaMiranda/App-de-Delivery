@@ -12,18 +12,20 @@ function Order() {
   const { orderId } = useParams();
   const { token } = lS.get('user');
 
+  const LOADING = 'Loading...';
+
   const orderDetails = {
-    id: 1,
-    seller: { name: 'Gabriel Dias' },
-    saleDate: '2022-11-03T17:41:21',
-    status: 'Pendente',
+    id: 0,
+    seller: { name: LOADING },
+    saleDate: LOADING,
+    status: LOADING,
     products: [
       {
         SaleProduct: {
-          quantity: 2,
+          quantity: 0,
         },
-        price: '2.35',
-        name: 'Skol Lata 250ml',
+        price: LOADING,
+        name: LOADING,
       },
     ],
   };
@@ -69,7 +71,7 @@ function Order() {
             onClick={ markAsReceived }
             data-testid={ dataTestId('47') }
           >
-            Marcar como entrege
+            Marcar como entregue
           </button>
         </section>
         <OrderTable products={ products } />
