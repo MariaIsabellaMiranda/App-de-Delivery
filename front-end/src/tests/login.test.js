@@ -4,14 +4,14 @@ import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 import storageLoginMock from './mocks/storageMocks/storageLogin';
-import fetchCommon from './mocks/commonMocks/fetchCommon';
+import fetchLogin from './mocks/pagesMocks/fecthLogin';
 
 const PASSWORD_VALID = '123456';
 const EMAIL_VALID = 'zebirita@email.com';
 
 describe('Testa a rota /login', () => {
   beforeEach(() => {
-    jest.spyOn(global, 'fetch').mockImplementation(fetchCommon);
+    jest.spyOn(global, 'fetch').mockImplementation(fetchLogin);
   });
   afterEach(() => {
     jest.clearAllMocks();

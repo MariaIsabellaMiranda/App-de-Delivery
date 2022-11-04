@@ -1,11 +1,11 @@
-const ordersIdMock = {
+const ordersOneMock = {
   id: 1,
   userId: 4,
   sellerId: 1,
-  totalPrice: '9.70',
+  totalPrice: '50',
   deliveryAddress: 'Rua Visconde de Abaeté',
   deliveryNumber: '450',
-  saleDate: '2022-11-04T05:05:34.000Z',
+  saleDate: '2022-11-04T17:09:29.000Z',
   status: 'Pendente',
   products: [
     {
@@ -29,4 +29,4 @@ const ordersIdMock = {
   ],
 };
 
-module.exports = ordersIdMock;
+module.exports = ordersOneMock;
