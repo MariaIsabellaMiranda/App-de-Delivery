@@ -46,8 +46,8 @@ function CheckoutDelivery({ totalPrice, cartItems }) {
     };
     const responseData = await easyFetch(
       'http://localhost:3001/customer/checkout',
-      'POST',
       { Authorization: token },
+      'POST',
       reqCheckoutBody,
     );
     const { id } = await responseData.json();

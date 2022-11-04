@@ -1,4 +1,4 @@
-const easyFetch = async (url, method, headers, body) => {
+const easyFetch = async (url, headers, method, body) => {
   const options = {
     method,
     headers: {
@@ -8,6 +8,9 @@ const easyFetch = async (url, method, headers, body) => {
     },
     body: JSON.stringify(body),
   };
+
+  if (!method) delete options.method;
+  if (!body) delete options.body;
 
   const response = await fetch(url, options);
   return response;

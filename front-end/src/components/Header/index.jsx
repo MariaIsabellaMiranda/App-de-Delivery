@@ -1,10 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import lS from 'manager-local-storage';
 
 function Header() {
+  const history = useHistory();
   const user = lS.get('user');
 
   const logout = () => {
+    history.push('/');
     lS.remove(['user', 'cart']);
   };
 
