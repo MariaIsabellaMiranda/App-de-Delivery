@@ -51,7 +51,7 @@ const getOrder = async (userId, orderId) => {
       model: User,
       as: 'seller',
       attributes: ['name'],
-    }
+    },
   ],
   });
   return order;
