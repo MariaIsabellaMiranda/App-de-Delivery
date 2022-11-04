@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import lS from 'manager-local-storage';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import easyFetch from '../../helpers/fetch';
+import { loginUser } from '../../redux/actions/userAction';
+import dataTestIds from '../../helpers/dataTestIds';
 
-export default function Register() {
-  const history = useHistory();
+function Register({ dispatch }) {
   const [apiError, setApiError] = useState('');
-  const [newRegister, setNewRegister] = useState({ name: '', email: '', password: '' });
-  const [registerIsvalid, setregisterIsvalid] = useState(false);
+  const [newRegister, setNewRegister] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+  const [registerIsValid, setRegisterIsValid] = useState(false);
 
   const handleChanges = ({ id, value }) => {
     setNewRegister({ ...newRegister, [id]: value });
@@ -15,23 +21,17 @@ export default function Register() {
   const onSubmitRegister = async (e) => {
     e.preventDefault();
     const CREATED = 201;
-    const response = await fetch(
+    const response = await easyFetch(
       'http://localhost:3001/common/register',
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        body: JSON.stringify(newRegister),
-      },
+      {},
+      'POST',
+      newRegister,
     );
     const registerData = await response.json();
     if (response.status !== CREATED) {
       return setApiError(registerData.message);
     }
-    lS.set('user', registerData);
-    history.push('/customer/products');
+    dispatch(loginUser(registerData));
   };
 
   useEffect(() => {
@@ -43,9 +43,9 @@ export default function Register() {
       const nameIsValid = newRegister.name.length >= minLengthName;
       const passwordIsValid = newRegister.password.length >= minLengthPassword;
       if (emailIsValid && passwordIsValid && nameIsValid) {
-        setregisterIsvalid(true);
+        setRegisterIsValid(true);
       } else {
-        setregisterIsvalid(false);
+        setRegisterIsValid(false);
       }
     };
     validateForm();
@@ -61,7 +61,7 @@ export default function Register() {
             value={ newRegister.name }
             id="name"
             type="text"
-            data-testid="common_register__input-name"
+            data-testid={ dataTestIds('6') }
           />
         </label>
         <label htmlFor="email">
@@ -71,7 +71,7 @@ export default function Register() {
             value={ newRegister.email }
             id="email"
             type="email"
-            data-testid="common_register__input-email"
+            data-testid={ dataTestIds('7') }
           />
         </label>
         <label htmlFor="password">
@@ -81,15 +81,18 @@ export default function Register() {
             value={ newRegister.password }
             id="password"
             type="password"
-            data-testid="common_register__input-password"
+            data-testid={ dataTestIds('8') }
           />
         </label>
-        { apiError
-        && <p data-testid="common_register__element-invalid_register">{ apiError }</p> }
+        {apiError && (
+          <p data-testid={ dataTestIds('10') }>
+            {apiError}
+          </p>
+        )}
         <button
           type="submit"
-          data-testid="common_register__button-register"
-          disabled={ !registerIsvalid }
+          data-testid={ dataTestIds('9') }
+          disabled={ !registerIsValid }
         >
           Cadastrar
         </button>
@@ -97,3 +100,9 @@ export default function Register() {
     </div>
   );
 }
+
+export default connect()(Register);
+
+Register.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};

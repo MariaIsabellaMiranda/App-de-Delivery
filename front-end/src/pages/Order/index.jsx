@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import lS from 'manager-local-storage';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import OrderTable from '../../components/OrderTable';
 import dateFormat from '../../helpers/dateFormat';
 import priceFormat from '../../helpers/priceFormat';
@@ -8,9 +9,8 @@ import dataTestId from '../../helpers/dataTestIds';
 import Header from '../../components/Header';
 import easyFetch from '../../helpers/fetch';
 
-function Order() {
+function Order({ token }) {
   const { orderId } = useParams();
-  const { token } = lS.get('user');
 
   const LOADING = 'Loading...';
 
@@ -85,4 +85,12 @@ function Order() {
   );
 }
 
-export default Order;
+const mapStateToProps = (state) => ({
+  token: state.userReducer.token,
+});
+
+export default connect(mapStateToProps)(Order);
+
+Order.propTypes = {
+  token: PropTypes.string.isRequired,
+};

@@ -1,35 +1,34 @@
-import { Link, useHistory } from 'react-router-dom';
-import lS from 'manager-local-storage';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { logoutUser } from '../../redux/actions/userAction';
+import dataTestIds from '../../helpers/dataTestIds';
 
-function Header() {
-  const history = useHistory();
-  const user = lS.get('user');
-
+function Header({ dispatch, name }) {
   const logout = () => {
-    history.push('/');
-    lS.remove(['user', 'cart']);
+    dispatch(logoutUser());
   };
 
   return (
     <header>
       <Link
         to="/customer/products"
-        data-testid="customer_products__element-navbar-link-products"
+        data-testid={ dataTestIds('11') }
       >
         Produtos
       </Link>
       <Link
         to="/customer/orders"
-        data-testid="customer_products__element-navbar-link-orders"
+        data-testid={ dataTestIds('12') }
       >
         Meus Pedidos
       </Link>
-      <p data-testid="customer_products__element-navbar-user-full-name">
-        {user.name}
+      <p data-testid={ dataTestIds('13') }>
+        {name}
       </p>
       <Link
         to="/login"
-        data-testid="customer_products__element-navbar-link-logout"
+        data-testid={ dataTestIds('14') }
         onClick={ logout }
       >
         Sair
@@ -38,4 +37,13 @@ function Header() {
   );
 }
 
-export default Header;
+const mapStateToProps = (state) => ({
+  name: state.userReducer.name,
+});
+
+export default connect(mapStateToProps)(Header);
+
+Header.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+};
