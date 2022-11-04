@@ -70,6 +70,7 @@ function Order() {
             type="button"
             onClick={ markAsReceived }
             data-testid={ dataTestId('47') }
+            disabled={ status === 'Pendente' }
           >
             Marcar como entregue
           </button>
