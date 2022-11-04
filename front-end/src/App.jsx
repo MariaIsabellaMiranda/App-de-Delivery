@@ -25,22 +25,22 @@ function App({ status, role }) {
         {status ? <Redirect to={ routes[role] } /> : <Register />}
       </Route>
       <Route exact path="/customer/products">
-        {!status ? <Redirect to="/login" /> : <Products />}
+        {!status ? <Redirect to="/" /> : <Products />}
       </Route>
       <Route exact path="/customer/checkout">
-        {!status ? <Redirect to="/login" /> : <Checkout />}
+        {!status ? <Redirect to="/" /> : <Checkout />}
       </Route>
       <Route exact path="/customer/orders/:orderId">
-        {!status ? <Redirect to="/login" /> : <Order />}
+        {!status ? <Redirect to="/" /> : <Order />}
       </Route>
       <Route exact path="/customer/orders" component={ Orders }>
-        {!status ? <Redirect to="/login" /> : <Orders />}
+        {!status ? <Redirect to="/" /> : <Orders type="customer" />}
       </Route>
       <Route exact path="/seller/orders">
-        {!status ? <Redirect to="/login" /> : <Orders />}
+        {(!status || role !== 'seller') ? <Redirect to="/" /> : <Orders type="seller" />}
       </Route>
       <Route exact path="/admin/manage">
-        {!status ? <Redirect to="/login" /> : <h1>ADM</h1>}
+        {(!status || role !== 'admin') ? <Redirect to="/" /> : <h1>ADM</h1>}
       </Route>
       <Route exact path="/">
         {!status ? <Redirect to="/login" /> : <Redirect to={ routes[role] } />}

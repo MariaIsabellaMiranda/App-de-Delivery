@@ -42,6 +42,7 @@ function Register({ dispatch }) {
       const emailIsValid = emailFormat.test(newRegister.email);
       const nameIsValid = newRegister.name.length >= minLengthName;
       const passwordIsValid = newRegister.password.length >= minLengthPassword;
+      console.log(emailIsValid, passwordIsValid, nameIsValid);
       if (emailIsValid && passwordIsValid && nameIsValid) {
         setRegisterIsValid(true);
       } else {
