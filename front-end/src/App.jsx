@@ -15,7 +15,6 @@ function App({ status, role }) {
     seller: '/seller/orders',
     administrator: '/admin/manage',
   };
-
   return (
     <Switch>
       <Route exact path="/login">
@@ -31,17 +30,24 @@ function App({ status, role }) {
         {!status ? <Redirect to="/" /> : <Checkout />}
       </Route>
       <Route exact path="/customer/orders/:orderId">
-        {!status ? <Redirect to="/" /> : <Order />}
+        {!status || role !== 'customer' ? <Redirect to="/" /> : <Order />}
       </Route>
-      <Route exact path="/customer/orders" component={ Orders }>
-        {!status ? <Redirect to="/" /> : <Orders type="customer" />}
+      <Route exact path="/customer/orders">
+        {!status || role !== 'customer' ? <Redirect to="/" /> : <Orders />}
       </Route>
       <Route exact path="/seller/orders">
-        {(!status || role !== 'seller') ? <Redirect to="/" /> : <Orders type="seller" />}
+        {!status || role !== 'seller' ? <Redirect to="/" /> : <Orders />}
       </Route>
-      <Route exact path="/admin/manage">
-        {(!status || role !== 'admin') ? <Redirect to="/" /> : <h1>ADM</h1>}
+      <Route exact path="/seller/orders/:orderId">
+        {!status || role !== 'seller' ? (
+          <Redirect to="/" />
+        ) : (
+          <Order type="seller" />
+        )}
       </Route>
+      {/* <Route exact path="/admin/manage">
+        {!status || role !== 'admin' ? <Redirect to="/" /> : <h1>ADM</h1>}
+      </Route> */}
       <Route exact path="/">
         {!status ? <Redirect to="/login" /> : <Redirect to={ routes[role] } />}
       </Route>

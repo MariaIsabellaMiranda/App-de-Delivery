@@ -43,7 +43,6 @@ const getOrders = async (userId) => {
 const getOrder = async (userId, orderId) => {
   const order = await Sale.findOne({
     where: { id: orderId, userId },
-    raw: true,
     include: [{
       model: Product,
       as: 'products',

@@ -21,11 +21,16 @@ return orders;
 const getOrder = async (sellerId, orderId) => {
 const order = await Sale.findOne({
   where: { id: orderId, sellerId },
-  raw: true,
+  // raw: true,
   include: [{
     model: Product,
     as: 'products',
     through: { attributes: ['quantity'] },
+  },
+  {
+    model: User,
+    as: 'seller',
+    attributes: ['name'],
   },
 ],
 });

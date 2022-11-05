@@ -19,6 +19,7 @@ function CheckoutDelivery({ totalPrice, cartItems, token }) {
       const sellersResponse = await fetch('http://localhost:3001/seller');
       const sellersJson = await sellersResponse.json();
       setSellers(sellersJson);
+      console.log(sellersJson);
       setDeliveryData({ address: '', number: '', seller: sellersJson[0].id });
     };
     getSellers();
