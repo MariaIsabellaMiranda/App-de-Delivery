@@ -1,12 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logoutUser } from '../../redux/actions/userAction';
 import dataTestIds from '../../helpers/dataTestIds';
 
 function Header({ dispatch, name }) {
+  const history = useHistory('/');
   const logout = () => {
     dispatch(logoutUser());
+    history.push('/');
   };
 
   return (
