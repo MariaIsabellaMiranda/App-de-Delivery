@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -11,7 +11,6 @@ import easyFetch from '../../helpers/fetch';
 
 function Order({ token, role }) {
   const { orderId } = useParams();
-  console.log(role);
 
   const LOADING = 'Loading...';
 
@@ -38,22 +37,29 @@ function Order({ token, role }) {
     if (role === 'seller') return dataTestId(forSeller, idForDataTest);
   };
 
+  const updateOrderData = useCallback(async () => {
+    const URL = role === 'customer'
+      ? `http://localhost:3001/customer/orders/${orderId}`
+      : `http://localhost:3001/seller/orders/${orderId}`;
+    const response = await easyFetch(URL, { Authorization: token });
+    const responseJSON = await response.json();
+    setOrder(responseJSON);
+  }, [orderId, role, token]);
+
   useEffect(() => {
-    const getOrderDetails = async () => {
-      const URL = role === 'customer'
-        ? `http://localhost:3001/customer/orders/${orderId}`
-        : `http://localhost:3001/seller/orders/${orderId}`;
-      const response = await easyFetch(URL, { Authorization: token });
-      const responseJSON = await response.json();
-      setOrder(responseJSON);
-    };
-    getOrderDetails();
-  }, [orderId, token, role]);
+    updateOrderData();
+  }, [updateOrderData]);
 
   const { seller, saleDate, status, products, totalPrice } = order;
 
-  const markAsReceived = async () => {
-    console.log('ok');
+  const changeStatus = async (newStatus) => {
+    await easyFetch(
+      'http://localhost:3001/status',
+      { Authorization: token },
+      'PUT',
+      { orderId, status: newStatus },
+    );
+    updateOrderData();
   };
 
   return (
@@ -72,14 +78,16 @@ function Order({ token, role }) {
               <span data-testid={ dataTestId('38') }>{seller.name}</span>
             </span>
           )}
-          <span data-testid={ getDataTestId('39', '55') }>{dateFormat(saleDate)}</span>
+          <span data-testid={ getDataTestId('39', '55') }>
+            {dateFormat(saleDate)}
+          </span>
           <span data-testid={ getDataTestId('40', '54') }>{status}</span>
           {role === 'customer' && (
             <button
               type="button"
-              onClick={ markAsReceived }
+              onClick={ () => changeStatus('Entregue') }
               data-testid={ dataTestId('47') }
-              disabled={ status === 'Pendente' }
+              disabled={ status !== 'Em Trânsito' }
             >
               Marcar como entregue
             </button>
@@ -88,15 +96,15 @@ function Order({ token, role }) {
             <>
               <button
                 type="button"
-                onClick={ markAsReceived }
+                onClick={ () => changeStatus('Preparando') }
                 data-testid={ dataTestId('56') }
-                // disabled={ status === 'Pendente' }
+                disabled={ status !== 'Pendente' }
               >
                 Preparar Pedido
               </button>
               <button
                 type="button"
-                onClick={ markAsReceived }
+                onClick={ () => changeStatus('Em Trânsito') }
                 data-testid={ dataTestId('57') }
                 disabled={ status !== 'Preparando' }
               >
@@ -108,7 +116,9 @@ function Order({ token, role }) {
         <OrderTable products={ products } />
         <span>
           <span>R$ </span>
-          <span data-testid={ getDataTestId('46', '63') }>{priceFormat(totalPrice)}</span>
+          <span data-testid={ getDataTestId('46', '63') }>
+            {priceFormat(totalPrice)}
+          </span>
         </span>
       </main>
     </>
