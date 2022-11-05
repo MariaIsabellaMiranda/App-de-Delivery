@@ -5,6 +5,7 @@ const commonRoute = require('../routes/commonRoute');
 const productsRoute = require('../routes/productsRoute');
 const sellerRoute = require('../routes/sellerRoute');
 const customerRoute = require('../routes/customerRoute');
+const statusRoute = require('../routes/statusRoute');
 const errorMiddleware = require('../middlewares/errorMiddleware');
 
 const app = express();
@@ -22,6 +23,8 @@ app.use('/products', productsRoute);
 app.use('/seller', sellerRoute);
 
 app.use('/customer', customerRoute);
+
+app.use('/status', statusRoute);
 
 app.use(errorMiddleware);
 
