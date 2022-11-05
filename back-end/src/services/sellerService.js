@@ -34,7 +34,7 @@ const order = await Sale.findOne({
   },
 ],
 });
-if (!order) throw new NotFoundError('order Not Found');
+if (!order) throw new NotFoundError('Order Not Found');
 return order;
 };
 
