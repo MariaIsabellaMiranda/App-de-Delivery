@@ -22,7 +22,7 @@ function Orders({ token, role }) {
       setOrders(ordersJson);
     };
     getOrders();
-  }, [role]);
+  }, [role, token]);
 
   return (
     <div>
