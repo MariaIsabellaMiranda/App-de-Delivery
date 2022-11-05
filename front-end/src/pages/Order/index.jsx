@@ -37,18 +37,17 @@ function Order({ token, role }) {
     if (role === 'seller') return dataTestId(forSeller, idForDataTest);
   };
 
-  const updateOrderData = useCallback(async () => {
-    const URL = role === 'customer'
-      ? `http://localhost:3001/customer/orders/${orderId}`
-      : `http://localhost:3001/seller/orders/${orderId}`;
-    const response = await easyFetch(URL, { Authorization: token });
-    const responseJSON = await response.json();
-    setOrder(responseJSON);
-  }, [orderId, role, token]);
-
   useEffect(() => {
+    const updateOrderData = async () => {
+      const URL = role === 'customer'
+        ? `http://localhost:3001/customer/orders/${orderId}`
+        : `http://localhost:3001/seller/orders/${orderId}`;
+      const response = await easyFetch(URL, { Authorization: token });
+      const responseJSON = await response.json();
+      setOrder(responseJSON);
+    };
     updateOrderData();
-  }, [updateOrderData]);
+  }, [orderId, role, token]);
 
   const { seller, saleDate, status, products, totalPrice } = order;
 
@@ -59,7 +58,12 @@ function Order({ token, role }) {
       'PUT',
       { orderId, status: newStatus },
     );
-    updateOrderData();
+    const URL = role === 'customer'
+      ? `http://localhost:3001/customer/orders/${orderId}`
+      : `http://localhost:3001/seller/orders/${orderId}`;
+    const response = await easyFetch(URL, { Authorization: token });
+    const responseJSON = await response.json();
+    setOrder(responseJSON);
   };
 
   return (

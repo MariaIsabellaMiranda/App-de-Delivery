@@ -8,7 +8,7 @@ function Header({ dispatch, name }) {
   const history = useHistory('/');
   const logout = () => {
     dispatch(logoutUser());
-    history.push('/');
+    history.push('/login');
   };
 
   return (
