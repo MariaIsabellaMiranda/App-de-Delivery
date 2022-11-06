@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -37,17 +37,18 @@ function Order({ token, role }) {
     if (role === 'seller') return dataTestId(forSeller, idForDataTest);
   };
 
+  const updateOrderData = useCallback(async () => {
+    const URL = role === 'customer'
+      ? `http://localhost:3001/customer/orders/${orderId}`
+      : `http://localhost:3001/seller/orders/${orderId}`;
+    const response = await easyFetch(URL, { Authorization: token });
+    const responseJSON = await response.json();
+    setOrder(responseJSON);
+  }, [orderId, token, role]);
+
   useEffect(() => {
-    const updateOrderData = async () => {
-      const URL = role === 'customer'
-        ? `http://localhost:3001/customer/orders/${orderId}`
-        : `http://localhost:3001/seller/orders/${orderId}`;
-      const response = await easyFetch(URL, { Authorization: token });
-      const responseJSON = await response.json();
-      setOrder(responseJSON);
-    };
     updateOrderData();
-  }, [orderId, role, token]);
+  }, [updateOrderData]);
 
   const { seller, saleDate, status, products, totalPrice } = order;
 
@@ -58,12 +59,7 @@ function Order({ token, role }) {
       'PUT',
       { orderId, status: newStatus },
     );
-    const URL = role === 'customer'
-      ? `http://localhost:3001/customer/orders/${orderId}`
-      : `http://localhost:3001/seller/orders/${orderId}`;
-    const response = await easyFetch(URL, { Authorization: token });
-    const responseJSON = await response.json();
-    setOrder(responseJSON);
+    updateOrderData();
   };
 
   return (
