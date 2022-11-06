@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import OrderTable from '../../components/OrderTable';
 import dateFormat from '../../helpers/dateFormat';
 import priceFormat from '../../helpers/priceFormat';
-import dataTestId from '../../helpers/dataTestIds';
 import Header from '../../components/Header';
 import easyFetch from '../../helpers/fetch';
+import dataTestId from '../../helpers/dataTestIds';
 
 function Order({ token, role }) {
   const { orderId } = useParams();
