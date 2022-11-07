@@ -127,6 +127,30 @@ describe('/ customer', () => {
           expect(response.body).to.deep.equal(ordersMock.NOT_FOUND_ERROR_ORDER);
       });
     });
+
+    describe('quando o token é inválido', () => {
+      it('retorna erro quando o token for inválido', async () => {
+        const response = await chai
+          .request(app)
+          .get('/customer/orders/1')
+          .set({ Authorization: ordersMock.INVALID_TOKEN });
+  
+          expect(response.status).to.be.equal(401);
+          expect(response.body).to.deep.equal(ordersMock.UNAUTHORIZED_ERROR_TOKEN);
+      });
+    });
+  
+    describe('quando não é passado o token', () => {
+      it('retorna erro quando não possui token',async () => {
+        const response = await chai
+          .request(app)
+          .get('/customer/orders/1')
+          .set({ Authorization: '' });
+  
+          expect(response.status).to.be.equal(404);
+          expect(response.body).to.deep.equal(ordersMock.NOT_FOUND_ERROR_TOKEN);
+      });
+    });
   })
 
   describe('/orders/ - GET', () => {
@@ -149,6 +173,30 @@ describe('/ customer', () => {
 
           expect(response.status).to.be.equal(200);
           expect(response.body).to.deep.equal(ordersMock.RESPONSE_VALID_ORDERS);
+      });
+    });
+
+    describe('quando o token é inválido', () => {
+      it('retorna erro quando o token for inválido', async () => {
+        const response = await chai
+          .request(app)
+          .get('/customer/orders')
+          .set({ Authorization: ordersMock.INVALID_TOKEN });
+  
+          expect(response.status).to.be.equal(401);
+          expect(response.body).to.deep.equal(ordersMock.UNAUTHORIZED_ERROR_TOKEN);
+      });
+    });
+  
+    describe('quando não é passado o token', () => {
+      it('retorna erro quando não possui token',async () => {
+        const response = await chai
+          .request(app)
+          .get('/customer/orders')
+          .set({ Authorization: '' });
+  
+          expect(response.status).to.be.equal(404);
+          expect(response.body).to.deep.equal(ordersMock.NOT_FOUND_ERROR_TOKEN);
       });
     });
   })
