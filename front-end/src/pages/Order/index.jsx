@@ -6,7 +6,7 @@ import OrderTable from '../../components/OrderTable';
 import dateFormat from '../../helpers/dateFormat';
 import priceFormat from '../../helpers/priceFormat';
 import Header from '../../components/Header';
-import easyFetch from '../../helpers/fetch';
+import easyFetch from '../../helpers/easyFetch';
 import dataTestId from '../../helpers/dataTestIds';
 
 function Order({ token, role }) {

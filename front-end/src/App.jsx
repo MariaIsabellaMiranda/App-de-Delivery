@@ -42,7 +42,7 @@ function App({ status, role }) {
         {!status || role !== 'seller' ? (
           <Redirect to="/" />
         ) : (
-          <Order type="seller" />
+          <Order />
         )}
       </Route>
       {/* <Route exact path="/admin/manage">
