@@ -20,6 +20,21 @@ const VALID_PAYLOAD = {
   }]
 };
 
+const INVALID_PAYLOAD_TRANSACTION = {
+  sellerId: 2,
+  totalPrice: 50.00,
+  deliveryAddress: 'Rua Abílio Sampaio',
+  deliveryNumber: "450",
+  products: [{
+    id: 20,
+    quantity: 5
+  },
+  {
+    id: 2,
+    quantity: 6
+  }]
+};
+
 const SEQUELIZE_CREATED_SALE = {
   id: 1,
 };
@@ -50,4 +65,5 @@ module.exports = {
   INVALID_TOKEN,
   UNAUTHORIZED_ERROR_TOKEN,
   NOT_FOUND_ERROR_TOKEN,
+  INVALID_PAYLOAD_TRANSACTION,
 }

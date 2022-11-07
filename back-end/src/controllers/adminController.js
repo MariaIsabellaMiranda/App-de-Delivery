@@ -13,7 +13,7 @@ const deleteUser = async (req, res) => {
   return res.status(200).end();
 };
 
-const getUsers = async (req, res) => {
+const getUsers = async (_req, res) => {
   const { id: adminId } = res.locals.user; 
   const users = await adminService.getUsers(adminId);
   return res.status(200).json(users);
