@@ -1,12 +1,14 @@
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import lS from 'manager-local-storage';
 import { logoutUser } from '../../redux/actions/userAction';
 import dataTestIds from '../../helpers/dataTestIds';
 
 function Header({ dispatch, name }) {
-  const history = useHistory('/');
+  const history = useHistory();
   const logout = () => {
+    lS.remove(['user', 'cart']);
     dispatch(logoutUser());
     history.push('/login');
   };
