@@ -1,0 +1,71 @@
+._page_login {
+  align-items: center;
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+._page_login ._logo {
+  width: 80px;
+}
+
+._page_login ._login_form {
+  align-items: center;
+  background-color: white;
+  border-radius: 0.5em;
+  box-shadow: 0 0 5px rgb(193, 193, 193);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: space-evenly;
+  min-height: 400px;
+  min-width: 400px;
+  padding: 20px;
+}
+
+._page_login ._inputs_area {
+  width: 100%;
+  max-width: 250px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+._page_login ._login_form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8em;
+  gap: 5px;
+  width: 100%;
+}
+
+._page_login ._login_form input {
+  border: none;
+  border-bottom: 2px solid var(--primary-color);
+  outline: none;
+  padding: 5px;
+  width: 100%;
+}
+
+._page_login ._btn_login {
+  padding: 5px 10px;
+}
+
+._page_login ._btn_register {
+  font-size: 0.8em;
+  display: flex;
+  gap: 5px;
+}
+
+._page_login ._btn_register button {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+._page_login ._btn_register button:hover {
+  text-decoration: underline;
+}
