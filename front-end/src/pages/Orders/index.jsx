@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../../components/Header';
 import OrderCard from '../../components/OrderCard';
-import easyFetch from '../../helpers/fetch';
+import easyFetch from '../../helpers/easyFetch';
 
 function Orders({ token, role }) {
   const [orders, setOrders] = useState([]);
@@ -22,7 +22,7 @@ function Orders({ token, role }) {
       setOrders(ordersJson);
     };
     getOrders();
-  }, [role]);
+  }, [role, token]);
 
   return (
     <div>

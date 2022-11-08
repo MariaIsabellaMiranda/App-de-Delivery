@@ -8,6 +8,7 @@ import Products from './pages/Products';
 import Checkout from './pages/Checkout';
 import Order from './pages/Order';
 import Orders from './pages/Orders';
+import AdminManage from './pages/AdminManage';
 
 function App({ status, role }) {
   const routes = {
@@ -15,6 +16,9 @@ function App({ status, role }) {
     seller: '/seller/orders',
     administrator: '/admin/manage',
   };
+
+  const adminOrLogged = !status && role === 'administrator';
+
   return (
     <Switch>
       <Route exact path="/login">
@@ -30,24 +34,20 @@ function App({ status, role }) {
         {!status ? <Redirect to="/" /> : <Checkout />}
       </Route>
       <Route exact path="/customer/orders/:orderId">
-        {!status || role !== 'customer' ? <Redirect to="/" /> : <Order />}
+        {adminOrLogged ? <Redirect to="/" /> : <Order />}
       </Route>
       <Route exact path="/customer/orders">
-        {!status || role !== 'customer' ? <Redirect to="/" /> : <Orders />}
+        {adminOrLogged ? <Redirect to="/" /> : <Orders />}
       </Route>
       <Route exact path="/seller/orders">
-        {!status || role !== 'seller' ? <Redirect to="/" /> : <Orders />}
+        {adminOrLogged ? <Redirect to="/" /> : <Orders />}
       </Route>
       <Route exact path="/seller/orders/:orderId">
-        {!status || role !== 'seller' ? (
-          <Redirect to="/" />
-        ) : (
-          <Order type="seller" />
-        )}
+        {adminOrLogged ? <Redirect to="/" /> : <Order />}
       </Route>
-      {/* <Route exact path="/admin/manage">
-        {!status || role !== 'admin' ? <Redirect to="/" /> : <h1>ADM</h1>}
-      </Route> */}
+      <Route exact path="/admin/manage">
+        {!status || role !== 'administrator' ? <Redirect to="/" /> : <AdminManage />}
+      </Route>
       <Route exact path="/">
         {!status ? <Redirect to="/login" /> : <Redirect to={ routes[role] } />}
       </Route>

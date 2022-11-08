@@ -6,7 +6,4 @@ export const loginUser = (payload) => {
   return { type: LOGIN, payload };
 };
 
-export const logoutUser = () => {
-  lS.remove(['user', 'cart']);
-  return { type: LOGOUT };
-};
+export const logoutUser = () => ({ type: LOGOUT });

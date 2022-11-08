@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { loginUser } from '../../redux/actions/userAction';
-import easyFetch from '../../helpers/fetch';
+import easyFetch from '../../helpers/easyFetch';
 import dataTestIds from '../../helpers/dataTestIds';
+import { validateLogin } from '../../helpers/validateAccess';
 
 function Login({ dispatch }) {
   const history = useHistory();
@@ -13,7 +14,9 @@ function Login({ dispatch }) {
   const [formIsValid, setFormIsValid] = useState(false);
 
   const handleChanges = ({ id, value }) => {
-    setCredentials({ ...credentials, [id]: value });
+    const newValue = { ...credentials, [id]: value };
+    setCredentials(newValue);
+    setFormIsValid(validateLogin(newValue));
   };
 
   const onSubmitForm = async (e) => {
@@ -31,21 +34,6 @@ function Login({ dispatch }) {
     }
     dispatch(loginUser(userData));
   };
-
-  useEffect(() => {
-    const validateForm = () => {
-      const minLengthPassword = 6;
-      const emailFormat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-      const emailIsValid = emailFormat.test(credentials.email);
-      const passwordIsValid = credentials.password.length >= minLengthPassword;
-      if (emailIsValid && passwordIsValid) {
-        setFormIsValid(true);
-      } else {
-        setFormIsValid(false);
-      }
-    };
-    validateForm();
-  }, [credentials]);
 
   return (
     <div>

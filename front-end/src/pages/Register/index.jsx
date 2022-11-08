@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import easyFetch from '../../helpers/fetch';
+import easyFetch from '../../helpers/easyFetch';
 import { loginUser } from '../../redux/actions/userAction';
 import dataTestIds from '../../helpers/dataTestIds';
+import { validateRegister } from '../../helpers/validateAccess';
 
 function Register({ dispatch }) {
   const [apiError, setApiError] = useState('');
@@ -15,7 +16,9 @@ function Register({ dispatch }) {
   const [registerIsValid, setRegisterIsValid] = useState(false);
 
   const handleChanges = ({ id, value }) => {
-    setNewRegister({ ...newRegister, [id]: value });
+    const newValues = { ...newRegister, [id]: value };
+    setNewRegister(newValues);
+    setRegisterIsValid(validateRegister(newValues));
   };
 
   const onSubmitRegister = async (e) => {
@@ -33,24 +36,6 @@ function Register({ dispatch }) {
     }
     dispatch(loginUser(registerData));
   };
-
-  useEffect(() => {
-    const validateForm = () => {
-      const minLengthName = 12;
-      const minLengthPassword = 6;
-      const emailFormat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-      const emailIsValid = emailFormat.test(newRegister.email);
-      const nameIsValid = newRegister.name.length >= minLengthName;
-      const passwordIsValid = newRegister.password.length >= minLengthPassword;
-      console.log(emailIsValid, passwordIsValid, nameIsValid);
-      if (emailIsValid && passwordIsValid && nameIsValid) {
-        setRegisterIsValid(true);
-      } else {
-        setRegisterIsValid(false);
-      }
-    };
-    validateForm();
-  }, [newRegister]);
 
   return (
     <div>
