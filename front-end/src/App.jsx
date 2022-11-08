@@ -10,7 +10,6 @@ import Order from './pages/Order';
 import Orders from './pages/Orders';
 import AdminManage from './pages/AdminManage';
 import './App.css';
-import './colors/colors.css';
 
 function App({ status, role }) {
   const routes = {

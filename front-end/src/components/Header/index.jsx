@@ -5,7 +5,7 @@ import lS from 'manager-local-storage';
 import { logoutUser } from '../../redux/actions/userAction';
 import dataTestIds from '../../helpers/dataTestIds';
 import logo from '../../images/logo.png';
-import './styles/Header.css';
+// import './styles/Header.css';
 
 function Header({ dispatch, name, role }) {
   const history = useHistory();
