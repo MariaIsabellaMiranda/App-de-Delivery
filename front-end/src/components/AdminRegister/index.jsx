@@ -1,7 +1,11 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import easyFetch from '../../helpers/easyFetch';
 import { validateRegister } from '../../helpers/validateAccess';
+import dataTestId from '../../helpers/dataTestIds';
 
-function AdminRegister() {
+function AdminRegister({ token }) {
   const [registerData, setRegisterData] = useState({
     name: '',
     email: '',
@@ -9,15 +13,26 @@ function AdminRegister() {
     role: 'customer',
   });
   const [validRegister, setValidRegister] = useState(false);
+  const [errorRegister, setErrorRegister] = useState('');
 
   const handleChange = ({ target }) => {
     const newValues = { ...registerData, [target.name]: target.value };
     setRegisterData(newValues);
     setValidRegister(validateRegister(newValues));
+    setErrorRegister('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const CREATED = 201;
+    const response = await easyFetch(
+      'http://localhost:3001/adm/register',
+      { Authorization: token },
+      'POST',
+      registerData,
+    );
+    const responseJSON = await response.json();
+    if (response.status !== CREATED) return setErrorRegister(responseJSON);
   };
 
   const { name, email, password, role } = registerData;
@@ -27,6 +42,7 @@ function AdminRegister() {
       <label htmlFor="name">
         Nome
         <input
+          data-testid={ dataTestId('64') }
           type="text"
           name="name"
           id="name"
@@ -37,6 +53,7 @@ function AdminRegister() {
       <label htmlFor="email">
         Email
         <input
+          data-testid={ dataTestId('65') }
           type="text"
           name="email"
           id="email"
@@ -47,6 +64,7 @@ function AdminRegister() {
       <label htmlFor="password">
         Senha
         <input
+          data-testid={ dataTestId('66') }
           type="text"
           name="password"
           id="password"
@@ -56,16 +74,40 @@ function AdminRegister() {
       </label>
       <label htmlFor="role">
         Tipo
-        <select name="role" id="role" value={ role } onChange={ handleChange }>
+        <select
+          name="role"
+          id="role"
+          value={ role }
+          onChange={ handleChange }
+          data-testid={ dataTestId('68') }
+        >
           <option value="customer">Cliente</option>
           <option value="seller">Vendedor</option>
         </select>
       </label>
-      <button type="submit" disabled={ !validRegister } onClick={ handleSubmit }>
+      <button
+        data-testid={ dataTestId('67') }
+        type="submit"
+        disabled={ !validRegister }
+        onClick={ handleSubmit }
+      >
         Cadastrar
       </button>
+      <span
+        data-testid={ dataTestId('74') }
+      >
+        {errorRegister.message}
+      </span>
     </form>
   );
 }
 
-export default AdminRegister;
+const mapStateToProps = (state) => ({
+  token: state.userReducer.token,
+});
+
+export default connect(mapStateToProps)(AdminRegister);
+
+AdminRegister.propTypes = {
+  token: PropTypes.string.isRequired,
+};
