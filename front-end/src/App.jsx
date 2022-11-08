@@ -9,6 +9,7 @@ import Checkout from './pages/Checkout';
 import Order from './pages/Order';
 import Orders from './pages/Orders';
 import AdminManage from './pages/AdminManage';
+import './App.css';
 
 function App({ status, role }) {
   const routes = {

@@ -6,6 +6,7 @@ const tokenMiddleware = (req, res, next) => {
   if (!token) throw new NotFoundError('Token not found');
   const decoded = jwt.validateAccessToken(token);
   res.locals.user = decoded;
+  req.userId = decoded.id;
   next();
 };
 
