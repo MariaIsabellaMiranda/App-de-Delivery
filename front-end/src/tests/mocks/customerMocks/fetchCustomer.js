@@ -1,7 +1,7 @@
 const ordersIdMock = require('./ordersIdMock');
 const ordersMock = require('./ordersMock');
 
-const fetchMocks = (url) => {
+const fetchCustomer = (url) => {
   switch (url) {
   case 'http://localhost:3001/customer/checkout':
     return {
@@ -20,4 +20,4 @@ const fetchMocks = (url) => {
   }
 };
 
-export default fetchMocks;
+export default fetchCustomer;

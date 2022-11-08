@@ -64,16 +64,18 @@ function ProductCard({ productData, updatePrice }) {
         className="_image_product_cart"
       />
       <p data-testid={ `customer_products__element-card-title-${id}` }>{name}</p>
-      <input
-        type="number"
-        name="quantity"
-        id="quantity"
-        placeholder="0"
-        onChange={ handleQty }
-        onKeyUp={ onKeyUp }
-        value={ qtyProduct }
-        data-testid={ `customer_products__input-card-quantity-${id}` }
-      />
+      <label htmlFor="quantity">
+        <input
+          type="number"
+          name="quantity"
+          id="quantity"
+          placeholder="0"
+          onChange={ handleQty }
+          onKeyUp={ onKeyUp }
+          value={ qtyProduct }
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+        />
+      </label>
       <button
         type="button"
         onClick={ addToQty }

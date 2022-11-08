@@ -22,11 +22,11 @@ function Header() {
         to="/customer/orders"
         data-testid="customer_products__element-navbar-link-orders"
       >
-        Meus Pedidos
+        Meus pedidos
       </Link>
-      <p data-testid="customer_products__element-navbar-user-full-name">
+      <h2 data-testid="customer_products__element-navbar-user-full-name">
         {user.name}
-      </p>
+      </h2>
       <Link
         to="/login"
         data-testid="customer_products__element-navbar-link-logout"

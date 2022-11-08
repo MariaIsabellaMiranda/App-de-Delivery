@@ -1,6 +1,6 @@
 const sellersMock = require('./sellersMocks');
 
-const fetchMocks = (url) => {
+const fetchSeller = (url) => {
   switch (url) {
   case 'http://localhost:3001/seller':
     return {
@@ -11,4 +11,4 @@ const fetchMocks = (url) => {
   }
 };
 
-export default fetchMocks;
+export default fetchSeller;

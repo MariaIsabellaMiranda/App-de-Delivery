@@ -20,45 +20,45 @@ describe('Testa a rota /login', () => {
   describe('Testa se a rota login é renderizado no endpoint correto', () => {
     it('Testa se a página de Login é renderizada no endpoint "/login"', () => {
       const { history } = renderWithRouter(<App />, '/');
-  
+
       expect(history.location.pathname).toBe('/login');
     });
   });
-  
+
   describe('Verifica os elementos da página de login', () => {
     it('Testa se existe o input login e se ele é do tipo email', () => {
       renderWithRouter(<App />, '/');
-  
+
       const loginInput = screen.getByLabelText('Login:');
-  
+
       expect(loginInput).toBeInTheDocument();
       expect(loginInput.type).toBe('email');
     });
-  
+
     it('Testa se existe o input de Password e se ele é do tipo password', () => {
       renderWithRouter(<App />, '/');
-  
+
       const passwordInput = screen.getByLabelText('Senha:');
-  
+
       expect(passwordInput).toBeInTheDocument();
       expect(passwordInput.type).toBe('password');
     });
-  
+
     it('Testa se existe os botões de "Login" e "Ainda não tenho conta"', () => {
       renderWithRouter(<App />, '/');
-  
+
       const buttons = screen.getAllByRole('button');
-  
+
       expect(buttons).toHaveLength(2);
       expect(buttons[0]).toHaveValue('Login');
       expect(buttons[1]).toHaveValue('Register');
     });
-  
+
     it('Testa se o botão de "Login" está desabilitado ao renderizar a página', () => {
       renderWithRouter(<App />, '/');
-  
+
       const loginButton = screen.getByRole('button', { name: 'Login' });
-  
+
       expect(loginButton).toBeDisabled();
     });
   });
@@ -77,7 +77,7 @@ describe('Testa a rota /login', () => {
       expect(loginButton).not.toBeDisabled();
     });
   
-    it('Testa se ao digitar somente email inválido o botão continua desabilitado ', () => {
+    it('Testa se ao digitar somente email inválido o botão continua desabilitado', () => {
       renderWithRouter(<App />, '/');
   
       const loginInput = screen.getByLabelText('Login:');
@@ -129,31 +129,31 @@ describe('Testa a rota /login', () => {
 
       const loginInput = screen.getByLabelText('Login:');
       const passwordInput = screen.getByLabelText('Senha:');
-  
+
       userEvent.type(loginInput, EMAIL_VALID);
       userEvent.type(passwordInput, PASSWORD_VALID);
-  
+
       const loginButton = screen.getByRole('button', { name: 'Login' });
-  
+
       userEvent.click(loginButton);
-  
+
       await waitFor(() => {
         expect(history.location.pathname).toBe('/customer/products');
       });
     });
-  
+
     it('Testa se ao clicar no botão "Login", o retorno da requisição é salvo no localStorage', async () => {
       renderWithRouter(<App />, '/');
 
       const loginInput = screen.getByLabelText('Login:');
       const passwordInput = screen.getByLabelText('Senha:');
-  
+
       userEvent.type(loginInput, EMAIL_VALID);
       userEvent.type(passwordInput, PASSWORD_VALID);
-  
+
       const loginButton = screen.getByRole('button', { name: 'Login' });
       userEvent.click(loginButton);
-  
+
       await waitFor(() => {
         expect(window.localStorage.getItem('user')).toEqual(storageLoginMock);
       });
