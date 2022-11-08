@@ -1,0 +1,19 @@
+/* ._header {
+  background-color: var(--primary-color);
+  display: flex;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  justify-content: space-between;
+}
+
+._navbar_header {
+  display: flex;
+  gap: 20px;
+}
+
+._right_content_header {
+  display: flex;
+  gap: 20px;
+} */

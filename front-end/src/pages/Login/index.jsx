@@ -19,6 +19,7 @@ function Login({ dispatch }) {
     const newValue = { ...credentials, [id]: value };
     setCredentials(newValue);
     setFormIsValid(validateLogin(newValue));
+    setApiError(false);
   };
 
   const onSubmitForm = async (e) => {
@@ -52,9 +53,6 @@ function Login({ dispatch }) {
               data-testid={ dataTestIds('1') }
             />
           </label>
-          {apiError && (
-            <p data-testid={ dataTestIds('5') }>{apiError}</p>
-          )}
           <label htmlFor="password">
             Senha:
             <input
@@ -65,6 +63,11 @@ function Login({ dispatch }) {
               data-testid={ dataTestIds('2') }
             />
           </label>
+          {apiError && (
+            <p data-testid={ dataTestIds('5') } className="_error_message">
+              {apiError}
+            </p>
+          )}
         </div>
         <button
           type="submit"
@@ -75,9 +78,7 @@ function Login({ dispatch }) {
         >
           Login
         </button>
-        <span
-          className="_btn_register"
-        >
+        <span className="_btn_register">
           Ainda não tem conta?
           <button
             type="button"
