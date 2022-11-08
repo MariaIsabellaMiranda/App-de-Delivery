@@ -1,4 +1,4 @@
-/* @keyframes toTop {
+@keyframes toTop {
   
   0% {
     opacity: 0%;
@@ -107,4 +107,4 @@
 ._page_login ._btn_register button:hover {
   text-decoration: underline;
   color: var(--secondary-color);
-} */
+}
