@@ -7,7 +7,7 @@ import easyFetch from '../../helpers/easyFetch';
 import dataTestIds from '../../helpers/dataTestIds';
 import { validateLogin } from '../../helpers/validateAccess';
 import logo from '../../images/logo.png';
-// import './styles/Login.css';
+import './styles/Login.css';
 
 function Login({ dispatch }) {
   const history = useHistory();

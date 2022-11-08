@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import lS from 'manager-local-storage';
 import { logoutUser } from '../../redux/actions/userAction';
 import dataTestIds from '../../helpers/dataTestIds';
-import logo from '../../images/logo.png';
-import './styles/Header.css';
 
 function Header({ dispatch, name, role }) {
   const history = useHistory();
@@ -22,7 +20,6 @@ function Header({ dispatch, name, role }) {
       <nav className="_navbar_header">
         {!isAdmin && (
           <>
-            <img src={ logo } alt="" className="_logo" />
             <Link
               to="/customer/products"
               data-testid={ dataTestIds('11') }

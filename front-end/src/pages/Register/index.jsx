@@ -7,7 +7,7 @@ import { loginUser } from '../../redux/actions/userAction';
 import dataTestIds from '../../helpers/dataTestIds';
 import { validateRegister } from '../../helpers/validateAccess';
 import logo from '../../images/logo.png';
-// import './styles/Register.css';
+import './styles/Register.css';
 
 function Register({ dispatch }) {
   const history = useHistory();
