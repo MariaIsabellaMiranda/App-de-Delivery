@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { removeFromCart } from '../../helpers/managerCart';
 import priceFormat from '../../helpers/priceFormat';
-import dataTestIds from '../../helpers/dataTestIds';
+import dataTestId from '../../helpers/dataTestIds';
 
 function CheckoutTableItem({ cartItem, index, updateCartItems }) {
   const { name, quantity, price, id } = cartItem;
@@ -14,24 +14,24 @@ function CheckoutTableItem({ cartItem, index, updateCartItems }) {
   return (
     <tr>
       <td
-        data-testid={ dataTestIds('22', index) }
+        data-testid={ dataTestId('22', index) }
       >
         {index + 1}
       </td>
       <td
-        data-testid={ dataTestIds('23', index) }
+        data-testid={ dataTestId('23', index) }
       >
         {name}
       </td>
       <td
-        data-testid={ dataTestIds('24', index) }
+        data-testid={ dataTestId('24', index) }
       >
         {quantity}
       </td>
       <td>
         <span>R$ </span>
         <span
-          data-testid={ dataTestIds('25', index) }
+          data-testid={ dataTestId('25', index) }
         >
           {priceFormat(price)}
         </span>
@@ -39,13 +39,13 @@ function CheckoutTableItem({ cartItem, index, updateCartItems }) {
       <td>
         <span>R$ </span>
         <span
-          data-testid={ dataTestIds('26', index) }
+          data-testid={ dataTestId('26', index) }
         >
           {priceFormat(Number(price) * quantity)}
         </span>
       </td>
       <td
-        data-testid={ dataTestIds('27', index) }
+        data-testid={ dataTestId('27', index) }
       >
         <button type="button" onClick={ removeItem }>Remover</button>
       </td>
