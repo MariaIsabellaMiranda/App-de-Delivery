@@ -5,7 +5,7 @@ import easyFetch from '../../helpers/easyFetch';
 import { validateRegister } from '../../helpers/validateAccess';
 import dataTestId from '../../helpers/dataTestIds';
 
-function AdminRegister({ token }) {
+function AdminRegister({ token, updateUsers }) {
   const [registerData, setRegisterData] = useState({
     name: '',
     email: '',
@@ -33,6 +33,7 @@ function AdminRegister({ token }) {
     );
     const responseJSON = await response.json();
     if (response.status !== CREATED) return setErrorRegister(responseJSON);
+    updateUsers();
   };
 
   const { name, email, password, role } = registerData;
@@ -110,4 +111,5 @@ export default connect(mapStateToProps)(AdminRegister);
 
 AdminRegister.propTypes = {
   token: PropTypes.string.isRequired,
+  updateUsers: PropTypes.func.isRequired,
 };
