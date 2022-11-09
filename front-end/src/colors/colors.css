@@ -2,17 +2,17 @@
 
   --primary-color: #e73a31;
 
-  --secondary-color: rgb(201, 39, 39);
+  --secondary-color: #c92727;
 
-  --contrast-color-1: rgb(241, 241, 241);
+  --contrast-color-1: #f1f1f1;
 
-  --contrast-color-2: rgb(220, 220, 220);
+  --contrast-color-2: gainsboro;
 
-  --status-pending: rgb(135, 135, 135);
+  --status-pending: #878787;
 
-  --status-preparing: rgb(220, 176, 0);
+  --status-preparing: #dcb000;
 
-  --status-road: rgb(0, 132, 203);
+  --status-road: #0084cb;
 
-  --status-received: rgb(37, 182, 83);
+  --status-received: #25b653;
 }
