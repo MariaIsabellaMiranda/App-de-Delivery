@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import lS from 'manager-local-storage';
-import CheckoutDelivery from '../../components/CheckoutDeliveryData/CheckoutDelivery';
+import CheckoutDelivery from '../../components/CheckoutDelivery';
 import CheckoutTable from '../../components/CheckoutTable';
 import Header from '../../components/Header';
 import { getTotalPrice } from '../../helpers/managerCart';
 import priceFormat from '../../helpers/priceFormat';
 import dataTestIds from '../../helpers/dataTestIds';
+import './styles/Checkout.css';
 
 function Checkout() {
   const [cartItems, setCartItems] = useState(lS.get('cart') ?? []);
@@ -17,18 +18,21 @@ function Checkout() {
   };
 
   return (
-    <>
+    <div className="_page_checkout">
       <Header />
-      <span>Checkout</span>
-      <CheckoutTable updateCartItems={ updateCartItems } cartItems={ cartItems } />
-      <span>
-        <span>R$ </span>
-        <span data-testid={ dataTestIds('28') }>
-          {priceFormat(price)}
+      <h1>Checkout</h1>
+      <main>
+        <CheckoutTable updateCartItems={ updateCartItems } cartItems={ cartItems } />
+        <span className="_price">
+          <span className="_subtotal">Subtotal: </span>
+          <span>R$ </span>
+          <span data-testid={ dataTestIds('28') }>
+            {priceFormat(price)}
+          </span>
         </span>
-      </span>
-      <CheckoutDelivery totalPrice={ price } cartItems={ cartItems } />
-    </>
+        <CheckoutDelivery totalPrice={ price } cartItems={ cartItems } />
+      </main>
+    </div>
   );
 }
 

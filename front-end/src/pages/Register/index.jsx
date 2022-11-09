@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Icon } from '@iconify/react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import easyFetch from '../../helpers/easyFetch';
 import { loginUser } from '../../redux/actions/userAction';
 import dataTestIds from '../../helpers/dataTestIds';
 import { validateRegister } from '../../helpers/validateAccess';
-import logo from '../../images/logo.png';
-// import './styles/Register.css';
+import './styles/Register.css';
+import logo from '../../helpers/logo';
 
 function Register({ dispatch }) {
   const history = useHistory();
@@ -44,7 +45,7 @@ function Register({ dispatch }) {
   return (
     <div className="_page_register">
       <form onSubmit={ onSubmitRegister } className="_register_form">
-        <img src={ logo } alt="" className="_logo" />
+        <Icon icon={ logo } className="_logo" />
         <div className="_inputs_area">
           <label htmlFor="name">
             Nome:

@@ -1,0 +1,18 @@
+:root {
+
+  --primary-color: #e73a31;
+
+  --secondary-color: #c92727;
+
+  --contrast-color-1: #f1f1f1;
+
+  --contrast-color-2: gainsboro;
+
+  --status-pending: #878787;
+
+  --status-preparing: #dcb000;
+
+  --status-road: #0084cb;
+
+  --status-received: #25b653;
+}

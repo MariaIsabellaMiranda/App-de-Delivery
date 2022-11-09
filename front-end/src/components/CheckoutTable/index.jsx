@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import CheckoutTableItem from '../CheckoutTableItem';
+import './styles/CheckoutTable.css';
 
 function CheckoutTable({ cartItems, updateCartItems }) {
   return (
-    <table>
+    <table className="_checkout_table">
       <tbody>
         <tr>
           <th>Item</th>

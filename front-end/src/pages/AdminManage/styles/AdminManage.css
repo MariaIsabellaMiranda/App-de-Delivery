@@ -1,0 +1,14 @@
+._page_admin {
+  height: 100vh;
+  min-height: 500px;
+  padding-top: 60px;
+}
+
+._page_admin main {
+  align-items: flex-start;
+  display: flex;
+  gap: 20px;
+  justify-content: space-evenly;
+  min-height: calc(100vh - 60px);
+  padding: 60px;
+}

@@ -1,0 +1,27 @@
+._page_checkout {
+  padding-top: 60px;
+}
+
+._page_checkout h1 {
+  color: var(--primary-color);
+  padding: 40px 20px;
+}
+
+._page_checkout main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+._page_checkout ._subtotal {
+  color: #444;
+}
+
+._page_checkout ._price {
+  color: var(--primary-color);
+  font-size: 1.2em;
+  font-weight: 800;
+  padding: 20px;
+  text-align: end;
+}
