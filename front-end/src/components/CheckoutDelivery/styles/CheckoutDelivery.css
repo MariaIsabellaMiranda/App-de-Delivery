@@ -1,36 +1,36 @@
 ._checkout_delivery {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  align-items: flex-start;
 }
 
 ._checkout_delivery ._inputs_area {
+  align-items: center;
   display: flex;
   gap: 30px;
-  align-items: center;
   margin-bottom: 30px;
 }
 
 ._checkout_delivery label {
   display: flex;
   flex-direction: column;
-  gap: 10px;
   font-size: 0.8em;
+  gap: 10px;
 }
 
 :is(._checkout_delivery) input, select {
-  padding: 5px;
-  outline: none;
+  background: none;
   border: none;
   border-bottom: 2px solid var(--primary-color);
-  background: none;
   min-width: 180px;
+  outline: none;
+  padding: 5px;
 }
 
 ._checkout_delivery h2 {
-  padding: 40px 0;
   color: var(--primary-color);
+  padding: 40px 0;
 }
 
 ._checkout_delivery ._btn_checkout {
