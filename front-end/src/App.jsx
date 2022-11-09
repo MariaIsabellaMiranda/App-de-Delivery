@@ -18,7 +18,9 @@ function App({ status, role }) {
     administrator: '/admin/manage',
   };
 
-  const adminOrLogged = !status && role === 'administrator';
+  const sellerLogged = !status || role !== 'seller';
+  const customerLogged = !status || role !== 'customer';
+  const admLogged = !status || role !== 'administrator';
 
   return (
     <Switch>
@@ -35,19 +37,19 @@ function App({ status, role }) {
         {!status ? <Redirect to="/" /> : <Checkout />}
       </Route>
       <Route exact path="/customer/orders/:orderId">
-        {adminOrLogged ? <Redirect to="/" /> : <Order />}
+        {customerLogged ? <Redirect to="/" /> : <Order />}
       </Route>
       <Route exact path="/customer/orders">
-        {adminOrLogged ? <Redirect to="/" /> : <Orders />}
+        {customerLogged ? <Redirect to="/" /> : <Orders />}
       </Route>
       <Route exact path="/seller/orders">
-        {adminOrLogged ? <Redirect to="/" /> : <Orders />}
+        {sellerLogged ? <Redirect to="/" /> : <Orders />}
       </Route>
       <Route exact path="/seller/orders/:orderId">
-        {adminOrLogged ? <Redirect to="/" /> : <Order />}
+        {sellerLogged ? <Redirect to="/" /> : <Order />}
       </Route>
       <Route exact path="/admin/manage">
-        {!status || role !== 'administrator' ? <Redirect to="/" /> : <AdminManage />}
+        {admLogged ? <Redirect to="/" /> : <AdminManage />}
       </Route>
       <Route exact path="/">
         {!status ? <Redirect to="/login" /> : <Redirect to={ routes[role] } />}
