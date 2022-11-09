@@ -1,9 +1,10 @@
 @keyframes toTop {
-  
+
   0% {
     opacity: 0%;
     transform: translateY(20px);
   }
+
   100% {
     opacity: 100%;
     transform: translateY(0);
@@ -11,82 +12,82 @@
 }
 
 ._product_card {
+  align-items: flex-start;
+  animation: toTop 1s;
   background-color: var(--contrast-color-1);
-  padding: 0 0 20px 0;
+  box-shadow: 0 0 5px #e4e4e4;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 10px;
-  box-shadow: 0 0 5px rgb(228, 228, 228);
-  animation: toTop 1s;
+  padding-bottom: 20px;
 }
 
 ._product_card ._product_details {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 10px;
-  align-items: flex-start;
 }
 
 ._product_card ._product_details p {
   color: var(--primary-color);
   font-weight: 600;
-  width: 180px;
-  text-overflow: ellipsis;
   overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
+  width: 180px;
 }
 
 ._product_card ._product_details ._price {
-  color: rgb(68, 68, 68);
+  color: #444;
 }
 
 ._image_product_cart {
-  height: 150px;
-  width: 100%;
-  object-fit: contain;
   background-color: white;
+  height: 150px;
+  object-fit: contain;
   padding: 10px;
+  width: 100%;
 }
 
 ._product_card ._price_control {
   display: flex;
-  justify-content: center;
-  width: 100%;
   gap: 5px;
+  justify-content: center;
   margin-top: 10px;
+  width: 100%;
 }
 
 ._product_card ._price_control input {
-  width: 50px;
-  text-align: center;
   border: none;
   border-radius: 25px;
   outline: none;
   padding: 5px;
+  text-align: center;
+  width: 50px;
 }
 
 ._product_card ._price_control
 input::-webkit-outer-spin-button,
 ._product_card ._price_control
 input::-webkit-inner-spin-button {
-  appearance: none;
   -webkit-appearance: none;
+  appearance: none;
   margin: 0;
 }
 
 ._product_card ._price_control button {
-  height: 30px;
-  width: 30px;
+  align-items: center;
   border: none;
   color: var(--primary-color);
   cursor: pointer;
-  font-weight: 800;
-  font-size: 1.3em;
   display: flex;
-  align-items: center;
+  font-size: 1.3em;
+  font-weight: 800;
+  height: 30px;
   justify-content: center;
+  width: 30px;
 }
 
 ._product_card ._price_control button:hover {
