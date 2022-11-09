@@ -41,9 +41,9 @@ function Header({ dispatch, name, role }) {
           Gerenciar Usuários
         </Link>
       )}
-      <p data-testid={ dataTestIds('13') }>
+      <h2 data-testid={ dataTestIds('13') }>
         {name}
-      </p>
+      </h2>
       <Link
         to="/login"
         data-testid={ dataTestIds('14') }
