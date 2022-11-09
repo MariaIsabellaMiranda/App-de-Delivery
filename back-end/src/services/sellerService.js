@@ -1,4 +1,5 @@
-const { User } = require('../database/models');
+const { User, Sale, Product } = require('../database/models');
+const NotFoundError = require('../errors/NotFoundError');
 
 const findAll = async () => User.findAll({
   where: { role: 'seller' },
@@ -7,4 +8,34 @@ const findAll = async () => User.findAll({
   },
 });
 
-module.exports = { findAll };
+const getOrders = async (sellerId) => {
+  const orders = Sale.findAll({
+  where: { sellerId },
+  attributes: {
+    exclude: ['userId', 'sellerId'],
+  },
+});
+return orders;
+};
+
+const getOrder = async (sellerId, orderId) => {
+const order = await Sale.findOne({
+  where: { id: orderId, sellerId },
+  // raw: true,
+  include: [{
+    model: Product,
+    as: 'products',
+    through: { attributes: ['quantity'] },
+  },
+  {
+    model: User,
+    as: 'seller',
+    attributes: ['name'],
+  },
+],
+});
+if (!order) throw new NotFoundError('Order Not Found');
+return order;
+};
+
+module.exports = { findAll, getOrders, getOrder };

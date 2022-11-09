@@ -1,41 +1,48 @@
-import lS from 'manager-local-storage';
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Header from '../../components/Header';
 import OrderCard from '../../components/OrderCard';
+import easyFetch from '../../helpers/easyFetch';
 
-function Orders() {
+function Orders({ token, role }) {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     const getOrders = async () => {
-      const userData = lS.get('user');
-      console.log(userData.token);
-      const ordersResponse = await fetch(
-        'http://localhost:3001/customer/orders',
-        {
-          method: 'GET',
-          headers: {
-            Authorization: userData.token,
-          },
-        },
+      const URL = role === 'customer'
+        ? 'http://localhost:3001/customer/orders'
+        : 'http://localhost:3001/seller/orders';
+      const response = await easyFetch(
+        URL,
+        { Authorization: token },
+        'GET',
       );
-      const ordersJson = await ordersResponse.json();
+      const ordersJson = await response.json();
       setOrders(ordersJson);
     };
     getOrders();
-  }, []);
+  }, [role, token]);
 
   return (
     <div>
       <Header />
-      {orders.length > 0 && orders.map((order, index) => (
-        <OrderCard
-          key={ index }
-          orderData={ order }
-        />
-      ))}
+      {orders.length > 0
+        && orders.map((order, index) => (
+          <OrderCard key={ index } orderData={ order } />
+        ))}
     </div>
   );
 }
 
-export default Orders;
+const mapStateToProps = (state) => ({
+  token: state.userReducer.token,
+  role: state.userReducer.role,
+});
+
+export default connect(mapStateToProps)(Orders);
+
+Orders.propTypes = {
+  token: PropTypes.string.isRequired,
+  role: PropTypes.string.isRequired,
+};

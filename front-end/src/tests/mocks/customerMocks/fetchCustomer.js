@@ -1,5 +1,5 @@
-const ordersIdMock = require('./ordersIdMock');
-const ordersMock = require('./ordersMock');
+const ordersOneMock = require('../responseMocks/ordersOneMock');
+const ordersMock = require('../responseMocks/ordersMock');
 
 const fetchCustomer = (url) => {
   switch (url) {
@@ -9,7 +9,7 @@ const fetchCustomer = (url) => {
     };
   case 'http://localhost:3001/customer/orders/1':
     return {
-      json: async () => (ordersIdMock),
+      json: async () => (ordersOneMock),
     };
   case 'http://localhost:3001/customer/orders':
     return {

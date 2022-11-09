@@ -3,6 +3,7 @@ const storageLoginMockJSON = {
   email: 'zebirita@email.com',
   role: 'customer',
   token: 'kxkMeYBi75eT8uJnSbfadNE',
+  status: true,
 };
 
 const storageLoginMock = JSON.stringify(storageLoginMockJSON);

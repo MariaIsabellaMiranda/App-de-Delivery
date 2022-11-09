@@ -5,6 +5,7 @@ import CheckoutTable from '../../components/CheckoutTable';
 import Header from '../../components/Header';
 import { getTotalPrice } from '../../helpers/managerCart';
 import priceFormat from '../../helpers/priceFormat';
+import dataTestIds from '../../helpers/dataTestIds';
 
 function Checkout() {
   const [cartItems, setCartItems] = useState(lS.get('cart') ?? []);
@@ -22,7 +23,7 @@ function Checkout() {
       <CheckoutTable updateCartItems={ updateCartItems } cartItems={ cartItems } />
       <span>
         <span>R$ </span>
-        <span data-testid="customer_checkout__element-order-total-price">
+        <span data-testid={ dataTestIds('28') }>
           {priceFormat(price)}
         </span>
       </span>

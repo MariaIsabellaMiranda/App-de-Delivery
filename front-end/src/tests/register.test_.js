@@ -3,7 +3,7 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
-import fetchCommon from './mocks/commonMocks/fetchCommon';
+import fetchRegister from './mocks/pagesMocks/fetchRegister';
 import storageRegisterMock from './mocks/storageMocks/storageRegister';
 
 const NAME_VALID = 'Zé Birita de Souza';
@@ -12,7 +12,7 @@ const EMAIL_VALID = 'zebirita@email.com';
 
 describe('Testa a rota /register', () => {
   beforeEach(() => {
-    jest.spyOn(global, 'fetch').mockImplementation(fetchCommon);
+    jest.spyOn(global, 'fetch').mockImplementation(fetchRegister);
   });
   afterEach(() => {
     jest.clearAllMocks();

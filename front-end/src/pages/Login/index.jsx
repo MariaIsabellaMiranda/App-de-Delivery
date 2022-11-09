@@ -1,59 +1,39 @@
-import lS from 'manager-local-storage';
-import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { loginUser } from '../../redux/actions/userAction';
+import easyFetch from '../../helpers/easyFetch';
+import dataTestIds from '../../helpers/dataTestIds';
+import { validateLogin } from '../../helpers/validateAccess';
 
-export default function Login() {
+function Login({ dispatch }) {
   const history = useHistory();
   const [apiError, setApiError] = useState('');
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [formIsValid, setFormIsValid] = useState(false);
 
   const handleChanges = ({ id, value }) => {
-    setCredentials({ ...credentials, [id]: value });
-  };
-
-  const handleRedirect = (role) => {
-    const routes = {
-      customer: '/customer/products',
-      seller: '/seller/orders',
-      administrator: '/admin/manage',
-    };
-    history.push(routes[role]);
+    const newValue = { ...credentials, [id]: value };
+    setCredentials(newValue);
+    setFormIsValid(validateLogin(newValue));
   };
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
     const OK = 200;
-    const response = await fetch('http://localhost:3001/common/login', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(credentials),
-    });
+    const response = await easyFetch(
+      'http://localhost:3001/common/login',
+      {},
+      'POST',
+      credentials,
+    );
     const userData = await response.json();
     if (response.status !== OK) {
       return setApiError(userData.message);
     }
-    lS.set('user', userData);
-    return handleRedirect(userData.role);
+    dispatch(loginUser(userData));
   };
-
-  useEffect(() => {
-    const validateForm = () => {
-      const minLengthPassword = 6;
-      const emailFormat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-      const emailIsValid = emailFormat.test(credentials.email);
-      const passwordIsValid = credentials.password.length >= minLengthPassword;
-      if (emailIsValid && passwordIsValid) {
-        setFormIsValid(true);
-      } else {
-        setFormIsValid(false);
-      }
-    };
-    validateForm();
-  }, [credentials]);
 
   return (
     <div>
@@ -65,11 +45,11 @@ export default function Login() {
             value={ credentials.email }
             id="email"
             type="email"
-            data-testid="common_login__input-email"
+            data-testid={ dataTestIds('1') }
           />
         </label>
         {apiError && (
-          <p data-testid="common_login__element-invalid-email">{apiError}</p>
+          <p data-testid={ dataTestIds('5') }>{apiError}</p>
         )}
         <label htmlFor="password">
           Senha:
@@ -78,13 +58,13 @@ export default function Login() {
             value={ credentials.password }
             id="password"
             type="password"
-            data-testid="common_login__input-password"
+            data-testid={ dataTestIds('2') }
           />
         </label>
         <button
           type="submit"
           value="Login"
-          data-testid="common_login__button-login"
+          data-testid={ dataTestIds('3') }
           disabled={ !formIsValid }
         >
           Login
@@ -92,7 +72,7 @@ export default function Login() {
         <button
           type="button"
           value="Register"
-          data-testid="common_login__button-register"
+          data-testid={ dataTestIds('4') }
           onClick={ () => history.push('/register') }
         >
           Ainda não tenho conta
@@ -101,3 +81,9 @@ export default function Login() {
     </div>
   );
 }
+
+export default connect()(Login);
+
+Login.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};

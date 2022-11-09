@@ -1,35 +1,52 @@
 import { Link, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import lS from 'manager-local-storage';
+import { logoutUser } from '../../redux/actions/userAction';
+import dataTestIds from '../../helpers/dataTestIds';
 
-function Header() {
+function Header({ dispatch, name, role }) {
   const history = useHistory();
-  const user = lS.get('user');
-
   const logout = () => {
-    history.push('/');
     lS.remove(['user', 'cart']);
+    dispatch(logoutUser());
+    history.push('/login');
   };
+
+  const isAdmin = role === 'administrator';
 
   return (
     <header>
-      <Link
-        to="/customer/products"
-        data-testid="customer_products__element-navbar-link-products"
-      >
-        Produtos
-      </Link>
-      <Link
-        to="/customer/orders"
-        data-testid="customer_products__element-navbar-link-orders"
-      >
-        Meus pedidos
-      </Link>
-      <h2 data-testid="customer_products__element-navbar-user-full-name">
-        {user.name}
-      </h2>
+      {!isAdmin && (
+        <>
+          <Link
+            to="/customer/products"
+            data-testid={ dataTestIds('11') }
+          >
+            Produtos
+          </Link>
+          <Link
+            to="/customer/orders"
+            data-testid={ dataTestIds('12') }
+          >
+            Meus Pedidos
+          </Link>
+        </>
+      )}
+      {isAdmin && (
+        <Link
+          to="/admin/manage"
+          data-testid={ dataTestIds('12') }
+        >
+          Gerenciar Usuários
+        </Link>
+      )}
+      <p data-testid={ dataTestIds('13') }>
+        {name}
+      </p>
       <Link
         to="/login"
-        data-testid="customer_products__element-navbar-link-logout"
+        data-testid={ dataTestIds('14') }
         onClick={ logout }
       >
         Sair
@@ -38,4 +55,15 @@ function Header() {
   );
 }
 
-export default Header;
+const mapStateToProps = (state) => ({
+  name: state.userReducer.name,
+  role: state.userReducer.role,
+});
+
+export default connect(mapStateToProps)(Header);
+
+Header.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  role: PropTypes.string.isRequired,
+};

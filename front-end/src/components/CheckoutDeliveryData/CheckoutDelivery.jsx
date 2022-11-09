@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import lS from 'manager-local-storage';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import easyFetch from '../../helpers/fetch';
+import easyFetch from '../../helpers/easyFetch';
+import dataTestIds from '../../helpers/dataTestIds';
 
-function CheckoutDelivery({ totalPrice, cartItems }) {
+function CheckoutDelivery({ totalPrice, cartItems, token }) {
   const history = useHistory();
   const [sellers, setSellers] = useState([]);
-  const { token } = lS.get('user');
   const [deliveryData, setDeliveryData] = useState({
     seller: 0,
     address: '',
@@ -19,6 +19,7 @@ function CheckoutDelivery({ totalPrice, cartItems }) {
       const sellersResponse = await fetch('http://localhost:3001/seller');
       const sellersJson = await sellersResponse.json();
       setSellers(sellersJson);
+      console.log(sellersJson);
       setDeliveryData({ address: '', number: '', seller: sellersJson[0].id });
     };
     getSellers();
@@ -66,7 +67,7 @@ function CheckoutDelivery({ totalPrice, cartItems }) {
           id="seller"
           onChange={ handleChange }
           value={ seller }
-          data-testid="customer_checkout__select-seller"
+          data-testid={ dataTestIds('29') }
         >
           {sellers.map((sellerData, i) => (
             <option key={ i } value={ sellerData.id }>
@@ -83,7 +84,7 @@ function CheckoutDelivery({ totalPrice, cartItems }) {
           id="address"
           onChange={ handleChange }
           value={ address }
-          data-testid="customer_checkout__input-address"
+          data-testid={ dataTestIds('30') }
         />
       </label>
       <label htmlFor="number">
@@ -94,13 +95,13 @@ function CheckoutDelivery({ totalPrice, cartItems }) {
           id="number"
           onChange={ handleChange }
           value={ number }
-          data-testid="customer_checkout__input-address-number"
+          data-testid={ dataTestIds('31') }
         />
       </label>
       <button
         type="submit"
         onClick={ finalizeOrder }
-        data-testid="customer_checkout__button-submit-order"
+        data-testid={ dataTestIds('32') }
       >
         Finalizar Pedido
       </button>
@@ -108,9 +109,14 @@ function CheckoutDelivery({ totalPrice, cartItems }) {
   );
 }
 
-export default CheckoutDelivery;
+const mapStateToProps = (state) => ({
+  token: state.userReducer.token,
+});
+
+export default connect(mapStateToProps)(CheckoutDelivery);
 
 CheckoutDelivery.propTypes = {
   totalPrice: PropTypes.number.isRequired,
   cartItems: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  token: PropTypes.string.isRequired,
 };

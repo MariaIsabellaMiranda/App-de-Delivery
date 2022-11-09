@@ -1,6 +1,7 @@
 const { Sequelize } = require('sequelize');
 const config = require('../database/config/config');
 const { Sale, SaleProduct, Product, User } = require('../database/models');
+const NotFoundError = require('../errors/NotFoundError');
 
 const sequelize = new Sequelize(config.development);
 
@@ -54,6 +55,7 @@ const getOrder = async (userId, orderId) => {
     },
   ],
   });
+  if (!order) throw new NotFoundError('order Not Found');
   return order;
 };
 
