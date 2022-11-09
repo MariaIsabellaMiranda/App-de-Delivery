@@ -1,13 +1,12 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { screen } from '@testing-library/react';
+import { getByRole, screen } from '@testing-library/react';
 import lS from 'manager-local-storage';
 import { renderWithRouterAndRedux } from './helpers/renderWithRouterAndRedux';
 import App from '../App';
 import storageSellerMock from './mocks/storageMocks/storageSeller';
 import fetchMocks from './mocks/pagesMocks/fetchSellerDetails';
 import { storageStateSeller } from './mocks/storageMocks/storageStatesMock';
-import { INTEGER } from 'sequelize';
 
 const INITIAL_STATE = storageStateSeller;
 const ROUTE = '/seller/orders/1';
@@ -22,91 +21,101 @@ describe('Testa a página de detalhes do pedido do vendedor', () => {
     jest.clearAllMocks();
   });
 
-  it('Teste', () => {
+  describe('Testa os elementos do Header', () => {
+    it('Se os elementos existem', async () => {
+      renderWithRouterAndRedux(<App />, INITIAL_STATE, ROUTE);
 
+      const orders = await screen.findByRole('link', { name: 'Pedidos' });
+      const name = await screen.findByTestId('customer_products__element-navbar-user-full-name');
+      const logout = await screen.findByTestId('customer_products__element-navbar-link-logout');
+
+      expect(orders).toBeInTheDocument();
+      expect(name).toBeInTheDocument();
+      expect(logout).toBeInTheDocument();
+    });
+
+    it('se o name exibido é o mesmo salvo no localStorage', async () => {
+      renderWithRouterAndRedux(<App />, INITIAL_STATE, ROUTE);
+      const user = lS.get('user');
+
+      const name = await screen.findByTestId('customer_products__element-navbar-user-full-name');
+
+      expect(name.innerHTML).toBe(user.name);
+    });
+
+    it('se ao clicar no link Meus Pedidos redireciona para a rota /seller/orders', async () => {
+      const { history } = renderWithRouterAndRedux(<App />, INITIAL_STATE, ROUTE);
+
+      const orders = await screen.findByRole('link', { name: 'Pedidos' });
+      userEvent.click(orders);
+
+      expect(history.location.pathname).toBe('/seller/orders');
+    });
+
+    it('se ao clicar no link de logout redireciona para a rota /login', async () => {
+      const { history } = renderWithRouterAndRedux(<App />, INITIAL_STATE, ROUTE);
+
+      const logout = await screen.findByTestId('customer_products__element-navbar-link-logout');
+      userEvent.click(logout);
+
+      expect(history.location.pathname).toBe('/login');
+    });
   });
 
-  // describe('Testa os elementos do Header', () => {
-  //   it('Se os elementos existem', async () => {
-  //     renderWithRouterAndRedux(<App />, INITIAL_STATE, ROUTE);
+  describe('Testa os elementos da página de detalhes do pedido', () => {
+    it(`Deve existir uma tabela com o cabeçalho de campos Item, Descrição, Quantidade,
+        Valor unitário, Sub-total, Remover Item`, async () => {
+      renderWithRouterAndRedux(<App />, INITIAL_STATE, ROUTE);
 
-  //     const myOrders = await screen.findByRole('link', { name: 'Meus Pedidos' });
-  //     const name = await screen.findByTestId('customer_products__element-navbar-user-full-name');
-  //     const logout = await screen.findByTestId('customer_products__element-navbar-link-logout');
+      const item = await screen.findByRole('columnheader', { name: 'Item' });
+      const description = await screen.findByRole('columnheader', { name: 'Descrição' });
+      const quantity = await screen.findByRole('columnheader', { name: 'Quantidade' })
+      const unityValue = await screen.findByRole('columnheader', { name: /Valor/i });
+      const total = await screen.findByRole('columnheader', { name: 'Sub-total' });
 
-  //     expect(myOrders).toBeInTheDocument();
-  //     expect(name).toBeInTheDocument();
-  //     expect(logout).toBeInTheDocument();
-  //   });
+      expect(item).toBeInTheDocument();
+      expect(description).toBeInTheDocument();
+      expect(quantity).toBeInTheDocument();
+      expect(unityValue).toBeInTheDocument();
+      expect(total).toBeInTheDocument();
+    });
 
-  //   it('se o name exibido é o mesmo salvo no localStorage', async () => {
-  //     renderWithRouterAndRedux(<App />, INITIAL_STATE, ROUTE);
-  //     const user = lS.get('user');
+    it('Testa se existe na tabela os valores que vem da Api', async () => {
+      renderWithRouterAndRedux(<App />, INITIAL_STATE, ROUTE);
 
-  //     const name = await screen.findByTestId('customer_products__element-navbar-user-full-name');
+      const itemId = await screen.findByRole('cell', { name: '1' });
+      const description = await screen.findByRole('cell', { name: 'Skol Lata 250ml' });
+      const quantity = await screen.findByRole('cell', { name: '5' });
+      const unityValue = await screen.findByRole('cell', { name: 'R$ 2,20' });
+      const total = await screen.findByRole('cell', { name: 'R$ 11,00' });
 
-  //     expect(name.innerHTML).toBe(user.name);
-  //   });
+      expect(itemId).toBeInTheDocument();
+      expect(description).toBeInTheDocument();
+      expect(quantity).toBeInTheDocument();
+      expect(unityValue).toBeInTheDocument();
+      expect(total).toBeInTheDocument();
+    });
 
-  //   it('se ao clicar no link Meus Pedidos redireciona para a rota /seller/orders', async () => {
-  //     const { history } = renderWithRouterAndRedux(<App />, INITIAL_STATE, ROUTE);
+    it('Deve existir um campo que exibe a soma total do pedido', async () => {
+      renderWithRouterAndRedux(<App />, INITIAL_STATE, ROUTE);
+  
+      const totalPrice = await screen.findByTestId('seller_order_details__element-order-total-price');
+  
+      expect(totalPrice.innerHTML).toBe('56,00');
+    });
+  });
 
-  //     const myOrders = await screen.findByRole('link', { name: 'Meus Pedidos' });
-  //     userEvent.click(myOrders);
+  describe('Testa botões de alteração de status', () => {
+    it('Para pedidos pendentes deve haver um botão de "Preparar Pedido" habilitado e um de "Saiu para entrega" desabilitado', async () => {
+      renderWithRouterAndRedux(<App />, INITIAL_STATE, ROUTE);
 
-  //     expect(history.location.pathname).toBe('/seller/orders');
-  //   });
+      const status = await screen.findByTestId('seller_order_details__element-order-details-label-delivery-status');
+      const buttonPrepare = await screen.findByRole('button', { name: 'Preparar Pedido'});
+      const buttonRoad = await screen.findByRole('button', { name: 'Saiu para entrega'});
 
-  //   it('se ao clicar no link de logout redireciona para a rota /login', async () => {
-  //     const { history } = renderWithRouterAndRedux(<App />, INITIAL_STATE, ROUTE);
-
-  //     const logout = await screen.findByTestId('customer_products__element-navbar-link-logout');
-  //     userEvent.click(logout);
-
-  //     expect(history.location.pathname).toBe('/login');
-  //   });
-  // });
-
-  // describe('Testa os elementos da página Orders', () => {
-  //   it('Se os elementos com id 1 existem', async () => {
-  //     renderWithRouterAndRedux(<App />, INITIAL_STATE, ROUTE);
-
-  //     const idOrder = await screen.findByTestId('seller_orders__element-order-id-1');
-  //     const status = await screen.findByTestId('seller_orders__element-delivery-status-1');
-  //     const date = await screen.findByTestId('seller_orders__element-order-date-1');
-  //     const totalPrice = await screen.findByTestId('seller_orders__element-card-price-1');
-  //     const addrees = await screen.findAllByTestId('seller_orders__element-card-address-');
-
-  //     expect(idOrder).toBeInTheDocument();
-  //     expect(status).toBeInTheDocument();
-  //     expect(date).toBeInTheDocument();
-  //     expect(totalPrice).toBeInTheDocument();
-  //     expect(addrees).toHaveLength(2);
-  //   });
-
-  //   it('Se os elementos com id 2 existem', async () => {
-  //     renderWithRouterAndRedux(<App />, INITIAL_STATE, ROUTE);
-
-  //     const idOrder = await screen.findByTestId('seller_orders__element-order-id-2');
-  //     const status = await screen.findByTestId('seller_orders__element-delivery-status-2');
-  //     const date = await screen.findByTestId('seller_orders__element-order-date-2');
-  //     const totalPrice = await screen.findByTestId('seller_orders__element-card-price-2');
-  //     const addrees = await screen.findAllByTestId('seller_orders__element-card-address-');
-
-  //     expect(idOrder).toBeInTheDocument();
-  //     expect(status).toBeInTheDocument();
-  //     expect(date).toBeInTheDocument();
-  //     expect(totalPrice).toBeInTheDocument();
-  //     expect(addrees).toHaveLength(2);
-  //   });
-
-  //   it('Se ao clicar no pedido a página é redirecionado para rota daquele pedido', async () => {
-  //     const { history } = renderWithRouterAndRedux(<App />, INITIAL_STATE, ROUTE);
-
-  //     const idOrder = await screen.findByTestId('seller_orders__element-order-id-1');
-  //     userEvent.click(idOrder);
-
-  //     expect(history.location.pathname).toBe('/seller/orders/1');
-  //   });
-  // });
+      expect(status.innerHTML).toBe('Pendente');
+      expect(buttonPrepare).not.toBeDisabled();
+      expect(buttonRoad).toBeDisabled();
+    });
+  });
 });

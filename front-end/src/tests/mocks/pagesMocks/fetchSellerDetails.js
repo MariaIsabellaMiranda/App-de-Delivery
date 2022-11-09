@@ -8,7 +8,7 @@ const fetchMocks = (url) => {
     };
   case 'http://localhost:3001/status':
     return {
-      json: async () => ({ status: 'Preparando' }),
+      json: async () => ({ status: 'Pendente' }),
     };
   default:
     return { json: async () => ([]) };
