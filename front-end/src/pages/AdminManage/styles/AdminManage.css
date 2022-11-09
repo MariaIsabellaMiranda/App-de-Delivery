@@ -1,15 +1,14 @@
 ._page_admin {
-  padding-top: 60px;
   height: 100vh;
   min-height: 500px;
+  padding-top: 60px;
 }
 
 ._page_admin main {
-  display: flex;
-  padding: 60px;
-  gap: 20px;
   align-items: flex-start;
+  display: flex;
+  gap: 20px;
   justify-content: space-evenly;
   min-height: calc(100vh - 60px);
-  /* background-color: red; */
+  padding: 60px;
 }
