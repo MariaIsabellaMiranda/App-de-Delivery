@@ -1,9 +1,10 @@
 @keyframes toTop {
-  
+
   0% {
     opacity: 0%;
     transform: translateY(10px);
   }
+
   100% {
     opacity: 100%;
     transform: translateY(0);
@@ -16,24 +17,22 @@
 }
 
 ._page_order main {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  /* background-color: red; */
-  padding: 20px;
   gap: 40px;
+  padding: 20px;
 }
 
 ._page_order ._header_order {
-  padding: 20px 0;
-  width: 100%;
-  display: flex;
-  gap: 20px;
   align-items: center;
-  justify-content: space-between;
   background-color: var(--contrast-color-1);
   border-radius: 0.5em;
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
   padding: 20px;
+  width: 100%;
 }
 
 ._page_order ._header_order h1 {
@@ -58,25 +57,25 @@
 }
 
 ._page_order ._seller {
-  display: flex;
   align-items: flex-end;
-  gap: 10px;
   color: rgb(86, 86, 86);
+  display: flex;
+  gap: 10px;
 }
 
 ._page_order ._date {
-  font-weight: 800;
   color: rgb(86, 86, 86);
+  font-weight: 800;
 }
 
 ._page_order ._status {
-  background-color: white;
-  padding: 10px;
-  border-radius: 25px;
-  font-weight: 800;
-  display: flex;
-  gap: 10px;
   align-items: center;
+  background-color: white;
+  border-radius: 25px;
+  display: flex;
+  font-weight: 800;
+  gap: 10px;
+  padding: 10px;
 }
 
 ._page_order.pending ._header_order button {
@@ -96,21 +95,21 @@
 }
 
 ._page_order ._header_order button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
   border: none;
-  padding: 10px;
   border-radius: 0.5em;
-  cursor: pointer;
+  bottom: 20px;
   color: white;
-  transition: 0.5s;
+  cursor: pointer;
   font-weight: 800;
+  padding: 10px;
+  position: fixed;
+  right: 20px;
+  transition: 0.5s;
 }
 
 ._page_order ._header_order button:disabled {
-  cursor: not-allowed;
   background-color: var(--contrast-color-1);
+  cursor: not-allowed;
 }
 
 ._page_order ._header_order button:first-child {
@@ -122,11 +121,10 @@
 }
 
 ._page_order ._price {
-  font-weight: 800;
-  display: flex;
-  gap: 10px;
-  font-size: 1.2em;
-  color: rgb(86, 86, 86);
-  animation: to;
   animation: toTop 1s;
+  color: rgb(86, 86, 86);
+  display: flex;
+  font-size: 1.2em;
+  font-weight: 800;
+  gap: 10px;
 }
