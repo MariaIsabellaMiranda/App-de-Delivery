@@ -5,6 +5,7 @@ const fetchMocks = (url) => {
   switch (url) {
   case 'http://localhost:3001/products':
     return {
+      status: 200,
       json: async () => (productsMock),
     };
   case 'http://localhost:3001/seller':

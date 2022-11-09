@@ -1,4 +1,4 @@
-const ordersOneMock = require('../responseMocks/checkoutMock');
+const ordersOneMock = require('../responseMocks/ordersOneMock');
 
 const fetchMocks = (url) => {
   switch (url) {
