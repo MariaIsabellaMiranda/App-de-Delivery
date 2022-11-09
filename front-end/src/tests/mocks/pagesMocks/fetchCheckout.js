@@ -1,5 +1,5 @@
 const sellersMock = require('../responseMocks/sellersMocks');
-
+const ordersOneMock = require('../responseMocks/ordersOneMock');
 const checkoutMock = require('../responseMocks/checkoutMock');
 
 const fetchMocks = (url) => {
@@ -10,10 +10,14 @@ const fetchMocks = (url) => {
     };
   case 'http://localhost:3001/customer/checkout':
     return {
+      status: 201,
       json: async () => (checkoutMock),
     };
+  case 'http://localhost:3001/customer/orders/1':
+    return {
+      json: async () => (ordersOneMock),
+    };
   default:
-    return { json: async () => ([]) };
   }
 };
 

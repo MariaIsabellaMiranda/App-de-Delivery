@@ -1,13 +1,15 @@
 import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import renderWithRouter from './helpers/renderWithRouter';
+import renderWithRouter from './helpers/renderWithRouterAndRedux';
 import App from '../App';
 import storageLoginMock from './mocks/storageMocks/storageLogin';
 import fetchLogin from './mocks/pagesMocks/fecthLogin';
+import { storageStateNotLogged } from './mocks/storageMocks/storageStatesMock';
 
 const PASSWORD_VALID = '123456';
 const EMAIL_VALID = 'zebirita@email.com';
+const INITIAL_STATE = storageStateNotLogged;
 
 describe('Testa a rota /login', () => {
   beforeEach(() => {
@@ -19,7 +21,7 @@ describe('Testa a rota /login', () => {
 
   describe('Testa se a rota login é renderizado no endpoint correto', () => {
     it('Testa se a página de Login é renderizada no endpoint "/login"', () => {
-      const { history } = renderWithRouter(<App />, '/');
+      const { history } = renderWithRouter(<App />, INITIAL_STATE, '/');
   
       expect(history.location.pathname).toBe('/login');
     });
@@ -27,7 +29,7 @@ describe('Testa a rota /login', () => {
   
   describe('Verifica os elementos da página de login', () => {
     it('Testa se existe o input login e se ele é do tipo email', () => {
-      renderWithRouter(<App />, '/');
+      renderWithRouter(<App />, INITIAL_STATE, '/');
   
       const loginInput = screen.getByLabelText('Login:');
   
@@ -36,7 +38,7 @@ describe('Testa a rota /login', () => {
     });
   
     it('Testa se existe o input de Password e se ele é do tipo password', () => {
-      renderWithRouter(<App />, '/');
+      renderWithRouter(<App />, INITIAL_STATE, '/');
   
       const passwordInput = screen.getByLabelText('Senha:');
   
@@ -45,7 +47,7 @@ describe('Testa a rota /login', () => {
     });
   
     it('Testa se existe os botões de "Login" e "Ainda não tenho conta"', () => {
-      renderWithRouter(<App />, '/');
+      renderWithRouter(<App />, INITIAL_STATE, '/');
   
       const buttons = screen.getAllByRole('button');
   
@@ -55,7 +57,7 @@ describe('Testa a rota /login', () => {
     });
   
     it('Testa se o botão de "Login" está desabilitado ao renderizar a página', () => {
-      renderWithRouter(<App />, '/');
+      renderWithRouter(<App />, INITIAL_STATE, '/');
   
       const loginButton = screen.getByRole('button', { name: 'Login' });
   
@@ -65,7 +67,7 @@ describe('Testa a rota /login', () => {
   
   describe('Verifica comportamentos ao digitar nos inputs', () => {
     it('Testa se ao digitar email e senha válidas o botão é habilitado ', () => {
-      renderWithRouter(<App />, '/');
+      renderWithRouter(<App />, INITIAL_STATE, '/');
   
       const loginInput = screen.getByLabelText('Login:');
       const passwordInput = screen.getByLabelText('Senha:');
@@ -78,7 +80,7 @@ describe('Testa a rota /login', () => {
     });
   
     it('Testa se ao digitar somente email inválido o botão continua desabilitado ', () => {
-      renderWithRouter(<App />, '/');
+      renderWithRouter(<App />, INITIAL_STATE, '/');
   
       const loginInput = screen.getByLabelText('Login:');
       const passwordInput = screen.getByLabelText('Senha:');
@@ -92,7 +94,7 @@ describe('Testa a rota /login', () => {
     });
   
     it('Testa se ao digitar somente password inválido o botão continua desabilitado', () => {
-      renderWithRouter(<App />, '/');
+      renderWithRouter(<App />, INITIAL_STATE, '/');
   
       const loginInput = screen.getByLabelText('Login:');
       const passwordInput = screen.getByLabelText('Senha:');
@@ -108,11 +110,11 @@ describe('Testa a rota /login', () => {
   
   describe('Verifica funcionalidade dos botões', () => {
     it(`Testa se ao clicar no botão
-      "Ainda não tenho conta", a página é redirecionada para a rota "/register"`, () => {
-      const { history } = renderWithRouter(<App />, '/');
+      "Registre-se", a página é redirecionada para a rota "/register"`, () => {
+      const { history } = renderWithRouter(<App />, INITIAL_STATE, '/');
   
       const loginButton = screen.getByRole('button', {
-        name: 'Ainda não tenho conta',
+        name: 'Registre-se.',
       });
   
       userEvent.click(loginButton);
@@ -125,7 +127,7 @@ describe('Testa a rota /login', () => {
   
     it(`Testa se ao clicar no botão "Login", a página é
       redirecionada para a rota de acordo com o role do usuário recebido`, async () => {
-      const { history } = renderWithRouter(<App />, '/');
+      const { history } = renderWithRouter(<App />, INITIAL_STATE, '/');
 
       const loginInput = screen.getByLabelText('Login:');
       const passwordInput = screen.getByLabelText('Senha:');
@@ -143,7 +145,7 @@ describe('Testa a rota /login', () => {
     });
   
     it('Testa se ao clicar no botão "Login", o retorno da requisição é salvo no localStorage', async () => {
-      renderWithRouter(<App />, '/');
+      renderWithRouter(<App />, INITIAL_STATE, '/');
 
       const loginInput = screen.getByLabelText('Login:');
       const passwordInput = screen.getByLabelText('Senha:');
@@ -155,7 +157,7 @@ describe('Testa a rota /login', () => {
       userEvent.click(loginButton);
   
       await waitFor(() => {
-        expect(window.localStorage.getItem('user')).toEqual(storageLoginMock);
+        expect(localStorage.getItem('user')).toEqual(storageLoginMock);
       });
     });
   });
