@@ -27,6 +27,9 @@ const ordersOneMock = {
       },
     },
   ],
+  seller: {
+    name: 'Fulana Pereira',
+  },
 };
 
 module.exports = ordersOneMock;

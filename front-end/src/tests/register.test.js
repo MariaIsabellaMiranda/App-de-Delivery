@@ -1,14 +1,16 @@
 import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import renderWithRouter from './helpers/renderWithRouter';
+import renderWithRouter from './helpers/renderWithRouterAndRedux';
 import App from '../App';
 import fetchRegister from './mocks/pagesMocks/fetchRegister';
 import storageRegisterMock from './mocks/storageMocks/storageRegister';
+import { storageStateNotLogged } from './mocks/storageMocks/storageStatesMock';
 
 const NAME_VALID = 'Zé Birita de Souza';
 const PASSWORD_VALID = '123456';
 const EMAIL_VALID = 'zebirita@email.com';
+const INITIAL_STATE = storageStateNotLogged;
 
 describe('Testa a rota /register', () => {
   beforeEach(() => {
@@ -20,7 +22,7 @@ describe('Testa a rota /register', () => {
 
   describe('Testa se a página register é renderizada na rota correta', () => {
     it('Testa se a página Register é renderizada no endpoint "/register"', async () => {
-      const { history } = renderWithRouter(<App />, '/register');
+      const { history } = renderWithRouter(<App />, INITIAL_STATE, '/register');
   
       expect(history.location.pathname).toBe('/register');
     });
@@ -28,7 +30,7 @@ describe('Testa a rota /register', () => {
   
   describe('Verifica os elementos da página Register', () => {
     it('Testa se existe o input name, email e senha', () => {
-      renderWithRouter(<App />, '/register');
+      renderWithRouter(<App />, INITIAL_STATE, '/register');
   
       const nameInput = screen.getByLabelText('Nome:');
       const emailInput = screen.getByLabelText('Email:');
@@ -40,7 +42,7 @@ describe('Testa a rota /register', () => {
     });
   
     it('Testa se o input de Email e Password são dos tipos email e password', () => {
-      renderWithRouter(<App />, '/register');
+      renderWithRouter(<App />, INITIAL_STATE, '/register');
   
       const emailInput = screen.getByLabelText('Email:');
       const passwordInput = screen.getByLabelText('Senha:');
@@ -52,7 +54,7 @@ describe('Testa a rota /register', () => {
     });
   
     it('Testa se existe o botão de "Cadastrar" e se ele está desabilitado ao renderizar a página"', () => {
-      renderWithRouter(<App />, '/register');
+      renderWithRouter(<App />, INITIAL_STATE, '/register');
   
       const registerButton = screen.getByRole('button', { name: 'Cadastrar' });
   
@@ -63,7 +65,7 @@ describe('Testa a rota /register', () => {
   
   describe('Verifica comportamentos ao digitar nos inputs', () => {
     it('Testa se ao digitar nome, email e senha válidas o botão é habilitado ', () => {
-      renderWithRouter(<App />, '/register');
+      renderWithRouter(<App />, INITIAL_STATE, '/register');
   
       const nameInput = screen.getByLabelText('Nome:');
       const emailInput = screen.getByLabelText('Email:');
@@ -79,7 +81,7 @@ describe('Testa a rota /register', () => {
     });
   
     it('Testa se ao digitar somente o nome inválido o botão continua desabilitado ', () => {
-      renderWithRouter(<App />, '/register');
+      renderWithRouter(<App />, INITIAL_STATE, '/register');
   
       const nameInput = screen.getByLabelText('Nome:');
       const emailInput = screen.getByLabelText('Email:');
@@ -95,7 +97,7 @@ describe('Testa a rota /register', () => {
     });
   
     it('Testa se ao digitar somente email inválido o botão continua desabilitado ', () => {
-      renderWithRouter(<App />, '/register');
+      renderWithRouter(<App />, INITIAL_STATE, '/register');
   
       const nameInput = screen.getByLabelText('Nome:');
       const emailInput = screen.getByLabelText('Email:');
@@ -113,7 +115,7 @@ describe('Testa a rota /register', () => {
     it(
       'Testa se ao digitar somente password inválido o botão continua desabilitado',
       () => {
-        renderWithRouter(<App />, '/register');
+        renderWithRouter(<App />, INITIAL_STATE, '/register');
   
         const nameInput = screen.getByLabelText('Nome:');
         const emailInput = screen.getByLabelText('Email:');
@@ -134,7 +136,7 @@ describe('Testa a rota /register', () => {
     it(
       'Testa se ao clicar no botão "Cadastrar", o usuário é redirecionado para a rota /customer/products',
       async () => {
-        const { history } = renderWithRouter(<App />, '/register');
+        const { history } = renderWithRouter(<App />, INITIAL_STATE, '/register');
   
         const nameInput = screen.getByLabelText('Nome:');
         const emailInput = screen.getByLabelText('Email:');
@@ -156,7 +158,7 @@ describe('Testa a rota /register', () => {
   
   describe('Testa localStorage', () => {
     it('Testa se ao clicar no botão "Cadastrar", o retorno da requisição é salvo no localStorage', async () => {
-      renderWithRouter(<App />, '/register');
+      renderWithRouter(<App />, INITIAL_STATE, '/register');
   
       const nameInput = screen.getByLabelText('Nome:');
       const emailInput = screen.getByLabelText('Email:');
