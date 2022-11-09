@@ -1,5 +1,4 @@
-import sellersMock from '../responseMocks/sellersMocks';
-
+const sellersMock = require('../responseMocks/sellersMocks');
 const productsMock = require('../responseMocks/productsMock');
 
 const fetchMocks = (url) => {

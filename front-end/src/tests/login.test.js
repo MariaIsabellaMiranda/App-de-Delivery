@@ -110,11 +110,11 @@ describe('Testa a rota /login', () => {
   
   describe('Verifica funcionalidade dos botões', () => {
     it(`Testa se ao clicar no botão
-      "Ainda não tenho conta", a página é redirecionada para a rota "/register"`, () => {
+      "Registre-se", a página é redirecionada para a rota "/register"`, () => {
       const { history } = renderWithRouter(<App />, INITIAL_STATE, '/');
   
       const loginButton = screen.getByRole('button', {
-        name: 'Ainda não tenho conta',
+        name: 'Registre-se.',
       });
   
       userEvent.click(loginButton);
