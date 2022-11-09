@@ -68,8 +68,12 @@
   width: 50px;
 }
 
-._product_card ._price_control input::-webkit-outer-spin-button,
 ._product_card ._price_control input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+._product_card ._price_control input::-webkit-outer-spin-button {
   appearance: none;
   margin: 0;
 }
