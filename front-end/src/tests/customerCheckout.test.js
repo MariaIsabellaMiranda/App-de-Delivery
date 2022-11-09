@@ -80,11 +80,11 @@ describe('Testes da página de checkout do cliente', () => {
     expect(sellersOptionsvalues).toEqual(sellersNamesList);
   });
 
-  it('O botão “Remove item” deve excluir um produto do pedido', async () => {
+  it('O ícone de lixeira deve excluir um produto do pedido', async () => {
     renderWithRouterAndRedux(<App />, INITIAL_STATE, '/customer/checkout');
 
-    const removeButton = await screen.findAllByRole('button', { name: /Remover/i });
-    
+    const removeButton = await screen.findAllByTestId('button-remove');
+
     const products = lS.get('cart');
     userEvent.click(removeButton[0]);
     const newCartProducts = lS.get('cart');
@@ -97,8 +97,8 @@ describe('Testes da página de checkout do cliente', () => {
   it('Deve existir campos para adicionar endereço e número', async () => {
     renderWithRouterAndRedux(<App />, INITIAL_STATE, '/customer/checkout');
 
-    const addressInput = await screen.findByLabelText('Endereço');
-    const numberInput = await screen.findByLabelText('Número');
+    const addressInput = await screen.findByLabelText('Endereço:');
+    const numberInput = await screen.findByLabelText('Número:');
 
     expect(addressInput).toBeInTheDocument();
     expect(numberInput).toBeInTheDocument();
@@ -112,8 +112,8 @@ describe('Testes da página de checkout do cliente', () => {
     });
     const orderButton = await screen.findByText(/Finalizar Pedido/i);
     expect(orderButton).toBeInTheDocument();
-    const addressInput = await screen.findByLabelText('Endereço');
-    const numberInput = await screen.findByLabelText('Número');
+    const addressInput = await screen.findByLabelText('Endereço:');
+    const numberInput = await screen.findByLabelText('Número:');
 
     userEvent.selectOptions(inputSeller, 'Fulana Pereira');
     userEvent.type(addressInput, 'Rua Visconde de Abaeté');

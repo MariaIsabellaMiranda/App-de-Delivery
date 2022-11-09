@@ -25,12 +25,10 @@ describe('Testa a página de pedidos do vendedor', () => {
     it('Se os elementos existem', async () => {
       renderWithRouterAndRedux(<App />, INITIAL_STATE, ROUTE);
       
-      const products = await screen.findByRole('link', { name: 'Produtos' });
-      const myOrders = await screen.findByRole('link', { name: 'Meus Pedidos' });
+      const myOrders = await screen.findByRole('link', { name: 'Pedidos' });
       const name = await screen.findByTestId('customer_products__element-navbar-user-full-name');
       const logout = await screen.findByTestId('customer_products__element-navbar-link-logout');
       
-      expect(products).not.toBeInTheDocument();
       expect(myOrders).toBeInTheDocument();
       expect(name).toBeInTheDocument();
       expect(logout).toBeInTheDocument();
@@ -45,19 +43,10 @@ describe('Testa a página de pedidos do vendedor', () => {
       expect(name.innerHTML).toBe(user.name);
     });
 
-    it('se ao clicar no link Produtos redireciona para a rota /customer/products', async () => {
-      const { history } = renderWithRouterAndRedux(<App />, INITIAL_STATE, ROUTE);
-
-      const products = await screen.findByRole('link', { name: 'Produtos' });
-      userEvent.click(products);
-      
-      expect(history.location.pathname).toBe('/customer/products');
-    });
-
     it('se ao clicar no link Meus Pedidos redireciona para a rota /seller/orders', async () => {
       const { history } = renderWithRouterAndRedux(<App />, INITIAL_STATE, ROUTE);
 
-      const myOrders = await screen.findByRole('link', { name: 'Meus Pedidos' });
+      const myOrders = await screen.findByRole('link', { name: 'Pedidos' });
       userEvent.click(myOrders);
       
       expect(history.location.pathname).toBe('/seller/orders');

@@ -31,31 +31,33 @@ describe('Testa a rota /customer/products', () => {
   });
 
   describe('verifica os elementos de produtos', () => {
-    // it('verifica se renderiza corretamente as imagens', async () => {
-    //   renderWithRouterAndRedux(<App />, INITIAL_STATE, PRODUCT_ROUTE);
-
-    //   const produtos = await screen.findAllByRole('img');
-    //   const numeroProdutos = 11;
-
-    //   expect(produtos).toHaveLength(numeroProdutos);
-    // });
-
-    it('verifica se renderiza o botão “Add”', async () => {
+    it('verifica se renderiza corretamente as imagens', async () => {
       renderWithRouterAndRedux(<App />, INITIAL_STATE, PRODUCT_ROUTE);
 
-      const addButtons = await screen.findAllByRole('button', { name: 'Add' });
-      const productsQty = 11;
+      const produtos = await screen.findAllByRole('img');
+      const numeroProdutos = 11;
 
-      expect(addButtons).toHaveLength(productsQty);
+      expect(produtos).toHaveLength(numeroProdutos);
+    });
+
+    it('verifica se renderiza os botões “Add”', async () => {
+      renderWithRouterAndRedux(<App />, INITIAL_STATE, PRODUCT_ROUTE);
+
+      for(let i = 0; i > 11; i += 1) {
+        const addButtons = await screen.findByTestId(`customer_products__button-card-add-item-${[i]}`);
+
+        expect(addButtons).toBeInTheDocument();
+      }
     });
 
     it('verifica se renderiza o botão “Remove”', async () => {
       renderWithRouterAndRedux(<App />, INITIAL_STATE, PRODUCT_ROUTE);
 
-      const removeButtons = await screen.findAllByRole('button', { name: 'Remove' });
-      const productsQty = 11;
+      for(let i = 0; i > 11; i += 1) {
+        const addButtons = await screen.findByTestId(`customer_products__button-card-rm-item-${[i]}`);
 
-      expect(removeButtons).toHaveLength(productsQty);
+        expect(addButtons).toBeInTheDocument();
+      }
     });
 
     it('verifica se renderiza o campo para quantidade', async () => {
@@ -113,16 +115,16 @@ describe('Testa a rota /customer/products', () => {
       expect(nomeCliente.innerHTML).toBe(user.name);
     });
 
-    it('verifica se o link “Sair” redireciona para página de login', async () => {
+    it('verifica se o link de logout redireciona para página de login', async () => {
       const { history } = renderWithRouterAndRedux(<App />, INITIAL_STATE, PRODUCT_ROUTE);
 
-      const linkSair = await screen.findByRole('link', { name: 'Sair' });
-      userEvent.click(linkSair);
+      const logout = await screen.findByTestId('customer_products__element-navbar-link-logout');
+      userEvent.click(logout);
 
       expect(history.location.pathname).toBe('/login');
     });
 
-    it('verifica se o link “Sair” limpa do dados do cliente', async () => {
+    it('verifica se o link de logout limpa do dados do cliente', async () => {
       renderWithRouterAndRedux(<App />, INITIAL_STATE, PRODUCT_ROUTE);
 
       const linkLogout = await screen.findByRole('link', { name: 'Meus Pedidos' });
@@ -139,7 +141,7 @@ describe('Testa a rota /customer/products', () => {
     it('verifica se o carrinho é renderizado e está desabilitado', async () => {
       renderWithRouterAndRedux(<App />, INITIAL_STATE, PRODUCT_ROUTE);
 
-      const cart = await screen.findByText(/Ver/i);
+      const cart = await screen.findByTestId('customer_products__button-cart');
 
       expect(cart).toBeInTheDocument();
       expect(cart).toBeDisabled();
@@ -167,9 +169,12 @@ describe('Testa a rota /customer/products', () => {
 
       const addButton = await screen.findByTestId('customer_products__button-card-add-item-1');
       userEvent.click(addButton);
-      const cart = await screen.findByRole('button', { name: /Ver/i });
+
+      const cart = await screen.findByTestId('customer_products__button-cart');
       expect(cart).not.toBeDisabled();
+
       userEvent.click(cart);
+
       expect(history.location.pathname).toBe('/customer/checkout');
     });
   });
