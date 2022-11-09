@@ -20,8 +20,10 @@
 }
 
 ._page_register ._logo {
-  width: 70px;
   margin: 20px;
+  width: 70px;
+  color: var(--primary-color);
+  font-size: 3.5em;
 }
 
 ._page_register ._register_form {
@@ -73,7 +75,7 @@
 ._page_register ._btn_login {
   padding: 10px 20px;
   border: none;
-  border-radius: 25px;
+  border-radius: 0.5em;
   background-color: var(--primary-color);
   color:  white;
   cursor: pointer;

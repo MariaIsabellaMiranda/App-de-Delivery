@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { Icon } from '@iconify/react';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -6,8 +7,8 @@ import { loginUser } from '../../redux/actions/userAction';
 import easyFetch from '../../helpers/easyFetch';
 import dataTestIds from '../../helpers/dataTestIds';
 import { validateLogin } from '../../helpers/validateAccess';
-import logo from '../../images/logo.png';
 import './styles/Login.css';
+import logo from '../../helpers/logo';
 
 function Login({ dispatch }) {
   const history = useHistory();
@@ -41,7 +42,7 @@ function Login({ dispatch }) {
   return (
     <div className="_page_login">
       <form onSubmit={ onSubmitForm } className="_login_form">
-        <img src={ logo } alt="" className="_logo" />
+        <Icon icon={ logo } className="_logo" />
         <div className="_inputs_area">
           <label htmlFor="email">
             Login:

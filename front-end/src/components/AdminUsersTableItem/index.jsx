@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
+import { Icon } from '@iconify/react';
 import { connect } from 'react-redux';
 import easyFetch from '../../helpers/easyFetch';
 import dataTestId from '../../helpers/dataTestIds';
+import './styles/AdminUsersTableItem.css';
 
 function AdminUsersTableItem({ userData, updateUsers, index, token }) {
   const { name, email, role, id } = userData;
@@ -29,11 +31,13 @@ function AdminUsersTableItem({ userData, updateUsers, index, token }) {
       </td>
       <td
         data-testid={ dataTestId('71', index) }
+        className="_email"
       >
         {email}
       </td>
       <td
         data-testid={ dataTestId('72', index) }
+        className={ `_role _${role}` }
       >
         {role}
       </td>
@@ -42,8 +46,9 @@ function AdminUsersTableItem({ userData, updateUsers, index, token }) {
           type="button"
           onClick={ deleteUser }
           data-testid={ dataTestId('73', index) }
+          className="_remove"
         >
-          Delete
+          <Icon icon="fluent:delete-28-filled" />
         </button>
       </td>
     </tr>

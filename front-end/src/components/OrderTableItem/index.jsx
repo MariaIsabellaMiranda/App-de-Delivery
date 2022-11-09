@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import priceFormat from '../../helpers/priceFormat';
 import dataTestId from '../../helpers/dataTestIds';
+import './styles/OrderTableItem.css';
 
 function OrderTableItem({ product, index }) {
   const { name, SaleProduct: { quantity }, price } = product;
 
   return (
-    <tr>
+    <tr className="_order_table_item">
       <td
         data-testid={ dataTestId('41', index) }
       >

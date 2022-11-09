@@ -1,0 +1,25 @@
+
+._admin_users_table td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid var(--contrast-color-1);
+  color: rgb(68, 68, 68);
+  font-size: 0.9em;
+}
+
+._admin_users_table ._remove {
+  color: var(--primary-color);
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1.2em;
+  background: none;
+}
+
+._admin_users_table ._remove:hover {
+  color: var(--secondary-color);
+}
+
+._admin_users_table ._role._seller {
+  color: var(--primary-color);
+}

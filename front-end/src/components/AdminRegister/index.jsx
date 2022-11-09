@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import easyFetch from '../../helpers/easyFetch';
 import { validateRegister } from '../../helpers/validateAccess';
 import dataTestId from '../../helpers/dataTestIds';
+import './styles/AdminRegister.css';
 
 function AdminRegister({ token, updateUsers }) {
   const [registerData, setRegisterData] = useState({
@@ -39,7 +40,8 @@ function AdminRegister({ token, updateUsers }) {
   const { name, email, password, role } = registerData;
 
   return (
-    <form action="POST">
+    <form action="POST" className="_admin_register">
+      <h2>Registrar</h2>
       <label htmlFor="name">
         Nome
         <input
@@ -91,6 +93,7 @@ function AdminRegister({ token, updateUsers }) {
         type="submit"
         disabled={ !validRegister }
         onClick={ handleSubmit }
+        className="_btn_register"
       >
         Cadastrar
       </button>

@@ -1,0 +1,39 @@
+@keyframes toLeft {
+  
+  0% {
+    opacity: 0%;
+    transform: translateX(25px);
+  }
+  100% {
+    opacity: 100%;
+    transform: translateX(0);
+  }
+}
+
+._admin_users_table {
+  width: 60%;
+  max-width: 800px;
+  height: 100%;
+  border-collapse: collapse;
+  animation: toLeft 1s;
+}
+
+._admin_users_table th {
+  background-color: var(--primary-color);
+  padding: 10px;
+  font-weight: 100;
+  color: white;
+  font-size: 0.8em;
+}
+
+._admin_users_table th:first-child {
+  border-radius: 0.5em 0 0 0;
+}
+
+._admin_users_table th:last-child {
+  border-radius: 0 0.5em 0 0;
+}
+
+._admin_users_table ._email {
+  font-style: italic;
+}

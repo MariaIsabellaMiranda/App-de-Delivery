@@ -5,6 +5,7 @@ import AdminRegister from '../../components/AdminRegister';
 import AdminUsersTable from '../../components/AdminUsersTable';
 import Header from '../../components/Header';
 import easyFetch from '../../helpers/easyFetch';
+import './styles/AdminManage.css';
 
 function AdminManage({ token }) {
   const [users, setUsers] = useState([]);
@@ -23,14 +24,13 @@ function AdminManage({ token }) {
   }, [updateUsers]);
 
   return (
-    <>
+    <div className="_page_admin">
       <Header />
       <main>
-        <h1>Admin</h1>
         <AdminRegister updateUsers={ updateUsers } />
         <AdminUsersTable users={ users } updateUsers={ updateUsers } />
       </main>
-    </>
+    </div>
   );
 }
 

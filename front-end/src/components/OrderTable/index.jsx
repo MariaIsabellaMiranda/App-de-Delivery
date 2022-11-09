@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import OrderTableItem from '../OrderTableItem';
+import './styles/OrderTable.css';
 
 function OrderTable({ products }) {
   return (
-    <table>
+    <table className="_order_table">
       <tbody>
         <tr>
           <th>Item</th>

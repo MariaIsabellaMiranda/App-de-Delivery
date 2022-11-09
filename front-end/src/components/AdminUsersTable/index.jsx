@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import AdminUsersTableItem from '../AdminUsersTableItem';
+import './styles/AdminUsersTable.css';
 
 function AdminUsersTable({ users, updateUsers }) {
   return (
-    <table>
+    <table className="_admin_users_table">
       <tbody>
         <tr>
           <th>Item</th>

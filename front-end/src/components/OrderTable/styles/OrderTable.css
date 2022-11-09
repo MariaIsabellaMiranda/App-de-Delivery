@@ -1,0 +1,31 @@
+@keyframes toTop {
+  
+  0% {
+    opacity: 0%;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 100%;
+    transform: translateY(0);
+  }
+}
+
+._order_table {
+  border-collapse: collapse;
+  animation: toTop 1s;
+}
+
+._order_table th {
+  background-color: var(--contrast-color-1);
+  padding: 10px;
+  font-weight: 100;
+  color: rgb(86, 86, 86);
+}
+
+._order_table th:first-child {
+  border-radius: 0.5em 0 0 0;
+}
+
+._order_table th:last-child {
+  border-radius: 0 0.5em 0 0;
+}

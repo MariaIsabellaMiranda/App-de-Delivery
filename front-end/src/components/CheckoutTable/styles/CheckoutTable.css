@@ -1,0 +1,18 @@
+._checkout_table {
+  border-collapse: collapse;
+}
+
+._checkout_table th {
+  background-color: var(--contrast-color-1);
+  padding: 10px;
+  font-weight: 100;
+  color: rgb(86, 86, 86);
+}
+
+._checkout_table th:first-child {
+  border-radius: 0.5em 0 0 0;
+}
+
+._checkout_table th:last-child {
+  border-radius: 0 0.5em 0 0;
+}

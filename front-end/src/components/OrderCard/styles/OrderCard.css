@@ -1,3 +1,110 @@
-.orderStyle {
-  border: 1px solid black;
+@keyframes toTop {
+  
+  0% {
+    opacity: 0%;
+    transform: translateY(25px);
+  }
+  100% {
+    opacity: 100%;
+    transform: translateY(0);
+  }
+}
+
+._order_card {
+  /* padding: 10px; */
+  display: flex;
+  gap: 10px;
+  /* border-radius: 0.5em; */
+  text-decoration: none;
+  background-color: var(--contrast-color-1);
+  justify-content: space-between;
+  color: rgb(86, 86, 86);
+  box-shadow: 0 0 5px var(--contrast-color-2);
+  animation: toTop 1s;
+}
+
+._order_card ._order_number {
+  padding: 5px;
+  text-align: center;
+  font-weight: 800;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  color: rgb(86, 86, 86);
+  background-color: white;
+  flex-direction: column;
+  justify-content: center;
+}
+
+._order_card ._order_details, ._order {
+  display: flex;
+}
+
+._order_card ._order_details {
+  padding: 10px;
+  gap: 10px;
+  flex-direction: column;
+}
+
+._order_card ._order {
+  gap: 20px;
+}
+
+._order_card ._order_number span:first-child {
+  font-size: 0.8em;
+}
+
+._order_card ._order_number span:last-child {
+  font-size: 1.2em;
+}
+
+._order_card ._order_status {
+  width: 150px;
+  border-radius: 0.5em;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  color: white;
+  font-weight: 800;
+  gap: 5px;
+}
+
+._order_card.pending ._order_status {
+  background-color: var(--status-pending);
+}
+
+._order_card.preparing ._order_status {
+  background-color: var(--status-preparing);
+}
+
+._order_card.road ._order_status {
+  background-color: var(--status-road);
+}
+
+._order_card.received ._order_status {
+  background-color: var(--status-received);
+}
+
+._order_card ._date_price {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 10px;
+  margin: 10px 10px 10px 0;
+}
+
+._order_card ._date_price p {
+  background-color: white;
+  padding: 5px;
+  border-radius: 0.5em;
+  font-weight: 800;
+}
+
+._order_card ._order_address {
+  font-size: 0.8em;
+  text-align: end;
+  max-width: 280px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }

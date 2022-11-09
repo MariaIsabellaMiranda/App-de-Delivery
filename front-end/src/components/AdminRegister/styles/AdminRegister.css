@@ -1,0 +1,70 @@
+@keyframes toRight {
+  
+  0% {
+    opacity: 0%;
+    transform: translateX(-25px);
+  }
+  100% {
+    opacity: 100%;
+    transform: translateX(0);
+  }
+}
+
+._admin_register {
+  width: 40%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  background-color: var(--contrast-color-1);
+  gap: 10px;
+  border-radius: 0.5em;
+  align-items: flex-start;
+  position: sticky;
+  top: 120px;
+  animation: toRight 1s;
+}
+
+._admin_register h2 {
+  padding: 10px;
+  color: var(--primary-color);
+}
+
+._admin_register label {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 10px;
+  font-size: 0.8em;
+  width: 100%;
+  font-weight: 800;
+  color: rgb(68, 68, 68);
+}
+
+._admin_register input {
+  border: none;
+  outline: none;
+  background: none;
+  border-bottom: 1px solid var(--primary-color);
+  padding: 5px;
+}
+
+._admin_register ._btn_register {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 0.5em;
+  background-color: var(--primary-color);
+  color:  white;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+._admin_register ._btn_register:hover {
+  background-color: var(--secondary-color);
+}
+
+._admin_register ._btn_register:disabled {
+  background-color: rgb(68, 68, 68);
+  opacity: 0.2;
+  cursor: not-allowed;
+}

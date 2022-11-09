@@ -1,0 +1,88 @@
+._header {
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+  align-items: center;
+  padding: 0 20px;
+  position: fixed;
+  width: 100vw;
+  top: 0;
+  transition: 0.5s;
+}
+
+._header.pending {
+  background-color: var(--status-pending);
+}
+
+._header.preparing {
+  background-color: var(--status-preparing);
+}
+
+._header.road {
+  background-color: var(--status-road);
+}
+
+._header.received {
+  background-color: var(--status-received);
+}
+
+
+._header ._navbar {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+._header ._logo {
+  color: white;
+  font-size: 2em;
+}
+
+._header ._navbar a {
+  color: white;
+  text-decoration: none;
+}
+
+._header ._right_content {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+._header ._right_content p {
+  background-color: white;
+  color: var(--primary-color);
+  padding: 5px 10px;
+  border-radius: 25px;
+  font-size: 0.9em;
+  transition: 0.5s;
+}
+
+._header ._right_content a {
+  background-color: white;
+  color: var(--primary-color);
+  width: 35px;
+  height: 35px;
+  border-radius: 25px;
+  font-size: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+._header.pending :is(._right_content p, ._right_content a) {
+  color: var(--status-pending);
+}
+
+._header.preparing :is(._right_content p, ._right_content a) {
+  color: var(--status-preparing);
+}
+
+._header.road :is(._right_content p, ._right_content a) {
+  color: var(--status-road);
+}
+
+._header.received :is(._right_content p, ._right_content a) {
+  color: var(--status-received);
+}

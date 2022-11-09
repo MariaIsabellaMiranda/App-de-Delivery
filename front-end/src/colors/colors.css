@@ -1,6 +1,18 @@
 :root {
 
-  --primary-color: rgb(240, 70, 70);
+  --primary-color: #e73a31;
 
   --secondary-color: rgb(201, 39, 39);
+
+  --contrast-color-1: rgb(241, 241, 241);
+
+  --contrast-color-2: rgb(220, 220, 220);
+
+  --status-pending: rgb(135, 135, 135);
+
+  --status-preparing: rgb(220, 176, 0);
+
+  --status-road: rgb(0, 132, 203);
+
+  --status-received: rgb(37, 182, 83);
 }

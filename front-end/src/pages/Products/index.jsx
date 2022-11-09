@@ -1,11 +1,13 @@
 import lS from 'manager-local-storage';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Icon } from '@iconify/react';
 import Header from '../../components/Header';
 import ProductCard from '../../components/ProductCard';
 import { getTotalPrice } from '../../helpers/managerCart';
 import priceFormat from '../../helpers/priceFormat';
 import dataTestIds from '../../helpers/dataTestIds';
+import './styles/Products.css';
 
 function Products() {
   const history = useHistory();
@@ -29,7 +31,7 @@ function Products() {
   };
 
   return (
-    <div>
+    <div className="_page_products">
       <Header />
       <main>
         <button
@@ -37,21 +39,26 @@ function Products() {
           data-testid={ dataTestIds('21b') }
           onClick={ () => history.push('/customer/checkout') }
           disabled={ !existCart() }
+          className="_btn_cart"
         >
-          Ver Carrinho: R$
-          {' '}
-          <span data-testid={ dataTestIds('21') }>
-            {priceFormat(price)}
+          <Icon icon="eva:shopping-cart-outline" />
+          <span>
+            R$
+            <span data-testid={ dataTestIds('21') }>
+              {priceFormat(price)}
+            </span>
           </span>
         </button>
-        {products.length > 0 && products.map((product, i) => (
-          <ProductCard
-            key={ i }
-            productData={ product }
-            id={ i }
-            updatePrice={ updatePrice }
-          />
-        ))}
+        <section className="_products">
+          {products.length > 0 && products.map((product, i) => (
+            <ProductCard
+              key={ i }
+              productData={ product }
+              id={ i }
+              updatePrice={ updatePrice }
+            />
+          ))}
+        </section>
       </main>
     </div>
   );
