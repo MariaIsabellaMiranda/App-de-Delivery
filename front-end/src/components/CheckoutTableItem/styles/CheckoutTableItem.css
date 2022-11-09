@@ -6,11 +6,11 @@
 }
 
 ._checkout_table_item ._remove {
-  color: var(--primary-color);
-  cursor: pointer;
   background: none;
   border: none;
   border-radius: 25px;
+  color: var(--primary-color);
+  cursor: pointer;
   font-size: 1.3em;
 }
 
