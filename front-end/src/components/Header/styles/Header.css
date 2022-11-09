@@ -54,8 +54,8 @@
   border-radius: 25px;
   color: var(--primary-color);
   font-size: 0.9em;
-  transition: 0.5s;
   padding: 5px 10px;
+  transition: 0.5s;
 }
 
 ._header ._right_content a {
