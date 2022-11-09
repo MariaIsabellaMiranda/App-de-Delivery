@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import lS from 'manager-local-storage';
 import { logoutUser } from '../../redux/actions/userAction';
 import dataTestIds from '../../helpers/dataTestIds';
+import logo from '../../images/logo.png';
+// import './styles/Header.css';
 
 function Header({ dispatch, name, role }) {
   const history = useHistory();
@@ -16,41 +18,46 @@ function Header({ dispatch, name, role }) {
   const isAdmin = role === 'administrator';
 
   return (
-    <header>
-      {!isAdmin && (
-        <>
+    <header className="_header">
+      <nav className="_navbar_header">
+        {!isAdmin && (
+          <>
+            <img src={ logo } alt="" className="_logo" />
+            <Link
+              to="/customer/products"
+              data-testid={ dataTestIds('11') }
+            >
+              Produtos
+            </Link>
+            <Link
+              to="/customer/orders"
+              data-testid={ dataTestIds('12') }
+            >
+              Meus Pedidos
+            </Link>
+          </>
+        )}
+        {isAdmin && (
           <Link
-            to="/customer/products"
-            data-testid={ dataTestIds('11') }
-          >
-            Produtos
-          </Link>
-          <Link
-            to="/customer/orders"
+            to="/admin/manage"
             data-testid={ dataTestIds('12') }
           >
-            Meus Pedidos
+            Gerenciar Usuários
           </Link>
-        </>
-      )}
-      {isAdmin && (
+        )}
+      </nav>
+      <div className="_right_content_header">
+        <p data-testid={ dataTestIds('13') }>
+          {name}
+        </p>
         <Link
-          to="/admin/manage"
-          data-testid={ dataTestIds('12') }
+          to="/login"
+          data-testid={ dataTestIds('14') }
+          onClick={ logout }
         >
-          Gerenciar Usuários
+          Sair
         </Link>
-      )}
-      <h2 data-testid={ dataTestIds('13') }>
-        {name}
-      </h2>
-      <Link
-        to="/login"
-        data-testid={ dataTestIds('14') }
-        onClick={ logout }
-      >
-        Sair
-      </Link>
+      </div>
     </header>
   );
 }

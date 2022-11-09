@@ -57,7 +57,7 @@ function Order({ token, role }) {
       'http://localhost:3001/status',
       { Authorization: token },
       'PUT',
-      { orderId, status: newStatus },
+      { id: orderId, status: newStatus },
     );
     updateOrderData();
   };
