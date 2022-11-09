@@ -119,9 +119,7 @@ describe('Testa a rota /login', () => {
   
       userEvent.click(loginButton);
   
-      const {
-        location: { pathname },
-      } = history;
+      const { location: { pathname } } = history;
       expect(pathname).toBe('/register');
     });
   

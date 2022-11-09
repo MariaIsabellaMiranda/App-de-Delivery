@@ -29,7 +29,12 @@ function CheckoutTableItem({ cartItem, index, updateCartItems }) {
         </span>
       </td>
       <td data-testid={ dataTestId('27', index) }>
-        <button type="button" onClick={ removeItem } className="_remove">
+        <button
+          data-testid="button-remove"
+          type="button"
+          onClick={ removeItem }
+          className="_remove"
+        >
           <Icon icon="fluent:delete-28-filled" />
         </button>
       </td>
