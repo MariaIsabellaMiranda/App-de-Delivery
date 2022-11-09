@@ -4,15 +4,15 @@
 
 ._checkout_table th {
   background-color: var(--contrast-color-1);
-  padding: 10px;
+  color: #444;
   font-weight: 100;
-  color: rgb(86, 86, 86);
+  padding: 10px;
 }
 
 ._checkout_table th:first-child {
-  border-radius: 0.5em 0 0 0;
+  border-top-left-radius: 0.5em;
 }
 
 ._checkout_table th:last-child {
-  border-radius: 0 0.5em 0 0;
+  border-bottom-left-radius: 0.5em;
 }
