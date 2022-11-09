@@ -2,7 +2,7 @@ const ordersOneMock = {
   id: 1,
   userId: 4,
   sellerId: 1,
-  totalPrice: '50',
+  totalPrice: '56',
   deliveryAddress: 'Rua Visconde de Abaeté',
   deliveryNumber: '450',
   saleDate: '2022-11-04T17:09:29.000Z',
@@ -27,6 +27,9 @@ const ordersOneMock = {
       },
     },
   ],
+  seller: {
+    name: 'Fulana Pereira',
+  },
 };
 
 module.exports = ordersOneMock;
