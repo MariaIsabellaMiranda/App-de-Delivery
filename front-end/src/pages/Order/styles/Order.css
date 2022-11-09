@@ -40,19 +40,19 @@
   gap: 10px;
 }
 
-._page_order.pending :is(._header_order h1, ._status, ._price span:last-child) {
+._page_order.pending :is(._header_order h1, ._price span:last-child) {
   color: var(--status-pending);
 }
 
-._page_order.preparing :is(._header_order h1, ._status, ._price span:last-child) {
+._page_order.preparing :is(._header_order h1, ._price span:last-child) {
   color: var(--status-preparing);
 }
 
-._page_order.road :is(._header_order h1, ._status, ._price span:last-child) {
+._page_order.road :is(._header_order h1, ._price span:last-child) {
   color: var(--status-road);
 }
 
-._page_order.received :is(._header_order h1, ._status, ._price span:last-child) {
+._page_order.received :is(._header_order h1, ._price span:last-child) {
   color: var(--status-received);
 }
 
@@ -76,6 +76,22 @@
   font-weight: 800;
   gap: 10px;
   padding: 10px;
+}
+
+._page_order.pending ._status {
+  color: var(--status-pending);
+}
+
+._page_order.preparing ._status {
+  color: var(--status-preparing);
+}
+
+._page_order.road ._status {
+  color: var(--status-road);
+}
+
+._page_order.received ._status {
+  color: var(--status-received);
 }
 
 ._page_order.pending ._header_order button {
