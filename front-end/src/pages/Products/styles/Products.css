@@ -1,9 +1,10 @@
 @keyframes toLeft {
-  
+
   0% {
     opacity: 0%;
     transform: translateX(25px);
   }
+
   100% {
     opacity: 100%;
     transform: translateX(0);
@@ -15,50 +16,49 @@
 }
 
 ._page_products ._btn_cart {
+  align-items: center;
+  animation: toLeft 1s;
   background-color: var(--primary-color);
-  position: fixed;
+  border: 2px solid var(--primary-color);
+  border-radius: 25px;
   bottom: 20px;
-  right: 20px;
-  height: 40px;
-  padding-right: 10px;
-  border: none;
+  cursor: pointer;
   display: flex;
   gap: 10px;
-  border-radius: 25px;
-  align-items: center;
-  border: 2px solid var(--primary-color);
-  cursor: pointer;
-  animation: toLeft 1s;
+  height: 40px;
+  padding-right: 10px;
+  position: fixed;
+  right: 20px;
   z-index: 5;
 }
 
 ._page_products ._btn_cart:disabled {
-  opacity: 0.3;
   cursor: not-allowed;
+  opacity: 0.3;
 }
 
 ._page_products ._btn_cart svg {
-  font-size: 1.5em;
   background-color: white;
-  color: var(--primary-color);
   border-radius: 50%;
+  color: var(--primary-color);
+  font-size: 1.5em;
   height: 100%;
-  width: 36px;
   padding: 10px;
+  width: 36px;
 }
 
 ._page_products ._btn_cart > span {
-  font-size: 1.3em;
   color: white;
   display: flex;
+  font-size: 1.3em;
   gap: 5px;
 }
 
 ._page_products ._products {
-  width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 200px);
-  padding: 20px;
   gap: 20px;
+  grid-template-columns: repeat(auto-fill, 200px);
   justify-content: space-evenly;
+  padding: 20px;
+  width: 100%;
 }

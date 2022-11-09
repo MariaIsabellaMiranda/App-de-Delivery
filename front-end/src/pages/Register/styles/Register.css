@@ -74,8 +74,8 @@
 }
 
 ._page_register ._btn_login {
-  border: none;
   background-color: var(--primary-color);
+  border: none;
   border-radius: 0.5em;
   color: white;
   cursor: pointer;
