@@ -11,51 +11,51 @@
 }
 
 ._admin_register {
-  width: 40%;
-  max-width: 500px;
+  align-items: flex-start;
+  animation: toRight 1s;
+  background-color: var(--contrast-color-1);
+  border-radius: 0.5em;
   display: flex;
   flex-direction: column;
-  padding: 40px;
-  background-color: var(--contrast-color-1);
   gap: 10px;
-  border-radius: 0.5em;
-  align-items: flex-start;
+  max-width: 500px;
+  padding: 40px;
   position: sticky;
   top: 120px;
-  animation: toRight 1s;
+  width: 40%;
 }
 
 ._admin_register h2 {
-  padding: 10px;
   color: var(--primary-color);
+  padding: 10px;
 }
 
 ._admin_register label {
+  color: #444;
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  gap: 10px;
   font-size: 0.8em;
-  width: 100%;
   font-weight: 800;
-  color: rgb(68, 68, 68);
+  gap: 10px;
+  padding: 10px;
+  width: 100%;
 }
 
 ._admin_register input {
-  border: none;
-  outline: none;
   background: none;
+  border: none;
   border-bottom: 1px solid var(--primary-color);
+  outline: none;
   padding: 5px;
 }
 
 ._admin_register ._btn_register {
-  padding: 10px 20px;
+  background-color: var(--primary-color);
   border: none;
   border-radius: 0.5em;
-  background-color: var(--primary-color);
-  color:  white;
+  color: white;
   cursor: pointer;
+  padding: 10px 20px;
   transition: 0.5s;
 }
 
@@ -64,7 +64,7 @@
 }
 
 ._admin_register ._btn_register:disabled {
-  background-color: rgb(68, 68, 68);
-  opacity: 0.2;
+  background-color: #444;
   cursor: not-allowed;
+  opacity: 0.2;
 }
