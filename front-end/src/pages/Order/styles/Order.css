@@ -94,6 +94,19 @@
   color: var(--status-received);
 }
 
+._page_order ._header_order button {
+  border: none;
+  border-radius: 0.5em;
+  bottom: 20px;
+  color: white;
+  cursor: pointer;
+  font-weight: 800;
+  padding: 10px;
+  position: fixed;
+  right: 20px;
+  transition: 0.5s;
+}
+
 ._page_order.pending ._header_order button {
   background-color: var(--status-pending);
 }
@@ -108,19 +121,6 @@
 
 ._page_order.received ._header_order button {
   background-color: var(--status-received);
-}
-
-._page_order ._header_order button {
-  border: none;
-  border-radius: 0.5em;
-  bottom: 20px;
-  color: white;
-  cursor: pointer;
-  font-weight: 800;
-  padding: 10px;
-  position: fixed;
-  right: 20px;
-  transition: 0.5s;
 }
 
 ._page_order ._header_order button:disabled {
