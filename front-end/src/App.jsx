@@ -10,6 +10,7 @@ import Order from './pages/Order';
 import Orders from './pages/Orders';
 import AdminManage from './pages/AdminManage';
 import './App.css';
+import './colors/colors.css';
 
 function App({ status, role }) {
   const routes = {
@@ -31,10 +32,10 @@ function App({ status, role }) {
         {status ? <Redirect to={ routes[role] } /> : <Register />}
       </Route>
       <Route exact path="/customer/products">
-        {!status ? <Redirect to="/" /> : <Products />}
+        {customerLogged ? <Redirect to="/" /> : <Products />}
       </Route>
       <Route exact path="/customer/checkout">
-        {!status ? <Redirect to="/" /> : <Checkout />}
+        {customerLogged ? <Redirect to="/" /> : <Checkout />}
       </Route>
       <Route exact path="/customer/orders/:orderId">
         {customerLogged ? <Redirect to="/" /> : <Order />}

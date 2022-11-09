@@ -1,0 +1,6 @@
+._order_table_item td {
+  border: 1px solid var(--contrast-color-1);
+  color: #444;
+  padding: 10px;
+  text-align: center;
+}

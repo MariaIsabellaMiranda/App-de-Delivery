@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Icon } from '@iconify/react';
 import priceFormat from '../../helpers/priceFormat';
 import {
   addToCart,
   getCurrentQuantity,
   removeFromCart,
 } from '../../helpers/managerCart';
-import './styles/ProductCard.css';
 import dataTestIds from '../../helpers/dataTestIds';
+import './styles/ProductCard.css';
 
 function ProductCard({ productData, updatePrice }) {
   const { name, price, urlImage, id } = productData;
@@ -50,44 +51,48 @@ function ProductCard({ productData, updatePrice }) {
   };
 
   return (
-    <section>
-      <span>
-        {'R$ '}
-        <span data-testid={ dataTestIds('16', id) }>
-          {priceFormat(price)}
-        </span>
-      </span>
+    <section className="_product_card">
       <img
         src={ urlImage }
         alt={ name }
         data-testid={ dataTestIds('17', id) }
         className="_image_product_cart"
       />
-      <p data-testid={ dataTestIds('15', id) }>{name}</p>
-      <button
-        type="button"
-        onClick={ decreaseToQty }
-        data-testid={ dataTestIds('19', id) }
-      >
-        Remove
-      </button>
-      <input
-        type="number"
-        name="quantity"
-        id="quantity"
-        placeholder="0"
-        onChange={ handleQty }
-        onKeyUp={ onKeyUp }
-        value={ qtyProduct }
-        data-testid={ dataTestIds('20', id) }
-      />
-      <button
-        type="button"
-        onClick={ addToQty }
-        data-testid={ dataTestIds('18', id) }
-      >
-        Add
-      </button>
+      <div className="_product_details">
+        <p data-testid={ dataTestIds('15', id) }>{name}</p>
+        <span className="_price">
+          {'R$ '}
+          <span data-testid={ dataTestIds('16', id) }>
+            {priceFormat(price)}
+          </span>
+        </span>
+        <div className="_price_control">
+          <button
+            type="button"
+            onClick={ decreaseToQty }
+            data-testid={ dataTestIds('19', id) }
+          >
+            <Icon icon="ant-design:minus-circle-twotone" />
+          </button>
+          <input
+            type="number"
+            name="quantity"
+            id="quantity"
+            placeholder="0"
+            onChange={ handleQty }
+            onKeyUp={ onKeyUp }
+            value={ qtyProduct }
+            data-testid={ dataTestIds('20', id) }
+          />
+          <button
+            type="button"
+            onClick={ addToQty }
+            data-testid={ dataTestIds('18', id) }
+          >
+            <Icon icon="ant-design:plus-circle-twotone" />
+          </button>
+        </div>
+      </div>
     </section>
   );
 }

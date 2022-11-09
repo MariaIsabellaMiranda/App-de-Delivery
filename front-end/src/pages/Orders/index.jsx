@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../../components/Header';
 import OrderCard from '../../components/OrderCard';
 import easyFetch from '../../helpers/easyFetch';
+import './styles/Orders.css';
 
 function Orders({ token, role }) {
   const [orders, setOrders] = useState([]);
@@ -25,12 +26,14 @@ function Orders({ token, role }) {
   }, [role, token]);
 
   return (
-    <div>
+    <div className="_page_orders">
       <Header />
-      {orders.length > 0
-        && orders.map((order, index) => (
-          <OrderCard key={ index } orderData={ order } />
-        ))}
+      <main>
+        {orders.length > 0
+          && orders.map((order, index) => (
+            <OrderCard key={ index } orderData={ order } />
+          ))}
+      </main>
     </div>
   );
 }

@@ -1,0 +1,113 @@
+@keyframes toTop {
+
+  0% {
+    opacity: 0%;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 100%;
+    transform: translateY(0);
+  }
+}
+
+._page_register {
+  align-items: center;
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+._page_register ._logo {
+  color: var(--primary-color);
+  font-size: 3.5em;
+  margin: 20px;
+  width: 70px;
+}
+
+._page_register ._register_form {
+  align-items: center;
+  animation: toTop 1s;
+  background-color: white;
+  border-radius: 0.5em;
+  box-shadow: 0 0 5px #c1c1c1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: space-evenly;
+  min-height: 400px;
+  min-width: 400px;
+  padding: 20px;
+}
+
+._page_register ._inputs_area {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 250px;
+  padding: 20px 0;
+  width: 100%;
+}
+
+._page_register ._register_form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8em;
+  gap: 5px;
+  width: 100%;
+}
+
+._page_register ._register_form input {
+  border: none;
+  border-bottom: 2px solid var(--primary-color);
+  outline: none;
+  padding: 5px;
+  width: 100%;
+}
+
+._page_register ._error_message {
+  color: var(--primary-color);
+  font-size: 0.8em;
+  text-shadow: 0 0 1px var(--secondary-color);
+}
+
+._page_register ._btn_login {
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 0.5em;
+  color: white;
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: 0.5s;
+}
+
+._page_register ._btn_login:hover {
+  background-color: var(--secondary-color);
+}
+
+._page_register ._btn_login:disabled {
+  background-color: #444;
+  cursor: not-allowed;
+  opacity: 0.2;
+}
+
+._page_register ._btn_register {
+  display: flex;
+  font-size: 0.8em;
+  gap: 5px;
+  padding: 20px;
+}
+
+._page_register ._btn_register button {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+._page_register ._btn_register button:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}

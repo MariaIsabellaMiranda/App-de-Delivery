@@ -1,0 +1,19 @@
+._checkout_table_item td {
+  border: 1px solid var(--contrast-color-1);
+  color: #444;
+  padding: 10px;
+  text-align: center;
+}
+
+._checkout_table_item ._remove {
+  background: none;
+  border: none;
+  border-radius: 25px;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-size: 1.3em;
+}
+
+._checkout_table_item ._remove:hover {
+  color: var(--secondary-color);
+}

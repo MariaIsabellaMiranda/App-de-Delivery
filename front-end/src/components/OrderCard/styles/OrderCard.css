@@ -1,3 +1,109 @@
-.orderStyle {
-  border: 1px solid black;
+@keyframes toTop {
+
+  0% {
+    opacity: 0%;
+    transform: translateY(25px);
+  }
+
+  100% {
+    opacity: 100%;
+    transform: translateY(0);
+  }
+}
+
+._order_card {
+  animation: toTop 1s;
+  background-color: var(--contrast-color-1);
+  box-shadow: 0 0 5px var(--contrast-color-2);
+  color: #444;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  text-decoration: none;
+}
+
+._order_card ._order_number {
+  align-items: center;
+  background-color: white;
+  color: #444;
+  display: flex;
+  flex-direction: column;
+  font-weight: 800;
+  justify-content: center;
+  padding: 5px;
+  text-align: center;
+  width: 100px;
+}
+
+._order_card ._order_details, ._order {
+  display: flex;
+}
+
+._order_card ._order_details {
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+._order_card ._order {
+  gap: 20px;
+}
+
+._order_card ._order_number span:first-child {
+  font-size: 0.8em;
+}
+
+._order_card ._order_number span:last-child {
+  font-size: 1.2em;
+}
+
+._order_card ._order_status {
+  align-items: center;
+  border-radius: 0.5em;
+  color: white;
+  display: flex;
+  font-weight: 800;
+  gap: 5px;
+  padding: 20px;
+  width: 150px;
+}
+
+._order_card.pending ._order_status {
+  background-color: var(--status-pending);
+}
+
+._order_card.preparing ._order_status {
+  background-color: var(--status-preparing);
+}
+
+._order_card.road ._order_status {
+  background-color: var(--status-road);
+}
+
+._order_card.received ._order_status {
+  background-color: var(--status-received);
+}
+
+._order_card ._date_price {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: space-evenly;
+  margin: 10px 10px 10px 0;
+}
+
+._order_card ._date_price p {
+  background-color: white;
+  border-radius: 0.5em;
+  font-weight: 800;
+  padding: 5px;
+}
+
+._order_card ._order_address {
+  font-size: 0.8em;
+  max-width: 280px;
+  overflow: hidden;
+  text-align: end;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

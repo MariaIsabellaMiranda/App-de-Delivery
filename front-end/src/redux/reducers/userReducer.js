@@ -1,17 +1,19 @@
 import lS from 'manager-local-storage';
 
+const emptyState = {
+  email: '',
+  name: '',
+  role: '',
+  token: '',
+  status: false,
+};
+
 const initialState = lS.get('user')
   ? {
     ...lS.get('user'),
     status: true,
   }
-  : {
-    email: '',
-    name: '',
-    role: '',
-    token: '',
-    status: false,
-  };
+  : emptyState;
 
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
@@ -27,7 +29,7 @@ export const userReducer = (state = initialState, action) => {
   case LOGOUT:
     return {
       ...state,
-      ...initialState,
+      ...emptyState,
     };
   default:
     return state;

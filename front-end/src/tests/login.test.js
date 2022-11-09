@@ -22,7 +22,7 @@ describe('Testa a rota /login', () => {
   describe('Testa se a rota login é renderizado no endpoint correto', () => {
     it('Testa se a página de Login é renderizada no endpoint "/login"', () => {
       const { history } = renderWithRouter(<App />, INITIAL_STATE, '/');
-
+  
       expect(history.location.pathname).toBe('/login');
     });
   });
@@ -30,7 +30,7 @@ describe('Testa a rota /login', () => {
   describe('Verifica os elementos da página de login', () => {
     it('Testa se existe o input login e se ele é do tipo email', () => {
       renderWithRouter(<App />, INITIAL_STATE, '/');
-
+  
       const loginInput = screen.getByLabelText('Login:');
 
       expect(loginInput).toBeInTheDocument();
@@ -39,7 +39,7 @@ describe('Testa a rota /login', () => {
 
     it('Testa se existe o input de Password e se ele é do tipo password', () => {
       renderWithRouter(<App />, INITIAL_STATE, '/');
-
+  
       const passwordInput = screen.getByLabelText('Senha:');
 
       expect(passwordInput).toBeInTheDocument();
@@ -48,7 +48,7 @@ describe('Testa a rota /login', () => {
 
     it('Testa se existe os botões de "Login" e "Ainda não tenho conta"', () => {
       renderWithRouter(<App />, INITIAL_STATE, '/');
-
+  
       const buttons = screen.getAllByRole('button');
 
       expect(buttons).toHaveLength(2);
@@ -58,7 +58,7 @@ describe('Testa a rota /login', () => {
 
     it('Testa se o botão de "Login" está desabilitado ao renderizar a página', () => {
       renderWithRouter(<App />, INITIAL_STATE, '/');
-
+  
       const loginButton = screen.getByRole('button', { name: 'Login' });
 
       expect(loginButton).toBeDisabled();
@@ -68,7 +68,7 @@ describe('Testa a rota /login', () => {
   describe('Verifica comportamentos ao digitar nos inputs', () => {
     it('Testa se ao digitar email e senha válidas o botão é habilitado ', () => {
       renderWithRouter(<App />, INITIAL_STATE, '/');
-
+  
       const loginInput = screen.getByLabelText('Login:');
       const passwordInput = screen.getByLabelText('Senha:');
 
@@ -78,11 +78,10 @@ describe('Testa a rota /login', () => {
 
       expect(loginButton).not.toBeDisabled();
     });
-
-    it(`Testa se ao digitar somente email inválido
-      o botão continua desabilitado`, () => {
+  
+    it('Testa se ao digitar somente email inválido o botão continua desabilitado ', () => {
       renderWithRouter(<App />, INITIAL_STATE, '/');
-
+  
       const loginInput = screen.getByLabelText('Login:');
       const passwordInput = screen.getByLabelText('Senha:');
 
@@ -93,11 +92,10 @@ describe('Testa a rota /login', () => {
 
       expect(loginButton).toBeDisabled();
     });
-
-    it(`Testa se ao digitar somente password inválido
-      o botão continua desabilitado`, () => {
+  
+    it('Testa se ao digitar somente password inválido o botão continua desabilitado', () => {
       renderWithRouter(<App />, INITIAL_STATE, '/');
-
+  
       const loginInput = screen.getByLabelText('Login:');
       const passwordInput = screen.getByLabelText('Senha:');
 
@@ -114,16 +112,14 @@ describe('Testa a rota /login', () => {
     it(`Testa se ao clicar no botão
       "Registre-se", a página é redirecionada para a rota "/register"`, () => {
       const { history } = renderWithRouter(<App />, INITIAL_STATE, '/');
-
+  
       const loginButton = screen.getByRole('button', {
         name: 'Registre-se.',
       });
 
       userEvent.click(loginButton);
-
-      const {
-        location: { pathname },
-      } = history;
+  
+      const { location: { pathname } } = history;
       expect(pathname).toBe('/register');
     });
 
@@ -145,9 +141,8 @@ describe('Testa a rota /login', () => {
         expect(history.location.pathname).toBe('/customer/products');
       });
     });
-
-    it(`Testa se ao clicar no botão "Login", o retorno da 
-      requisição é salvo no localStorage`, async () => {
+  
+    it('Testa se ao clicar no botão "Login", o retorno da requisição é salvo no localStorage', async () => {
       renderWithRouter(<App />, INITIAL_STATE, '/');
 
       const loginInput = screen.getByLabelText('Login:');

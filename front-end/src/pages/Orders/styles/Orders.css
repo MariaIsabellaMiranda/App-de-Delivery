@@ -1,0 +1,12 @@
+._page_orders {
+  padding-top: 60px;
+}
+
+._page_orders main {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, 400px);
+  justify-content: space-evenly;
+  padding: 20px;
+  width: 100%;
+}

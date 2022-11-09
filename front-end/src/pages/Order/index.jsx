@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Icon } from '@iconify/react';
 import PropTypes from 'prop-types';
 import OrderTable from '../../components/OrderTable';
 import dateFormat from '../../helpers/dateFormat';
@@ -8,9 +9,12 @@ import priceFormat from '../../helpers/priceFormat';
 import Header from '../../components/Header';
 import easyFetch from '../../helpers/easyFetch';
 import dataTestId from '../../helpers/dataTestIds';
+import { statusIcon } from '../../helpers/status';
+import './styles/Order.css';
 
 function Order({ token, role }) {
   const { orderId } = useParams();
+  const EM_TRANSITO = 'Em Trânsito';
 
   const LOADING = 'Loading...';
 
@@ -62,32 +66,48 @@ function Order({ token, role }) {
     updateOrderData();
   };
 
+  const getStatusClassName = () => {
+    if (status === 'Pendente') return ' pending';
+    if (status === 'Preparando') return ' preparing';
+    if (status === EM_TRANSITO) return ' road';
+    if (status === 'Entregue') return ' received';
+  };
+
+  const statusClassName = getStatusClassName();
+
   return (
-    <>
-      <Header />
+    <div className={ `_page_order${statusClassName}` }>
+      <Header status={ statusClassName } />
       <main>
-        Order
-        <section>
-          <span>
-            <h3>Pedido Número</h3>
+        <section className="_header_order">
+          <h1>
+            <span>Pedido</span>
             <span data-testid={ getDataTestId('37', '53') }>{orderId}</span>
-          </span>
+          </h1>
           {role === 'customer' && (
-            <span>
-              <h3>Pessoa Vendedora</h3>
+            <span className="_seller">
+              <h3>Pessoa Vendedora:</h3>
               <span data-testid={ dataTestId('38') }>{seller.name}</span>
             </span>
           )}
-          <span data-testid={ getDataTestId('39', '55') }>
+          <span data-testid={ getDataTestId('39', '55') } className="_date">
             {dateFormat(saleDate)}
           </span>
-          <span data-testid={ getDataTestId('40', '54') }>{status}</span>
+          <span className="_status">
+            <Icon icon={ statusIcon[status] } />
+            <span
+              data-testid={ getDataTestId('40', '54') }
+            >
+              {status}
+            </span>
+          </span>
           {role === 'customer' && (
             <button
               type="button"
               onClick={ () => changeStatus('Entregue') }
               data-testid={ dataTestId('47') }
-              disabled={ status !== 'Em Trânsito' }
+              disabled={ status !== EM_TRANSITO }
+              className="_mark_received"
             >
               Marcar como entregue
             </button>
@@ -104,7 +124,7 @@ function Order({ token, role }) {
               </button>
               <button
                 type="button"
-                onClick={ () => changeStatus('Em Trânsito') }
+                onClick={ () => changeStatus(EM_TRANSITO) }
                 data-testid={ dataTestId('57') }
                 disabled={ status !== 'Preparando' }
               >
@@ -114,14 +134,17 @@ function Order({ token, role }) {
           )}
         </section>
         <OrderTable products={ products } />
-        <span>
-          <span>R$ </span>
-          <span data-testid={ getDataTestId('46', '63') }>
-            {priceFormat(totalPrice)}
+        <span className="_price">
+          <span>Subtotal:</span>
+          <span>
+            R$
+            <span data-testid={ getDataTestId('46', '63') }>
+              {priceFormat(totalPrice)}
+            </span>
           </span>
         </span>
       </main>
-    </>
+    </div>
   );
 }
 

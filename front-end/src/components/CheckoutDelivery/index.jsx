@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import easyFetch from '../../helpers/easyFetch';
 import dataTestIds from '../../helpers/dataTestIds';
+import './styles/CheckoutDelivery.css';
 
 function CheckoutDelivery({ totalPrice, cartItems, token }) {
   const history = useHistory();
@@ -57,50 +58,52 @@ function CheckoutDelivery({ totalPrice, cartItems, token }) {
   };
 
   return (
-    <form>
-      <h3>Detalhes e Endereço para Entrega</h3>
-      <label htmlFor="seller">
-        Pessoa Vendedora Responsável
-        <select
-          name="seller"
-          id="seller"
-          onChange={ handleChange }
-          value={ seller }
-          data-testid={ dataTestIds('29') }
-        >
-          {sellers.map((sellerData, i) => (
-            <option key={ i } value={ sellerData.id }>
-              {sellerData.name}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label htmlFor="address">
-        Endereço
-        <input
-          type="text"
-          name="address"
-          id="address"
-          onChange={ handleChange }
-          value={ address }
-          data-testid={ dataTestIds('30') }
-        />
-      </label>
-      <label htmlFor="number">
-        Número
-        <input
-          type="text"
-          name="number"
-          id="number"
-          onChange={ handleChange }
-          value={ number }
-          data-testid={ dataTestIds('31') }
-        />
-      </label>
+    <form onSubmit={ finalizeOrder } className="_checkout_delivery">
+      <h2>Detalhes e Endereço para Entrega</h2>
+      <section className="_inputs_area">
+        <label htmlFor="seller">
+          Pessoa Vendedora:
+          <select
+            name="seller"
+            id="seller"
+            onChange={ handleChange }
+            value={ seller }
+            data-testid={ dataTestIds('29') }
+          >
+            {sellers.map((sellerData, i) => (
+              <option key={ i } value={ sellerData.id }>
+                {sellerData.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label htmlFor="address">
+          Endereço:
+          <input
+            type="text"
+            name="address"
+            id="address"
+            onChange={ handleChange }
+            value={ address }
+            data-testid={ dataTestIds('30') }
+          />
+        </label>
+        <label htmlFor="number">
+          Número:
+          <input
+            type="text"
+            name="number"
+            id="number"
+            onChange={ handleChange }
+            value={ number }
+            data-testid={ dataTestIds('31') }
+          />
+        </label>
+      </section>
       <button
         type="submit"
-        onClick={ finalizeOrder }
         data-testid={ dataTestIds('32') }
+        className="_btn_checkout"
       >
         Finalizar Pedido
       </button>
