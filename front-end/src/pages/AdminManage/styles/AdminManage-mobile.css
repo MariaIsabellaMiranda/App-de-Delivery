@@ -1,10 +1,10 @@
 @media screen and ( max-width : 768px ) {
 
   ._page_admin main {
-    flex-direction: column;
     align-items: center;
+    flex-direction: column;
   }
-  
+
   ._admin_users_table_area {
     width: 100%;
   }
