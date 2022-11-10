@@ -13,7 +13,7 @@
 
 ._page_order {
   padding-top: 60px;
-  width: 100vw;
+  min-height: 100vh;
 }
 
 ._page_order main {
@@ -29,6 +29,7 @@
   background-color: var(--contrast-color-1);
   border-radius: 0.5em;
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   justify-content: space-between;
   padding: 20px;
@@ -37,6 +38,7 @@
 
 ._page_order ._header_order h1 {
   display: flex;
+  font-size: 1em;
   gap: 10px;
 }
 
@@ -61,6 +63,7 @@
   color: rgb(86, 86, 86);
   display: flex;
   gap: 10px;
+  font-size: 0.8em;
 }
 
 ._page_order ._date {
@@ -74,6 +77,7 @@
   border-radius: 25px;
   display: flex;
   font-weight: 800;
+  font-size: 0.8em;
   gap: 10px;
   padding: 10px;
 }
@@ -136,11 +140,16 @@
   bottom: 60px;
 }
 
+._page_order ._order_table_area {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 ._page_order ._price {
   animation: toTop 1s;
   color: rgb(86, 86, 86);
   display: flex;
-  font-size: 1.2em;
   font-weight: 800;
   gap: 10px;
 }

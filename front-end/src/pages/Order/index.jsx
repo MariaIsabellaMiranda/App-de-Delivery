@@ -133,7 +133,9 @@ function Order({ token, role }) {
             </>
           )}
         </section>
-        <OrderTable products={ products } />
+        <div className="_order_table_area">
+          <OrderTable products={ products } />
+        </div>
         <span className="_price">
           <span>Subtotal:</span>
           <span>
