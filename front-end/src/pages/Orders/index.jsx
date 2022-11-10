@@ -5,6 +5,7 @@ import Header from '../../components/Header';
 import OrderCard from '../../components/OrderCard';
 import easyFetch from '../../helpers/easyFetch';
 import './styles/Orders.css';
+import './styles/Orders-mobile.css';
 
 function Orders({ token, role }) {
   const [orders, setOrders] = useState([]);
