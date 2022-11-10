@@ -5,8 +5,9 @@ import PropTypes from 'prop-types';
 import lS from 'manager-local-storage';
 import { logoutUser } from '../../redux/actions/userAction';
 import dataTestIds from '../../helpers/dataTestIds';
-import './styles/Header.css';
 import logo from '../../helpers/logo';
+import './styles/Header.css';
+import './styles/Header-mobile.css';
 
 function Header({ dispatch, name, role, status }) {
   const history = useHistory();

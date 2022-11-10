@@ -54,8 +54,12 @@
   border-radius: 25px;
   color: var(--primary-color);
   font-size: 0.9em;
+  overflow: hidden;
   padding: 5px 10px;
+  max-width: 150px;
+  text-overflow: ellipsis;
   transition: 0.5s;
+  white-space: nowrap;
 }
 
 ._header ._right_content a {
@@ -70,18 +74,18 @@
   width: 35px;
 }
 
-._header.pending :is( ._right_content p, ._right_content a ) {
+._header.pending :is(._right_content p, ._right_content a) {
   color: var(--status-pending);
 }
 
-._header.preparing :is( ._right_content p, ._right_content a ) {
+._header.preparing :is(._right_content p, ._right_content a) {
   color: var(--status-preparing);
 }
 
-._header.road :is( ._right_content p, ._right_content a ) {
+._header.road :is(._right_content p, ._right_content a) {
   color: var(--status-road);
 }
 
-._header.received :is( ._right_content p, ._right_content a ) {
+._header.received :is(._right_content p, ._right_content a) {
   color: var(--status-received);
 }

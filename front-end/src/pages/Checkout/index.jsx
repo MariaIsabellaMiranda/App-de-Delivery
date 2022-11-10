@@ -22,7 +22,9 @@ function Checkout() {
       <Header />
       <h1>Checkout</h1>
       <main>
-        <CheckoutTable updateCartItems={ updateCartItems } cartItems={ cartItems } />
+        <div className="_checkout_table_area">
+          <CheckoutTable updateCartItems={ updateCartItems } cartItems={ cartItems } />
+        </div>
         <span className="_price">
           <span className="_subtotal">Subtotal: </span>
           <span>R$ </span>

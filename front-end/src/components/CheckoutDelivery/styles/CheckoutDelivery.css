@@ -1,15 +1,17 @@
 ._checkout_delivery {
   align-items: flex-start;
-  display: flex;
+  display: grid;
   flex-direction: column;
   gap: 10px;
 }
 
 ._checkout_delivery ._inputs_area {
-  align-items: center;
-  display: flex;
+  display: grid;
+  flex-wrap: wrap;
   gap: 30px;
+  grid-template-columns: repeat(auto-fill, 165px);
   margin-bottom: 30px;
+  width: 100%;
 }
 
 ._checkout_delivery label {
@@ -39,6 +41,7 @@
   border-radius: 0.5em;
   color: white;
   cursor: pointer;
+  justify-self: start;
   padding: 10px 20px;
   transition: 0.5s;
 }
