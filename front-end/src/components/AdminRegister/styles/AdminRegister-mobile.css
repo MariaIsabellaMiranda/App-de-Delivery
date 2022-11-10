@@ -1,0 +1,10 @@
+@media screen and (max-width: 768px) {
+
+  ._admin_register {
+    padding: 20px;
+    max-width: 320px;
+    min-width: auto;
+    position: static;
+    width: 100%;
+  }
+}

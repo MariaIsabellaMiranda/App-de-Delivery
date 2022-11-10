@@ -6,6 +6,7 @@ import AdminUsersTable from '../../components/AdminUsersTable';
 import Header from '../../components/Header';
 import easyFetch from '../../helpers/easyFetch';
 import './styles/AdminManage.css';
+import './styles/AdminManage-mobile.css';
 
 function AdminManage({ token }) {
   const [users, setUsers] = useState([]);
@@ -28,7 +29,9 @@ function AdminManage({ token }) {
       <Header />
       <main>
         <AdminRegister updateUsers={ updateUsers } />
-        <AdminUsersTable users={ users } updateUsers={ updateUsers } />
+        <div className="_admin_users_table_area">
+          <AdminUsersTable users={ users } updateUsers={ updateUsers } />
+        </div>
       </main>
     </div>
   );

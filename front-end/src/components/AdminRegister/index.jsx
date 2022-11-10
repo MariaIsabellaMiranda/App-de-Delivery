@@ -5,6 +5,7 @@ import easyFetch from '../../helpers/easyFetch';
 import { validateRegister } from '../../helpers/validateAccess';
 import dataTestId from '../../helpers/dataTestIds';
 import './styles/AdminRegister.css';
+import './styles/AdminRegister-mobile.css';
 
 function AdminRegister({ token, updateUsers }) {
   const [registerData, setRegisterData] = useState({

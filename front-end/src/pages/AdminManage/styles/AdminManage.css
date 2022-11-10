@@ -7,8 +7,15 @@
 ._page_admin main {
   align-items: flex-start;
   display: flex;
+  /* flex-wrap: wrap; */
   gap: 20px;
   justify-content: space-evenly;
   min-height: calc(100vh - 60px);
-  padding: 60px;
+  padding: 60px 20px;
+}
+
+._admin_users_table_area {
+  width: 50%;
+  display: flex;
+  justify-content: center;
 }
