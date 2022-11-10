@@ -7,8 +7,9 @@ import easyFetch from '../../helpers/easyFetch';
 import { loginUser } from '../../redux/actions/userAction';
 import dataTestIds from '../../helpers/dataTestIds';
 import { validateRegister } from '../../helpers/validateAccess';
-import './styles/Register.css';
 import logo from '../../helpers/logo';
+import './styles/Register.css';
+import './styles/Register-mobile.css';
 
 function Register({ dispatch }) {
   const history = useHistory();

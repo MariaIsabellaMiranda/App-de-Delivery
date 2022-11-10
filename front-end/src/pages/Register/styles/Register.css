@@ -61,7 +61,7 @@
 
 ._page_register ._register_form input {
   border: none;
-  border-bottom: 2px solid var(--primary-color);
+  border-bottom: 1px solid var(--primary-color);
   outline: none;
   padding: 5px;
   width: 100%;
