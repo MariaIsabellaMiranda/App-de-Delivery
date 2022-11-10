@@ -1,9 +1,9 @@
-@media screen and (max-width: 768px) {
+@media screen and ( max-width: 768px ) {
 
   ._admin_register {
-    padding: 20px;
     max-width: 320px;
     min-width: auto;
+    padding: 20px;
     position: static;
     width: 100%;
   }
