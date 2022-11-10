@@ -14,8 +14,8 @@
 ._admin_users_table {
   animation: toLeft 1s;
   border-collapse: collapse;
-  height: 100%;
   display: block;
+  height: 100%;
   overflow-x: auto;
   white-space: nowrap;
 }
