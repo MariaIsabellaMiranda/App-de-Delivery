@@ -9,7 +9,6 @@ import dataTestIds from '../../helpers/dataTestIds';
 import { validateLogin } from '../../helpers/validateAccess';
 import logo from '../../helpers/logo';
 import './styles/Login.css';
-import './styles/Login-mobile.css';
 
 function Login({ dispatch }) {
   const history = useHistory();

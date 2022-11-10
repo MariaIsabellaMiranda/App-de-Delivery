@@ -37,9 +37,11 @@
   flex-direction: column;
   gap: 20px;
   justify-content: space-evenly;
+  max-width: 400px;
   min-height: 400px;
-  min-width: 400px;
+  min-width: 310px;
   padding: 20px;
+  width: 90vw;
 }
 
 ._page_register ._inputs_area {
