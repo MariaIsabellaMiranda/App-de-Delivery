@@ -6,12 +6,7 @@ const fetchMocks = (url) => {
     return {
       json: async () => (ordersOneMock),
     };
-  // case '':
-  //   return {
-  //     json: async () => (),
-  //   };
   default:
-    return { json: async () => ([]) };
   }
 };
 

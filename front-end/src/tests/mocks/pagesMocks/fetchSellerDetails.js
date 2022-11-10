@@ -6,10 +6,6 @@ const fetchMocks = (url) => {
     return {
       json: async () => (OrdersOneMock),
     };
-  case 'http://localhost:3001/status':
-    return {
-      json: async () => ({ status: 'Preparando' }),
-    };
   default:
     return { json: async () => ([]) };
   }
