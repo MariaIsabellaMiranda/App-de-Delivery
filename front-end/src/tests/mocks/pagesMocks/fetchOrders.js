@@ -13,7 +13,6 @@ const fetchMocks = (url) => {
       json: async () => (ordersOneMock),
     };
   default:
-    return { json: async () => ([]) };
   }
 };
 
