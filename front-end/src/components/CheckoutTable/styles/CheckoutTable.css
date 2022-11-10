@@ -1,5 +1,8 @@
 ._checkout_table {
   border-collapse: collapse;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 ._checkout_table th {
@@ -14,5 +17,5 @@
 }
 
 ._checkout_table th:last-child {
-  border-bottom-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
 }

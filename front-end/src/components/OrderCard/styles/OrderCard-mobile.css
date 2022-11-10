@@ -1,0 +1,12 @@
+@media screen and ( max-width : 500px ) {
+
+  ._order_card {
+    flex-direction: column;
+  }
+
+  ._order_card ._order_number {
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+  }
+}

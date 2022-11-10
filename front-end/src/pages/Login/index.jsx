@@ -7,8 +7,8 @@ import { loginUser } from '../../redux/actions/userAction';
 import easyFetch from '../../helpers/easyFetch';
 import dataTestIds from '../../helpers/dataTestIds';
 import { validateLogin } from '../../helpers/validateAccess';
-import './styles/Login.css';
 import logo from '../../helpers/logo';
+import './styles/Login.css';
 
 function Login({ dispatch }) {
   const history = useHistory();

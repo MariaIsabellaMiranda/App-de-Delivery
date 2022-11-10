@@ -1,0 +1,11 @@
+@media screen and ( max-width : 425px ) {
+
+  ._checkout_delivery ._inputs_area {
+    grid-template-columns: 1fr;
+    justify-content: center;
+  }
+
+  ._checkout_delivery ._btn_checkout {
+    justify-self: center;
+  }
+}

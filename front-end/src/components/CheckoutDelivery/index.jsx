@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import easyFetch from '../../helpers/easyFetch';
 import dataTestIds from '../../helpers/dataTestIds';
 import './styles/CheckoutDelivery.css';
+import './styles/CheckoutDelivery-mobile.css';
 
 function CheckoutDelivery({ totalPrice, cartItems, token }) {
   const history = useHistory();

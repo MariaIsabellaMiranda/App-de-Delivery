@@ -10,5 +10,11 @@
   gap: 20px;
   justify-content: space-evenly;
   min-height: calc(100vh - 60px);
-  padding: 60px;
+  padding: 60px 20px;
+}
+
+._admin_users_table_area {
+  display: flex;
+  justify-content: center;
+  width: 50%;
 }

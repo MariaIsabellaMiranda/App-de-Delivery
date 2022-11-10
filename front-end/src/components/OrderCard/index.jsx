@@ -7,6 +7,7 @@ import dateFormat from '../../helpers/dateFormat';
 import priceFormat from '../../helpers/priceFormat';
 import { statusClassName, statusIcon } from '../../helpers/status';
 import './styles/OrderCard.css';
+import './styles/OrderCard-mobile.css';
 
 function OrderCard({ orderData, role }) {
   const { id, status, saleDate, totalPrice, deliveryAddress, deliveryNumber } = orderData;

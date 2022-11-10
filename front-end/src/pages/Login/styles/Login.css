@@ -15,9 +15,9 @@
   align-items: center;
   background-color: var(--primary-color);
   display: flex;
+  height: 100vh;
   justify-content: center;
-  min-height: 100vh;
-  min-width: 100vw;
+  width: 100vw;
 }
 
 ._page_login ._logo {
@@ -37,9 +37,11 @@
   flex-direction: column;
   gap: 10px;
   justify-content: space-evenly;
+  max-width: 400px;
   min-height: 400px;
-  min-width: 400px;
+  min-width: 310px;
   padding: 20px;
+  width: 90vw;
 }
 
 ._page_login ._inputs_area {
@@ -61,7 +63,7 @@
 
 ._page_login ._login_form input {
   border: 0;
-  border-bottom: 2px solid var(--primary-color);
+  border-bottom: 1px solid var(--primary-color);
   outline: none;
   padding: 5px;
   width: 100%;

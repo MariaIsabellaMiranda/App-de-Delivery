@@ -1,0 +1,29 @@
+@media screen and ( max-width : 600px ) {
+
+  ._header {
+    gap: 10px;
+    padding: 0 10px;
+  }
+
+  ._header ._logo {
+    display: none;
+  }
+
+  ._header ._navbar {
+    font-size: 0.8em;
+    gap: 10px;
+  }
+
+  ._header ._navbar a {
+    white-space: nowrap;
+  }
+
+  ._header ._right_content p {
+    font-size: 0.8em;
+    max-width: 100px;
+  }
+
+  ._header ._right_content {
+    gap: 10px;
+  }
+}

@@ -12,8 +12,8 @@
 }
 
 ._page_order {
+  min-height: 100vh;
   padding-top: 60px;
-  width: 100vw;
 }
 
 ._page_order main {
@@ -29,6 +29,7 @@
   background-color: var(--contrast-color-1);
   border-radius: 0.5em;
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   justify-content: space-between;
   padding: 20px;
@@ -37,6 +38,7 @@
 
 ._page_order ._header_order h1 {
   display: flex;
+  font-size: 1em;
   gap: 10px;
 }
 
@@ -60,6 +62,7 @@
   align-items: flex-end;
   color: rgb(86, 86, 86);
   display: flex;
+  font-size: 0.8em;
   gap: 10px;
 }
 
@@ -73,6 +76,7 @@
   background-color: white;
   border-radius: 25px;
   display: flex;
+  font-size: 0.8em;
   font-weight: 800;
   gap: 10px;
   padding: 10px;
@@ -136,11 +140,16 @@
   bottom: 60px;
 }
 
+._page_order ._order_table_area {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 ._page_order ._price {
   animation: toTop 1s;
   color: rgb(86, 86, 86);
   display: flex;
-  font-size: 1.2em;
   font-weight: 800;
   gap: 10px;
 }

@@ -54,8 +54,12 @@
   border-radius: 25px;
   color: var(--primary-color);
   font-size: 0.9em;
+  max-width: 150px;
+  overflow: hidden;
   padding: 5px 10px;
+  text-overflow: ellipsis;
   transition: 0.5s;
+  white-space: nowrap;
 }
 
 ._header ._right_content a {
