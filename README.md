@@ -31,8 +31,7 @@ Foram criados `Testes de Integração` cobrindo todo o projeto utilizando `Mocha
  RTL | Sequelize
  Jest | Mocha
  CSS | Chai
- Docker | Sinon
- --- | Docker
+ --- | Sinon
 
 <br>
 
