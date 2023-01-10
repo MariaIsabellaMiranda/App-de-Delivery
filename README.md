@@ -10,7 +10,7 @@ Este projeto foi desenvolvido em grupo, utilizando metodologias ágeis como Kanb
 <br>
 
 - **Front-End:** o front-end foi construído utilizando `React.js` e como gerenciador de estado utilizamos o `Redux`. Foram utilizados componentes funcionais e após escolher as ferramentas a serem utilizadas criamos um fluxo lógico de desenvolvimento dos componentes e páginas. <br>
-Para a estilização utilizamos `CSS` puro. <br>
+Para a estilização foi utilizado `CSS` puro. <br>
 Foram desenvolvidos também `Testes Unitários` automatizados utilizando as bibliotecas `React Testing Library` e `Jest`.
 
 <br>
